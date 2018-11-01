@@ -12,10 +12,6 @@ public class LaborDeliveryReportBeanTest {
     @Before
     public void setUp() throws Exception {
         laborDeliveryReportBean = new LaborDeliveryReportBean();
-        laborDeliveryReportBean.pastPragnancyInformation = new PastPregnancyInformation();
-        laborDeliveryReportBean.officeVisitInformation = new OfficeVisitInformation();
-        laborDeliveryReportBean.pregnancyComplicationsWarningFlags = new PregnancyComplicationsWarningFlags();
-        laborDeliveryReportBean.estimatedDeliveryDate = new Date();
     }
 
     @Test
