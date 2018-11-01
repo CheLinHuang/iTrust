@@ -8,6 +8,6 @@ public class OVRecordBeanTest extends TestCase {
     public void testBean() {
         OVRecordBean ovrb = new OVRecordBean();
 
-        assertEquals();
+        assertEquals(ovrb.getAppointments().length(), 0);
     }
 }
