@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust.unit.dao.labordeliveryreport;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class LaborDeliveryReportDAOTest extends TestCase {
         gen.clearAllTables();
         testDAO = new LaborDeliveryReportDAO(factory);
         testBean = new LaborDeliveryReportBean();
-        //testBean.setDateRequested(new Timestamp(Calendar.getInstance().getTimeInMillis()));
     }
 
     /**
@@ -51,13 +51,15 @@ public class LaborDeliveryReportDAOTest extends TestCase {
         testDAO.addLaborDeliveryReport(testBean);
         testBean = testDAO.getAllLaborDeliveryReport().get(0);
 
-        //assertEquals("Test Hospital", testBean.getRecHospitalName());
-        //testBean.setRecHospitalAddress("Test");
+        ArrayList<Integer> preExistingConditions = testBean.pregnancyComplicationsWarningFlags.preExistingConditions;
+        preExistingConditions.add(0);
+        preExistingConditions.add(3);
+        assertEquals("Diabetes", LaborDeliveryReportVariables.PRE_EXISTING_CONDITIONS[preExistingConditions.get(0)]);
+        assertEquals("Cancers", LaborDeliveryReportVariables.PRE_EXISTING_CONDITIONS[preExistingConditions.get(1)]);
 
         assertTrue(testDAO.updateLaborDeliveryReport(testBean));
         List<LaborDeliveryReportBean> list = testDAO.getAllLaborDeliveryReport();
         assertEquals(1, list.size());
-        //assertEquals("Test", list.get(0).getRecHospitalAddress());
     }
 
     /**
@@ -66,24 +68,28 @@ public class LaborDeliveryReportDAOTest extends TestCase {
      * @throws DBException
      */
     public void testGetLaborDeliveryReportByID() throws DBException {
-        assertTrue(testDAO.getAllLaborDeliveryReport("1").isEmpty());
+        assertTrue(testDAO.getAllLaborDeliveryReport().isEmpty());
         testDAO.addLaborDeliveryReport(testBean);
-        testBean = testDAO.getAllLaborDeliveryReport("1").get(0);
+        testBean = testDAO.getAllLaborDeliveryReport().get(0);
 
-        LaborDeliveryReportBean idTestBean = testDAO.getLaborDeliveryReportID(testBean.getReportID());
-//        assertTrue(idTestBean != null);
-//        assertEquals(testBean.getReleaseID(), idTestBean.getReleaseID());
-//        assertEquals(testBean.getDateRequested(), idTestBean.getDateRequested());
-//        assertEquals("1", idTestBean.getReleaseHospitalID());
-//        assertEquals(1L, idTestBean.getPid());
-//        assertEquals("Test Hospital", idTestBean.getRecHospitalName());
-//        assertEquals("5 Test Drive", idTestBean.getRecHospitalAddress());
-//        assertEquals("Doctor", idTestBean.getDocFirstName());
-//        assertEquals("Test", idTestBean.getDocLastName());
-//        assertEquals("555-555-5555", idTestBean.getDocPhone());
-//        assertEquals("test@test.com", idTestBean.getDocEmail());
-//        assertEquals("Justification", idTestBean.getJustification());
-//        assertEquals(0, idTestBean.getStatus());
+        testBean.idTestBean = testDAO.getLaborDeliveryReportID(testBean.getReportID());
+        testBean.pastPragnancyInformation.setPregnancyTerm(5);
+        testBean.pastPragnancyInformation.setConceptionYear(2015);
+        testBean.officeVisitInformation.setWeeksPregant(7);
+        testBean.officeVisitInformation.setFetalHeartRate(100);
+        testBean.officeVisitInformation.setLyingPlacentaObserved(false);
+        testBean.pregnancyComplicationsWarningFlags.setRHFlag(false);
+        testBean.pregnancyComplicationsWarningFlags.setAdvancedMaternalAge(true);
+        testBean.pregnancyComplicationsWarningFlags.setHyperemesisGravidarum(true);
+
+        assertEquals(5, testBean.pastPragnancyInformation.getPregnancyTerm());
+        assertEquals(2015, testBean.pastPragnancyInformation.getConceptionYear);
+        assertEquals(7, testBean.officeVisitInformation.getWeeksPregant());
+        assertEquals(100, testBean.officeVisitInformation.getFetalHeartRate());
+        assertFalse(testBean.officeVisitInformation.getLyingPlacentaObserved());
+        assertFalse(testBean.pregnancyComplicationsWarningFlags.getRHFlag());
+        assertTrue(testBean.pregnancyComplicationsWarningFlags.getAdvancedMaternalAge());
+        assertTrue(testBean.pregnancyComplicationsWarningFlags.getHyperemesisGravidarum());
     }
 
     /**
