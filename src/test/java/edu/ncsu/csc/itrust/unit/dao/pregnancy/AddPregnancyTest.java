@@ -19,8 +19,7 @@ public class AddPregnancyTest extends TestCase {
     PregnancyBean pregnancyBean = new PregnancyBean();
     pregnancyBean.setMID(1L);
     pregnancyBean.setYearOfConception(2018);
-    pregnancyBean.setWeeksOfPregnant(39);
-    pregnancyBean.setDaysOfPregnant(4);
+    pregnancyBean.setWeeksOfPregnant("39-6");
     pregnancyBean.setDeliveryType("vaginal delivery");
     pregnancyDAO.addPregnancy(pregnancyBean);
     assertEquals(1, pregnancyDAO.getAllPregnancy(1L).size());
