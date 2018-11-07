@@ -9,7 +9,7 @@ deliveryType)
 VALUES
 (1,
 2018,
-55,
+40,
 6,
 4.5,
 20,

@@ -25,7 +25,7 @@ public class ListAllPregnancyTest extends TestCase {
 
     assertEquals(1, pregnancyBean.getMID());
     assertEquals(2018, pregnancyBean.getYearOfConception());
-    assertEquals(55, pregnancyBean.getWeeksOfPregnant());
+    assertEquals(40, pregnancyBean.getWeeksOfPregnant());
     assertEquals(6, pregnancyBean.getDaysOfPregnant());
     assertEquals(4.5, pregnancyBean.getHoursInLabor());
     assertEquals(20.0, pregnancyBean.getWeightGain());
