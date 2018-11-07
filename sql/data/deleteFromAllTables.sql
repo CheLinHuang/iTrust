@@ -87,3 +87,5 @@ DELETE FROM users;
 DELETE FROM medicalProcedure;
 ALTER TABLE medicalProcedure AUTO_INCREMENT = 0;
 
+DELETE FROM pregnancy;
+ALTER TABLE pregnancy AUTO_INCREMENT = 0;

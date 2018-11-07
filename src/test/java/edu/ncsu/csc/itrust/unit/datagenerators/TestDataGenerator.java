@@ -833,8 +833,13 @@ public class TestDataGenerator {
 	public void uc61reviews() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/reviews.sql");
 	}
-	
-	
+
+	/**
+	 * Generate a pregnancy record.
+	 */
+	public void pregnancy1() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/pregnancy1.sql");
+	}
 
 	/**
 	 * generate the dependency of Baby Programmer on Andy Programmer
@@ -979,7 +984,10 @@ public class TestDataGenerator {
 		patient28();
 		patient29();
 		patient30();
-		
+
+		// Added for UC 93
+		pregnancy1();
+
 		setMode();
 	}
 
