@@ -231,6 +231,15 @@ public class DAOFactory {
 	public ReviewsDAO getReviewsDAO() {
 		return new ReviewsDAO(this);
 	}
-	
+
+
+	/**
+	 * Gets the DAO for reviews with the DB table reviews.
+	 * @return this DAOFactory's ReviewsDAO
+	 */
+	public PregnancyDAO getPregnancyDAO() {
+		return new PregnancyDAO(this);
+	}
+
 
 }
