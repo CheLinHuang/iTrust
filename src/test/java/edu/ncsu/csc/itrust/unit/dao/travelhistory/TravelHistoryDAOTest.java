@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust.unit.dao.travelhistory;
 
 import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.TravelHistoryDAO;
 import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
@@ -29,7 +30,7 @@ public class TravelHistoryDAOTest {
     /** test instance of beans for testing */
     private TravelHistoryBean beanValid, beanInvalid;
     private static final long MID = 42L;
-    private static final Date REVDATE = new java.sql.Date(new Date().getTime());
+    private static final java.sql.Date REVDATE = new java.sql.Date(new Date().getTime());
 
     /**
      * Provide setup for the rest of the tests; initialize all globals.
@@ -49,12 +50,12 @@ public class TravelHistoryDAOTest {
         evil2 = new TravelHistoryDAO(evil);
 
         beanValid = new TravelHistoryBean();
-        beanValid.setMID(MID);
+        beanValid.setPatientMID(MID);
         beanValid.setStartDate(REVDATE);
         beanValid.setEndDate(REVDATE);
 
         beanInvalid = new TravelHistoryBean();
-        beanInvalid.setMID(MID);
+        beanInvalid.setPatientMID(MID);
         beanInvalid.setStartDate(REVDATE);
         beanInvalid.setEndDate(REVDATE);
     }
@@ -68,20 +69,21 @@ public class TravelHistoryDAOTest {
         try {
             // sanity check for the initial size of the entries in the TravelHistory
             // table
-            List<TravelHistoryBean> l = tdao.getAllTravelHistory();
+            List<TravelHistoryBean> l = tdao.getTravelHistoriesByMID(1L);
             assertEquals(6, l.size());
             // try adding a valid bean
             assertTrue(tdao.addTravelHistory(beanValid));
             // check the number of TravelHistory table entries went up by 1
-            l = tdao.getAllTravelHistory();
+            l = tdao.getTravelHistoriesByMID(1L);
             assertEquals(7, l.size());
 
             assertEquals(false, tdao.addTravelHistory(null));
 
         } catch (DBException e) {
             fail();
+        } catch (ITrustException e) {
+            e.printStackTrace();
         }
-
     }
 
     /**
@@ -91,33 +93,15 @@ public class TravelHistoryDAOTest {
      */
     @Test(expected = DBException.class)
     public final void testGetTravelHistory() throws DBException {
-        List<TravelHistoryBean> l = tdao.getAllTravelHistory(1);
+        List<TravelHistoryBean> l = tdao.getTravelHistoriesByMID(1L);
         // test getting TravelHistory for p1
         assertEquals(4, l.size());
 
         // test getting TravelHistory for p2
-        l = tdao.getTravelHistory(2);
+        l = tdao.getTravelHistoriesByMID(2L);
         assertEquals(2, l.size());
 
-        evil2.getAllTravelHistory();
-    }
-
-    /**
-     * Tests that ALL in table TravelHistory are retrieved when called.
-     */
-    @Test
-    public final void testGetAllTravelHistory() {
-        List<TravelHistoryBean> l;
-        try {
-
-            l = tdao.getAllTravelHistory(1);
-            assertEquals(4, l.size());
-            l.clear();
-            assertEquals(0, l.size());
-
-        } catch (Exception e) {
-            fail();
-        }
+        evil2.getTravelHistoriesByMID(3L);
     }
 
     /**
@@ -126,12 +110,14 @@ public class TravelHistoryDAOTest {
     @Test
     public void testAddInvalidTravelHistory() {
         try {
-            beanInvalid.setMID(-1);
+            beanInvalid.setPatientMID(-1);
             tdao.addTravelHistory(beanInvalid);
             fail("Should have thrown an exception");
         } catch (DBException e) {
             assertEquals("A database exception has occurred. Please see the "
                             + "log in the console for stacktrace", e.getMessage());
+        } catch (ITrustException e) {
+            e.printStackTrace();
         }
     }
 
@@ -141,21 +127,7 @@ public class TravelHistoryDAOTest {
     @Test
     public void testGetTravelHistoryEvilDAO() {
         try {
-            evil2.getTravelHistory(1);
-            fail("Should have thrown an exception");
-        } catch (DBException e) {
-            assertEquals("A database exception has occurred. Please see the "
-                            + "log in the console for stacktrace", e.getMessage());
-        }
-    }
-
-    /**
-     * Tests getting all of the TravelHistory with invalid dao
-     */
-    @Test
-    public void testGetAllTravelHistoryEvilDAO() {
-        try {
-            evil2.getAllTravelHistory(1);
+            evil2.getTravelHistoriesByMID(1L);
             fail("Should have thrown an exception");
         } catch (DBException e) {
             assertEquals("A database exception has occurred. Please see the "
