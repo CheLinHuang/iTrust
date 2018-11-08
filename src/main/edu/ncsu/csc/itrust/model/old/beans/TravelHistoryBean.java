@@ -11,10 +11,17 @@ import java.util.Objects;
 public class TravelHistoryBean {
     Date startDate;
     Date endDate;
-    List<String> travelledCities;
+    String travelledCities;
     long patientMID;
 
-    public TravelHistoryBean(Date sd, Date ed, List<String> tc, long pmid) {
+    public TravelHistoryBean() {
+        startDate = null;
+        endDate = null;
+        travelledCities = "";
+        patientMID = 1L;
+    }
+
+    public TravelHistoryBean(Date sd, Date ed, String tc, long pmid) {
         startDate = sd;
         endDate = ed;
         travelledCities = tc;
@@ -37,11 +44,11 @@ public class TravelHistoryBean {
         this.endDate = endDate;
     }
 
-    public List<String> getTravelledCities() {
+    public String getTravelledCities() {
         return travelledCities;
     }
 
-    public void setTravelledCities(List<String> travelledCities) {
+    public void setTravelledCities(String travelledCities) {
         this.travelledCities = travelledCities;
     }
 
