@@ -32,7 +32,7 @@
 
     if (pidString == null || pidString.equals("") || 1 > pidString.length()) {
         out.println("pidstring is null");
-        response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp/obstetricPatient.jsp");
+        response.sendRedirect("/iTrust/auth/getObstetricPatientID.jsp?forward=hcp/obstetricPatient.jsp");
         return;
     }
 

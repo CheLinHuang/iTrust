@@ -616,6 +616,37 @@ public class PatientDAO {
 	}
 
 	/**
+	 * Returns all patients that are Eligible for Obstetric Healthcare
+	 * with names "LIKE" (as in SQL) the passed in parameters.
+	 *
+	 * @param first
+	 * 			  The patient's first name.
+	 * @param last
+	 * 			  The patient's last name.
+	 * @return A java.util.List of PatientBeans.
+	 * @throws DBException
+	 */
+	public List<PatientBean> searchForObstetricCarePatientsWithName(String first, String last) throws DBException {
+		if (first.equals("%") && last.equals("%")) {
+			return new Vector<PatientBean>();
+		}
+
+		try (Connection conn = factory.getConnection();
+				PreparedStatement ps = conn.prepareStatement(
+						"SELECT * FROM patients WHERE firstName LIKE ? AND lastName LIKE ? AND ObstetricEligible = ?")) {
+			ps.setString(1, first);
+			ps.setString(2, last);
+			ps.setInt(3, 1);
+			ResultSet rs = ps.executeQuery();
+			List<PatientBean> patientsList = patientLoader.loadList(rs);
+			rs.close();
+			return patientsList;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		}
+	}
+
+	/**
 	 * Returns all patients with names "LIKE" with wildcards (as in SQL) the
 	 * passed in parameters.
 	 * 

@@ -113,6 +113,25 @@ public class SearchUsersAction {
 			return null;
 		}
 	}
+
+	/**
+	 * Search for all eligible obstetric health care patients with first name and last name given in parameters.
+	 * @param firstName The first name of the patient being searched.
+	 * @param lastName The last name of the patient being searched.
+	 * @return A java.util.List of PatientBeans
+	 */
+	public List<PatientBean> searchForObstetricCarePatientsWithName(String firstName, String lastName) {
+
+		try {
+			if ("".equals(firstName))
+				firstName = "%";
+			if ("".equals(lastName))
+				lastName = "%";
+			return patientDAO.searchForObstetricCarePatientsWithName(firstName, lastName);
+		} catch (DBException e) {
+			return null;
+		}
+	}
 	
 	/**
 	 * Search for all patients with first name and last name given in parameters.
