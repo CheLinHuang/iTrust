@@ -234,12 +234,19 @@ public class DAOFactory {
 
 
 	/**
-	 * Gets the DAO for reviews with the DB table reviews.
-	 * @return this DAOFactory's ReviewsDAO
+	 * Gets the DAO for pregnancy with the DB table pregnancy.
+	 * @return this DAOFactory's PregnancyDAO
 	 */
 	public PregnancyDAO getPregnancyDAO() {
 		return new PregnancyDAO(this);
 	}
 
 
+  /**
+   * Gets the DAO for obstetricsInitRecord with the DB table obstetricsInitRecord.
+   * @return this DAOFactory's ObstetricsInitRecord
+   */
+  public ObstetricsInitRecordDAO getObstetricsInitRecordDAO() {
+    return new ObstetricsInitRecordDAO(this);
+  }
 }
