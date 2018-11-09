@@ -90,6 +90,7 @@ CREATE TABLE patients(
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
+	ObstetricEligible BOOLEAN NOT NULL default false,
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
@@ -502,4 +503,29 @@ CREATE TABLE medicalProcedure
 	PRIMARY KEY (id),
 	FOREIGN KEY (visitId) 	REFERENCES officeVisit(visitID),
 	FOREIGN KEY (cptCode) 	REFERENCES cptCode(code)
+) ENGINE=MyISAM;
+
+CREATE TABLE pregnancy
+(
+	id  BIGINT(20) UNSIGNED AUTO_INCREMENT,
+	MID BIGINT(20) UNSIGNED NOT NULL,
+  yearOfConception SMALLINT(4) UNSIGNED NOT NULL,
+  weeksOfPregnant VARCHAR(4) NOT NULL,
+  hoursInLabor DOUBLE UNSIGNED,
+  weightGain DOUBLE UNSIGNED,
+  deliveryType enum('vaginal delivery', 'vaginal delivery vacuum assist', 'vaginal delivery forceps assist', 'caesarean section', 'miscarriage') NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (MID) REFERENCES patients(MID)
+) ENGINE=MyISAM;
+
+CREATE TABLE obstetricsInitRecord
+(
+	id  BIGINT(20) UNSIGNED AUTO_INCREMENT,
+	MID BIGINT(20) UNSIGNED NOT NULL,
+  LMP VARCHAR(10) NOT NULL,
+  EDD VARCHAR(10) NOT NULL,
+  weeksOfPregnant VARCHAR(4) NOT NULL,
+  recordCreatedTime timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	PRIMARY KEY (id),
+	FOREIGN KEY (MID) REFERENCES patients(MID)
 ) ENGINE=MyISAM;
