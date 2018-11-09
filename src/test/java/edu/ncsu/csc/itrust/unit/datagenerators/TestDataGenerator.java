@@ -842,6 +842,13 @@ public class TestDataGenerator {
 	}
 
 	/**
+	 * Generate a obstetrics initialization record.
+	 */
+	public void obstetricsInitRecord1() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/obstetricsInitRecord1.sql");
+	}
+
+	/**
 	 * generate the dependency of Baby Programmer on Andy Programmer
 	 */
 	public void doBaby() throws SQLException, FileNotFoundException, IOException {
@@ -987,6 +994,7 @@ public class TestDataGenerator {
 
 		// Added for UC 93
 		pregnancy1();
+		obstetricsInitRecord1();
 
 		setMode();
 	}
