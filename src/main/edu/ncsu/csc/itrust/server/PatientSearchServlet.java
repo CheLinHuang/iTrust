@@ -52,8 +52,10 @@ public class PatientSearchServlet extends HttpServlet {
 		boolean deactivated = request.getParameter("allowDeactivated") != null && request.getParameter("allowDeactivated").equals("checked");
 		String forward = request.getParameter("forward");
 
-		// String used to check if request sent from Obstetric Patient care web page
+		// String used to check if request is sent from Obstetric Patient care web page
 		String obstetricSearch = request.getParameter("obstetric"); // If not from Obstetric patient page, will be null
+		// String used to check if request is sent from Patient Information care web page, used to determine display of patient obstetric status
+		String patientObstetricInfo = request.getParameter("patientObstetricInfo");
 
 		List<PatientBean> search = null;
 		if(query.isEmpty() && deactivated){
@@ -73,7 +75,7 @@ public class PatientSearchServlet extends HttpServlet {
 				result.append("<tr>");
 				result.append("<td>" + p.getMID() + "</td>");
 				result.append("<td>" + p.getFirstName() + "</td>");
-				result.append("<td>" + p.getLastName() + "GOFUCKYOURSELF! </td>");
+				result.append("<td>" + p.getLastName() + "</td>");
 				if(isActivated){
 					result.append("<td>" + p.getFirstName() + " " + p.getLastName() + " is activated.</td>");
 				} else {
@@ -85,16 +87,36 @@ public class PatientSearchServlet extends HttpServlet {
 			}
 			result.append("<table>");
 		} else {
-			//
-			result.append("<table class='fTable' width=80%><tr><th width=20%>MID</th><th width=40%>First Name</th><th width=40%>Last Name</th><th width=20%>Obstetric</th></tr>");
+			boolean isForPatientInfo = patientObstetricInfo != null;
+			// Used to change search table html outline and returned results based on if request is sent from Patient Obstetrics Care History
+			boolean isForObstetric = obstetricSearch != null;
+			String htmlTableString;
+			htmlTableString = isForPatientInfo ?
+					"<table class='fTable' width=100%><tr><th width=20%>MID</th><th width=30%>First Name</th><th width=30%>Last Name</th><th width=40%>Obstetric Status</th></tr>"
+					: "<table class='fTable' width=80%><tr><th width=20%>MID</th><th width=40%>First Name</th><th width=40%>Last Name</th></tr>";
+
+			result.append(htmlTableString);
+
+
 			for(PatientBean p : search){
+				String htmlLinkForSettingObstetric;
+
 				result.append("<tr>");
 				result.append("<td>");
 				result.append("<input type='button' style='width:100px;' onclick=\"parent.location.href='getPatientID.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + "&forward=" + StringEscapeUtils.escapeHtml("" + forward ) +"';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />");
 				result.append("</td>");
 				result.append("<td>" + p.getFirstName() + "</td>");
 				result.append("<td>" + p.getLastName()  + " </td>");
-				result.append("<td>" + p.getLastName()  + " </td>"); //
+
+				// New Column to add for patient information for whether or not they are an obstetric patient (Add hyper link to make them obstetric)
+				if (isForPatientInfo) {
+					if (p.getObstetricEligible().equals("1")) {
+						htmlLinkForSettingObstetric = "Obstetric Patient";
+					} else {
+						htmlLinkForSettingObstetric = "<a href='auth/hcp/setPatientObstetric.jsp'>Make Obstetric</a>";  ///////
+					}
+					result.append("<td>" + htmlLinkForSettingObstetric + " </td>");
+				}
 				result.append("</tr>");
 			}
 			result.append("</table>");

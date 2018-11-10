@@ -125,7 +125,9 @@ pageTitle = "iTrust - Please Select a Patient";
 				q : q,
 				forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
 				isAudit : <%= isAudit %>,
-				allowDeactivated : $("#allowDeactivated").attr("checked")
+				allowDeactivated : $("#allowDeactivated").attr("checked"),
+
+				patientObstetricInfo : "True",
 			},
 			success : function(e){
 				$("#searchTarget").html(e);

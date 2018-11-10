@@ -81,6 +81,8 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		if (dateOfDeactivation != null){
 			p.setDateOfDeactivationStr(DATE_FORMAT.format(dateOfDeactivation));
 		}
+		// Update ObstetricEligible data in patient
+		p.setObstetricEligible(rs.getString("ObstetricEligible"));
 	}
 	
 	/**
