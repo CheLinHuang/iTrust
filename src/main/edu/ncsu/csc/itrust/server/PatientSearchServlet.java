@@ -59,9 +59,19 @@ public class PatientSearchServlet extends HttpServlet {
 		// String used to check if request is sent from Patient Information care web page, used to determine display of patient obstetric status
 		String patientObstetricInfo = request.getParameter("patientObstetricInfo");
 		String setPatientToObstetric = request.getParameter("setPatientToObstetric"); // String used to set patient obstetric once clicked on the patient dropdown list
-		String obstetricPatientID = request.getParameter("id"); // Comes along with the top thing
+		String obstetricPatientID = request.getParameter("id"); // Comes along with the event to set patient eligible for obstetric care
 
 		List<PatientBean> search = null;
+
+		// Extra use for knowing if needs to set patient to obstetric patient or not. It happens first so that
+		// Ajax could immediately show the update right after it the button to update is clicked (Due to the changed
+		// data would immediately be searched right after the update happens in the database)
+		if (setPatientToObstetric != null && setPatientToObstetric.equals("SET")) {
+			int patientMID = Integer.parseInt(obstetricPatientID);
+			System.out.println(patientMID);
+			sua.setPatientEligibleToObstetric(patientMID);
+		}
+
 		if(query.isEmpty() && deactivated){
 			search = sua.getDeactivated();
 		} else if (obstetricSearch != null && obstetricSearch.equals("YES")) {
@@ -69,13 +79,6 @@ public class PatientSearchServlet extends HttpServlet {
 			search = sua.fuzzySearchForObstetricCarePatientsWithName(query, deactivated);
 		}else {
 			search = sua.fuzzySearchForPatients(query, deactivated);
-		}
-
-		// Extra use for knowing if needs to set patient to obstetric patient or not
-		if (setPatientToObstetric != null && setPatientToObstetric.equals("SET")) {
-			int patientMID = Integer.parseInt(obstetricPatientID);
-			System.out.println(patientMID);
-			sua.setPatientEligibleToObstetric(patientMID);
 		}
 
 		StringBuffer result = new StringBuffer("<span class=\"searchResults\">Found " + search.size() + " Records</span>");
@@ -127,8 +130,6 @@ public class PatientSearchServlet extends HttpServlet {
 					} else {
 						// htmlLinkForSettingObstetric = "<a href='auth/hcp/setPatientObstetric.jsp' id= 'setObstetric'>Make Obstetric</a>";  ///////
 						htmlLinkForSettingObstetric = "<input class='setObstetric' type='button' style='width:100px;' value='Make Obstetric' id=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " onclick = \"http://google.com\">";
-						// onclick = "/auth/hcp/setPatientObstetric.jsp"
-						// "              window.location.href='/auth/hcp/setPatientObstetric.jsp';" +
 					}
 					result.append("<td>" + htmlLinkForSettingObstetric + " </td>");
 				}
@@ -137,14 +138,13 @@ public class PatientSearchServlet extends HttpServlet {
 			result.append("</table>");
 		}
 		// Add into the javascript for the buttons of Making a patient eligible for obstetric care
-		String javaScript = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+		String javaScriptCode = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
 				"<script type = 'text/javascript'>\n" +
 				"    var searchBarValue = document.getElementById(\"searchBox\");" +
 				"    $(document).ready(function() {\n" +
 				"        $(\".setObstetric\").click(function(){\n" +
 				"            var id = $(this).attr(\"id\");\n" +
 
-				"            alert(\"Search fucking bar value:\" + searchBarValue.value);" +
 				"            alert(\"Making Patient - MID:'\" + id + \"' Eligible for Obstetric Care\");\n         " +
 
 				"$.ajax({\n" +
@@ -168,41 +168,7 @@ public class PatientSearchServlet extends HttpServlet {
 				"    });\n" +
 				"</script>";
 
-
-		String javaScriptCode = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-				"<script type = 'text/javascript'>\n" +
-				"    $(document).ready(function() {\n" +
-				"        $(\".setObstetric\").click(function(){\n" +
-				"            var id = $(this).attr(\"id\");\n" +
-				"            alert(id);\n         " +
-				"        });\n" +
-				"    });\n" +
-				"</script>";
-		String temp = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-				"<script type = 'text/javascript'>\n" +
-				"\t$(document).ready(function()) {\n" +
-				"\t    $(\".setObstetric\").click(function(){\n" +
-				"\t        var id = $(this).attr(\"id\");\n" +
-				"\t        alert(id);\n" +
-				"            $.ajax({\n" +
-				"                url : \"PatientSearchServlet\",\n" +
-				"                data : {\n" +
-				"                    q : q,\n" +
-				"                    forward : \"<%= StringEscapeUtils.escapeHtml(request.getParameter(\"forward\")) %>\",\n" +
-				"                    isAudit : <%= isAudit %>,\n" +
-				"                    allowDeactivated : $(\"#allowDeactivated\").attr(\"checked\"),\n" +
-				"\n" +
-				"                    patientObstetricInfo : \"True\",\n" +
-				"                    setPatientToObstetric : \"SET\",\n" +
-				"                },\n" +
-				"                success : function(e){\n" +
-				"                    $(\"#searchTarget\").html(e);\n" +
-				"                }\n" +
-				"            });\n" +
-				"\t\t})\n" +
-				"\t}\n" +
-				"</script>";
-		result.append(javaScript);
+		result.append(javaScriptCode);
 
 		response.setContentType("text/plain");
 		PrintWriter resp = response.getWriter();

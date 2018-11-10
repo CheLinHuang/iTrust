@@ -135,6 +135,34 @@ pageTitle = "iTrust - Please Select a Patient";
 	}
 </script>
 
+<%--<script type = 'text/javascript'>--%>
+<%--var searchBarValue = document.getElementById(\"searchBox\");--%>
+	<%--$(document).ready(function() {--%>
+	<%--$(".setObstetric").click(function(){--%>
+	<%--var id = $(this).attr("id");--%>
+
+	<%--alert("Making Patient - MID:'" + id + "' Eligible for Obstetric Care");--%>
+
+	<%--$.ajax({--%>
+
+	<%--url : "PatientSearchServlet",--%>
+
+	<%--data : {--%>
+
+	<%--q : searchBarValue.value,--%>
+	<%--id : id,--%>
+	<%--patientObstetricInfo : "True",--%>
+	<%--setPatientToObstetric : "SET",--%>
+
+				<%--},--%>
+				<%--success : function(e){--%>
+					<%--$(\"#searchTarget\").html(e);--%>
+				<%--}--%>
+
+			 <%--});--%>
+			<%--});--%>
+		<%--});--%>
+<%--</script>--%>
 
 
 <script type="text/javascript">
