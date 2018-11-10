@@ -783,4 +783,22 @@ public class PatientDAO {
 			throw new DBException(e);
 		}
 	}
+
+	/**
+	 * Sets the designated patient according to patientMID Eligible for Obstetric care.
+	 * For patients that are not yet eligible for obstetric care.
+	 * @param patientMID
+	 * @return
+	 * @throws DBException
+	 */
+	public int setPatientEligibleToObstetric(long patientMID) throws DBException {
+		try (Connection conn = factory.getConnection();
+				PreparedStatement ps = conn.prepareStatement("UPDATE patients SET ObstetricEligible = TRUE WHERE MID = ?;")) {
+			ps.setLong(1, patientMID);
+			int patientIsSet = ps.executeUpdate();
+			return patientIsSet;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		}
+	}
 }

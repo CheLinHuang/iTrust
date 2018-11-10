@@ -32,7 +32,19 @@ public class SearchUsersAction {
 		this.patientDAO = factory.getPatientDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
 	}
-	
+
+	/**
+	 * Calls on the DAO to set the patients ObstetricEligible column to True in the database
+	 * @param patientMID
+	 * @return
+	 */
+	public void setPatientEligibleToObstetric(long patientMID) {
+		try {
+			patientDAO.setPatientEligibleToObstetric(patientMID);
+		} catch (DBException e) {
+			return;
+		}
+	}
 
 	/**
 	 * Searches for all personnel with the first name and last name specified in the parameter list.

@@ -109,31 +109,55 @@ pageTitle = "iTrust - Please Select a Patient";
 	%>
 	</table>
 	</div>
-</div>			
-	
-	
-	
+</div>
+
+<script type = 'text/javascript'>
+	$(document).ready(function()) {
+	    $(".setObstetric").click(function(){
+	        var id = $(this).attr("id");
+	        alert(id);
+            $.ajax({
+                url : "PatientSearchServlet",
+                data : {
+                    q : q,
+                    forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
+                    isAudit : <%= isAudit %>,
+                    allowDeactivated : $("#allowDeactivated").attr("checked"),
+
+                    patientObstetricInfo : "True",
+                    setPatientToObstetric : "SET",
+                },
+                success : function(e){
+                    $("#searchTarget").html(e);
+                }
+            });
+		});
+	}
+</script>
+
+
+
 <script type="text/javascript">
  $(function(){
-	
 	$("#searchBox").keyup(function(){
-		$this = $(this);
-		var q = $this.val();
-		$.ajax({
-			url : "PatientSearchServlet",
-			data : {
-				q : q,
-				forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
-				isAudit : <%= isAudit %>,
-				allowDeactivated : $("#allowDeactivated").attr("checked"),
+         $this = $(this);
+         var q = $this.val();
+         $.ajax({
+             url : "PatientSearchServlet",
+             data : {
+                 q : q,
+                 forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
 
-				patientObstetricInfo : "True",
-			},
-			success : function(e){
-				$("#searchTarget").html(e);
-			}
-		});
-	});
+                 isAudit : <%= isAudit %>,
+                 allowDeactivated : $("#allowDeactivated").attr("checked"),
+
+                 patientObstetricInfo : "True",
+             },
+             success : function(e){
+                 $("#searchTarget").html(e);
+             }
+         });
+     });
 	$("#allowDeactivated").click(function(){
 		var q = $("#searchBox").val();
 		$.ajax({
@@ -176,5 +200,9 @@ else
 <!-- <iframe id="userSearch" style="width:100%;min-height:600px;border:none;"></iframe> -->
 
 <div id="searchTarget"></div>
+
+
+
+
 
 <%@include file="/footer.jsp" %>
