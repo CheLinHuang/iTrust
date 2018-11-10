@@ -207,7 +207,72 @@ public class SearchUsersAction {
 		Collections.reverse(results);
 		return results;
 	}
-	
+
+	/**
+	 * Search for all eligible obstetric health care patients with first name and last name given in parameters.
+	 * @param query
+	 * @param allowDeactivated
+	 * @return
+	 */
+	public List<PatientBean> fuzzySearchForObstetricCarePatientsWithName(String query, boolean allowDeactivated) {
+		String[] subqueries=null;
+
+		Set<PatientBean> patientsSet = new TreeSet<PatientBean>();
+		if(query!=null && query.length()>0 && !query.startsWith("_")){
+			subqueries = query.split(" ");
+			Set<PatientBean>[] patients = new Set[subqueries.length];
+			int i=0;
+			for(String q : subqueries){
+				try {
+					patients[i] = new TreeSet<PatientBean>();
+					List<PatientBean> first = patientDAO.searchForObstetricCarePatientsWithName(q, "");
+					List<PatientBean> last = patientDAO.searchForObstetricCarePatientsWithName("", q);
+					patients[i].addAll(first);
+					patients[i].addAll(last);
+
+					try{
+						long mid = Long.valueOf(q);
+						//If the patient exists with the mid, then add the patient to the patient list
+						List<PatientBean> searchMID = patientDAO.searchForObstetricPatientsWithMID(mid);
+						patients[i].addAll(searchMID);
+
+						//old way of doing it when they only were returning one person
+						//now that we are returning everybody with that as a substring in their MID, not necessary
+						//yet want to keep it in case we revert sometime
+
+					}catch(NumberFormatException e) {
+						//TODO
+					}
+					i++;
+				} catch (DBException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (i > 0) {
+				patientsSet.addAll(patients[0]);
+			}
+			for(Set<PatientBean> results : patients){
+				try{
+					patientsSet.retainAll(results);
+				}catch(NullPointerException e) {
+					//TODO
+				}
+			}
+		}
+		ArrayList<PatientBean> results=new ArrayList<PatientBean>(patientsSet);
+
+		if(allowDeactivated == false) {
+			for(int i=results.size()-1; i>=0; i--){
+				if(!results.get(i).getDateOfDeactivationStr().equals("")){
+					results.remove(i);
+				}
+			}
+		}
+		Collections.reverse(results);
+		return results;
+	}
+
 	/**
 	 * getDeactivated is a special case used for when we want to see all deactivated patients.
 	 * @return The List of deactivated patients.

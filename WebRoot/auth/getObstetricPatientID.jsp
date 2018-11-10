@@ -133,7 +133,8 @@
                     q : q,
                     forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
                     isAudit : <%= isAudit %>,
-                    allowDeactivated : $("#allowDeactivated").attr("checked")
+                    allowDeactivated : $("#allowDeactivated").attr("checked"),
+                    obstetric : "YES",
                 },
                 success : function(e){
                     $("#searchTarget").html(e);

@@ -634,13 +634,34 @@ public class PatientDAO {
 		try (Connection conn = factory.getConnection();
 				PreparedStatement ps = conn.prepareStatement(
 						"SELECT * FROM patients WHERE firstName LIKE ? AND lastName LIKE ? AND ObstetricEligible = ?")) {
-			ps.setString(1, first);
-			ps.setString(2, last);
-			ps.setInt(3, 1);
+			ps.setString(1, "%" + first + "%");
+			ps.setString(2, "%" + last + "%");
+			ps.setBoolean(3, true);
 			ResultSet rs = ps.executeQuery();
 			List<PatientBean> patientsList = patientLoader.loadList(rs);
 			rs.close();
 			return patientsList;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		}
+	}
+
+	/**
+	 * Returns all Obstetric patients with the given MID as a substring in their MID
+	 * @param MID
+	 * @return
+	 * @throws DBException
+	 */
+	public List<PatientBean> searchForObstetricPatientsWithMID(long MID) throws DBException {
+		try (Connection conn = factory.getConnection();
+			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM patients WHERE MID LIKE ? AND ObstetricEligible = ? ORDER BY MID")) {
+			ps.setString(1, "%" + MID + "%");
+			ps.setBoolean(2, true);
+
+			ResultSet rs = ps.executeQuery();
+			List<PatientBean> loadlist = patientLoader.loadList(rs);
+			rs.close();
+			return loadlist;
 		} catch (SQLException e) {
 			throw new DBException(e);
 		}

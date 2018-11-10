@@ -16,7 +16,6 @@
 	if(request.getParameter("allowDeactivated") != null && request.getParameter("allowDeactivated").equals("on")){
 		patients=searchAction.fuzzySearchForPatients(query,true);
 	}else{
-		 
 		patients=searchAction.fuzzySearchForPatients(query);
 	}
 	if(request.getParameter("forward") != null && !request.getParameter("forward").contains("hcp/auditPage.jsp")){
@@ -27,6 +26,7 @@
 					<th width="20%">MID</td>
 					<th width="40%%">First Name</td>
 					<th width="40%">Last Name</td>
+
 				</tr>
 	<%
 		int index = 0;
