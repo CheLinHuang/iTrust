@@ -65,9 +65,8 @@ public class PatientSearchServlet extends HttpServlet {
 		String obstetricPatientID = request.getParameter("id"); // Comes along with the event to set patient eligible for obstetric care
 
 		String loggedInMID = request.getParameter("loggedInMID"); // HCP MID, use to identifying if current HCP user has OB or GYN speciality to set patient's obstetric care status
-		boolean hcpIsOBGYN = false;
-		if (loggedInMID != null)
-			hcpIsOBGYN = sua.isOBGYNHCP(Long.parseLong(loggedInMID));
+		boolean hcpIsOBGYN = loggedInMID != null ? sua.isOBGYNHCP(Long.parseLong(loggedInMID)) : false;
+
 
 
 		List<PatientBean> search = null;
