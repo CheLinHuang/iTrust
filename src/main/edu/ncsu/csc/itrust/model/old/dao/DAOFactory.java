@@ -3,6 +3,7 @@ package edu.ncsu.csc.itrust.model.old.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.*;
 
 /**
@@ -238,4 +239,9 @@ public class DAOFactory {
 
 	public OfficeVisitRecordDAO getOfficeVisitRecordDAO() { return new OfficeVisitRecordDAO(this); }
 
+	/**
+	 * @return this DAOFactory's UltraSoundRecordDAO;
+	 */
+
+	public UltraSoundRecordDAO getUltraSoundRecordDAO() { return new UltraSoundRecordDAO(this); }
 }
