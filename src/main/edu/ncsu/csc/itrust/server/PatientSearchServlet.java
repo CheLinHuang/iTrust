@@ -89,7 +89,13 @@ public class PatientSearchServlet extends HttpServlet {
 			search = sua.fuzzySearchForPatients(query, deactivated);
 		}
 
-		StringBuffer result = new StringBuffer("<span class=\"searchResults\">Found " + search.size() + " Records</span>");
+		// Notify hcp users if patients Name or MID are not valid when no results could be found
+		String searchStringResultNotification = "<span class=\"searchResults\">Found " + search.size() + " Records</span>";
+		if (search.size() == 0) {
+			searchStringResultNotification = "<br><br><h5 style='color: red;'>Patient MID or Name does NOT exist! Please renter a valid patient MID or Name</h3>";
+		}
+		StringBuffer result = new StringBuffer(searchStringResultNotification);
+
 		if(isAudit){
 			result.append("<table class='fTable' width=80%><tr><th width=10%>MID</th><th width=20%>First Name</th><th width=20%>Last Name</th><th width=30%>Status</th><th width=20%>Action</th></tr>");
 			for(PatientBean p : search){
