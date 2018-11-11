@@ -13,6 +13,7 @@ import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO;
 
+
 /**
  * SearchUsersAction
  */
@@ -312,6 +313,16 @@ public class SearchUsersAction {
 			}
 		} catch (DBException e) {
 			//TODO
+		}
+		return result;
+	}
+
+	public boolean isOBGYNHCP(Long MID) {
+		boolean result;
+		try {
+			result = personnelDAO.isOBGYNHCP(MID);
+		} catch (DBException e) {
+			return false;
 		}
 		return result;
 	}

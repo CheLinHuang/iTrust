@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.model.user.patient.Patient;
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -63,6 +64,12 @@ public class PatientSearchServlet extends HttpServlet {
 		String setPatientObstetricStatus = request.getParameter("setPatientObstetricStatus");
 		String obstetricPatientID = request.getParameter("id"); // Comes along with the event to set patient eligible for obstetric care
 
+		String loggedInMID = request.getParameter("loggedInMID"); // HCP MID, use to identifying if current HCP user has OB or GYN speciality to set patient's obstetric care status
+		boolean hcpIsOBGYN = false;
+		if (loggedInMID != null)
+			hcpIsOBGYN = sua.isOBGYNHCP(Long.parseLong(loggedInMID));
+
+
 		List<PatientBean> search = null;
 
 		// Extra use for knowing if needs to set patient to obstetric patient or not. It happens first so that
@@ -116,12 +123,13 @@ public class PatientSearchServlet extends HttpServlet {
 			}
 			result.append("<table>");
 		} else {
+			// if from patient information dropdown
 			boolean isForPatientInfo = patientObstetricInfo != null;
 			// Used to change search table html outline and returned results based on if request is sent from Patient Obstetrics Care History
 			boolean isForObstetric = obstetricSearch != null;
 			String htmlTableString;
-			// only show obstetric status column in the table for Patient Information dropdown menu.
-			htmlTableString = isForPatientInfo ?
+			// only show obstetric status column in the table for Patient Information dropdown menu && only when the HCP is of OB or GYN speciality.
+			htmlTableString = (isForPatientInfo && hcpIsOBGYN) ?
 					"<table class='fTable' width=100%><tr><th width=20%>MID</th><th width=30%>First Name</th><th width=30%>Last Name</th><th width=40%>Obstetric Status</th></tr>"
 					: "<table class='fTable' width=80%><tr><th width=20%>MID</th><th width=40%>First Name</th><th width=40%>Last Name</th></tr>";
 
@@ -139,7 +147,8 @@ public class PatientSearchServlet extends HttpServlet {
 				result.append("<td>" + p.getLastName()  + " </td>");
 
 				// New Column to add for patient information for whether or not they are an obstetric patient (Add hyper link to make them obstetric based on AJAX)
-				if (isForPatientInfo) {
+				// (only when the HCP is of OB or GYN speciality)
+				if (isForPatientInfo && hcpIsOBGYN) {
 					if (p.getObstetricEligible().equals("1")) {
 						// htmlLinkForSettingObstetric = "Obstetric Patient";
 						htmlLinkForSettingObstetric = "<input class='unsetObstetric' type='button' style='width:150px; color: red;' value='Cancel Obstetric' id=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + ">";

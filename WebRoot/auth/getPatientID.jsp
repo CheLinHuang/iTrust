@@ -3,6 +3,10 @@
 <%@page import="edu.ncsu.csc.itrust.action.SearchUsersAction" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean" %>
 
+<%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelAction"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.beans.PersonnelBean"%>
+
+
 <%
 pageTitle = "iTrust - Please Select a Patient";
 %>
@@ -111,30 +115,6 @@ pageTitle = "iTrust - Please Select a Patient";
 	</div>
 </div>
 
-<script type = 'text/javascript'>
-	$(document).ready(function()) {
-	    $(".setObstetric").click(function(){
-	        var id = $(this).attr("id");
-	        alert(id);
-            $.ajax({
-                url : "PatientSearchServlet",
-                data : {
-                    q : q,
-                    forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
-                    isAudit : <%= isAudit %>,
-                    allowDeactivated : $("#allowDeactivated").attr("checked"),
-
-                    patientObstetricInfo : "True",
-                    setPatientToObstetric : "SET",
-                },
-                success : function(e){
-                    $("#searchTarget").html(e);
-                }
-            });
-		});
-	}
-</script>
-
 <%--<script type = 'text/javascript'>--%>
 <%--var searchBarValue = document.getElementById(\"searchBox\");--%>
 	<%--$(document).ready(function() {--%>
@@ -180,6 +160,7 @@ pageTitle = "iTrust - Please Select a Patient";
                  allowDeactivated : $("#allowDeactivated").attr("checked"),
 
                  patientObstetricInfo : "True",
+                 loggedInMID :  "<%= loggedInMID %>",
              },
              success : function(e){
                  $("#searchTarget").html(e);

@@ -445,4 +445,85 @@ public class PersonnelDAO {
 			throw new DBException(e);
 		}
 	}
+
+	/**
+	 * Returns true if HCP has a speciality of OB or GYN, false otherwise
+	 *
+	 * Used to determine whether the HCP could set or unset patients for Obstetric care or not
+	 *
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 */
+//	public boolean isOBGYNHCP(long mid) throws DBException {
+//		boolean isOB = false;
+//		boolean isGYN = false;
+//		try (Connection conn = factory.getConnection();
+//			 PreparedStatement ps = conn.prepareStatement("SELECT LOCATE('OB', specialty) FROM personnel WHERE MID = ?;")){
+//
+//
+//			ps.setLong(1, mid);
+//			ResultSet result = ps.executeQuery();
+//			if (result.next()) {
+//				// if is 0 it means substring of 'OB' does not exist in hcp speciality
+//				System.out.println("isOB = " + result.getInt(1));
+//				isOB = result.getInt(1) != 0;
+//			}
+//		} catch (SQLException e) {
+//			System.out.println(e);
+//			throw new DBException(e);
+//		}
+//
+//		try (Connection conn = factory.getConnection();
+//			 PreparedStatement ps = conn.prepareStatement("SELECT LOCATE('GYN', specialty) FROM personnel WHERE MID = ?;")){
+//			 ResultSet result = ps.executeQuery();
+//
+//			if (result.next()) {
+//				// if is 0, means substring of 'GYN' does not exist in hcp speciality
+//				System.out.println("isOB = " + result.getInt(1));
+//				isGYN = result.getInt(1) != 0;
+//			}
+//		} catch (SQLException e) {
+//			System.out.println(e);
+//			throw new DBException(e);
+//		}
+//
+//		if (isGYN || isOB) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
+
+	/**
+	 * Returns true if HCP has a speciality of OB or GYN, false otherwise
+	 *
+	 * Used to determine whether the HCP could set or unset patients for Obstetric care or not
+	 *
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 */
+	public boolean isOBGYNHCP(long mid) throws DBException {
+		boolean isOBGYN;
+		String returnString = "";
+		try (Connection conn = factory.getConnection();
+			 PreparedStatement ps = conn.prepareStatement("SELECT specialty FROM personnel WHERE MID = ?;")){
+
+			ps.setLong(1, mid);
+			ResultSet result = ps.executeQuery();
+			// if is 0 it means substring of 'OB' does not exist in hcp speciality
+			if (result.next()) {
+				returnString = result.getString(1);
+			}
+			isOBGYN = returnString.contains("OB") || returnString.contains("GYN");
+		} catch (SQLException e) {
+			System.out.println(e);
+			throw new DBException(e);
+		}
+
+		return isOBGYN;
+	}
+
+
 }
