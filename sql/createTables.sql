@@ -503,3 +503,19 @@ CREATE TABLE medicalProcedure
 	FOREIGN KEY (visitId) 	REFERENCES officeVisit(visitID),
 	FOREIGN KEY (cptCode) 	REFERENCES cptCode(code)
 ) ENGINE=MyISAM;
+
+CREATE TABLE officeVisitRecord(
+  id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+  patientID BIGINT(20) UNSIGNED NOT NULL,
+  HCPID BIGINT(20) UNSIGNED NOT NULL,
+  weeksOfPregnant varchar(5),
+  weightGain float,
+  bloodPressure float,
+  fetalHeartRate float,
+  numberOfPregnancy int,
+  lowLyingPlacenta boolean,
+  currentDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(id),
+  FOREIGN KEY(patientID) REFERENCES patients(MID),
+  FOREIGN KEY(HCPID) REFERENCES personnel(MID)
+) ENGINE=MYISAM;
