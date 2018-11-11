@@ -231,6 +231,11 @@ public class DAOFactory {
 	public ReviewsDAO getReviewsDAO() {
 		return new ReviewsDAO(this);
 	}
-	
+
+	/**
+	 * @return this DAOFactory's OfficeVisitRecordDAO;
+	 */
+
+	public OfficeVisitRecordDAO getOfficeVisitRecordDAO() { return new OfficeVisitRecordDAO(this); }
 
 }
