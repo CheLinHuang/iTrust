@@ -34,13 +34,25 @@ public class SearchUsersAction {
 	}
 
 	/**
-	 * Calls on the DAO to set the patients ObstetricEligible column to True in the database
+	 * Calls on the Patient DAO to set the patients ObstetricEligible column to TRUE in the database
 	 * @param patientMID
 	 * @return
 	 */
 	public void setPatientEligibleToObstetric(long patientMID) {
 		try {
 			patientDAO.setPatientEligibleToObstetric(patientMID);
+		} catch (DBException e) {
+			return;
+		}
+	}
+
+	/**
+	 * Calls on the Patient DAO to set the patients ObstetricEligible column to FALSE in the database
+	 * @param patientMID
+	 */
+	public void setObstetricPatientToNormalPatient(long patientMID) {
+		try {
+			patientDAO.setObstetricPatientToNormalPatient(patientMID);
 		} catch (DBException e) {
 			return;
 		}

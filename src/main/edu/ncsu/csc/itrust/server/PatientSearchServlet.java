@@ -47,7 +47,7 @@ public class PatientSearchServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = request.getParameter("q");
-		if(query == null ){
+		if (query == null){
 			return;
 		}
 		boolean isAudit = request.getParameter("isAudit") != null && request.getParameter("isAudit").equals("true");
@@ -58,7 +58,9 @@ public class PatientSearchServlet extends HttpServlet {
 		String obstetricSearch = request.getParameter("obstetric"); // If not from Obstetric patient page, will be null
 		// String used to check if request is sent from Patient Information care web page, used to determine display of patient obstetric status
 		String patientObstetricInfo = request.getParameter("patientObstetricInfo");
-		String setPatientToObstetric = request.getParameter("setPatientToObstetric"); // String used to set patient obstetric once clicked on the patient dropdown list
+		// String used to Determine if set patient as obstetric or unset them from being obstetric once clicked on the patient dropdown list
+		// It has two values : "TRUE" - Making patient obstetric,  "FALSE" - UnSetting obstetric patient into ordinary patient
+		String setPatientObstetricStatus = request.getParameter("setPatientObstetricStatus");
 		String obstetricPatientID = request.getParameter("id"); // Comes along with the event to set patient eligible for obstetric care
 
 		List<PatientBean> search = null;
@@ -66,15 +68,21 @@ public class PatientSearchServlet extends HttpServlet {
 		// Extra use for knowing if needs to set patient to obstetric patient or not. It happens first so that
 		// Ajax could immediately show the update right after it the button to update is clicked (Due to the changed
 		// data would immediately be searched right after the update happens in the database)
-		if (setPatientToObstetric != null && setPatientToObstetric.equals("SET")) {
+		if (setPatientObstetricStatus != null) {
+
 			int patientMID = Integer.parseInt(obstetricPatientID);
-			System.out.println(patientMID);
-			sua.setPatientEligibleToObstetric(patientMID);
+
+			if (setPatientObstetricStatus.equals("TRUE")) {
+				sua.setPatientEligibleToObstetric(patientMID);
+			} else {
+				sua.setObstetricPatientToNormalPatient(patientMID);
+			}
 		}
 
 		if(query.isEmpty() && deactivated){
 			search = sua.getDeactivated();
-		} else if (obstetricSearch != null && obstetricSearch.equals("YES")) {
+
+		} else if (obstetricSearch != null && obstetricSearch.equals("YES")) { // Search for Obstetric patients ONLY!
 			// Check if null first to avoid NullPointerException, then if the passed in argument is of String "YES", search for Obstetric patients only!
 			search = sua.fuzzySearchForObstetricCarePatientsWithName(query, deactivated);
 		}else {
@@ -106,6 +114,7 @@ public class PatientSearchServlet extends HttpServlet {
 			// Used to change search table html outline and returned results based on if request is sent from Patient Obstetrics Care History
 			boolean isForObstetric = obstetricSearch != null;
 			String htmlTableString;
+			// only show obstetric status column in the table for Patient Information dropdown menu.
 			htmlTableString = isForPatientInfo ?
 					"<table class='fTable' width=100%><tr><th width=20%>MID</th><th width=30%>First Name</th><th width=30%>Last Name</th><th width=40%>Obstetric Status</th></tr>"
 					: "<table class='fTable' width=80%><tr><th width=20%>MID</th><th width=40%>First Name</th><th width=40%>Last Name</th></tr>";
@@ -126,10 +135,10 @@ public class PatientSearchServlet extends HttpServlet {
 				// New Column to add for patient information for whether or not they are an obstetric patient (Add hyper link to make them obstetric based on AJAX)
 				if (isForPatientInfo) {
 					if (p.getObstetricEligible().equals("1")) {
-						htmlLinkForSettingObstetric = "Obstetric Patient";
+						// htmlLinkForSettingObstetric = "Obstetric Patient";
+						htmlLinkForSettingObstetric = "<input class='unsetObstetric' type='button' style='width:150px; color: red;' value='Cancel Obstetric' id=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + ">";
 					} else {
-						// htmlLinkForSettingObstetric = "<a href='auth/hcp/setPatientObstetric.jsp' id= 'setObstetric'>Make Obstetric</a>";  ///////
-						htmlLinkForSettingObstetric = "<input class='setObstetric' type='button' style='width:100px;' value='Make Obstetric' id=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " onclick = \"http://google.com\">";
+						htmlLinkForSettingObstetric = "<input class='setObstetric' type='button' style='width:150px; color: blue;' value='Set Obstetric' id=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + ">";
 					}
 					result.append("<td>" + htmlLinkForSettingObstetric + " </td>");
 				}
@@ -138,7 +147,7 @@ public class PatientSearchServlet extends HttpServlet {
 			result.append("</table>");
 		}
 		// Add into the javascript for the buttons of Making a patient eligible for obstetric care
-		String javaScriptCode = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+		String javaScriptCodeSettingObstetric = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
 				"<script type = 'text/javascript'>\n" +
 				"    var searchBarValue = document.getElementById(\"searchBox\");" +
 				"    $(document).ready(function() {\n" +
@@ -155,8 +164,8 @@ public class PatientSearchServlet extends HttpServlet {
 
 				"q : searchBarValue.value," +
 				"id : id," +
-				"patientObstetricInfo : \"True\"," +
-				"setPatientToObstetric : \"SET\"," +
+				"patientObstetricInfo : \"TRUE\"," +
+				"setPatientObstetricStatus : \"TRUE\"," +
 
 				"             },\n" +
 				"             success : function(e){\n" +
@@ -168,7 +177,39 @@ public class PatientSearchServlet extends HttpServlet {
 				"    });\n" +
 				"</script>";
 
-		result.append(javaScriptCode);
+		result.append(javaScriptCodeSettingObstetric);
+
+		String javaScriptCodeUnsetObstetric = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+				"<script type = 'text/javascript'>\n" +
+				"    var searchBarValue = document.getElementById(\"searchBox\");" +
+				"    $(document).ready(function() {\n" +
+				"        $(\".unsetObstetric\").click(function(){\n" +
+				"            var id = $(this).attr(\"id\");\n" +
+
+				"            alert(\"Canceling Patient - MID:'\" + id + \"' for Obstetric Care\");\n         " +
+
+				"$.ajax({\n" +
+
+				"             url : \"PatientSearchServlet\",\n" +
+
+				"             data : {\n" +
+
+				"q : searchBarValue.value," +
+				"id : id," +
+				"patientObstetricInfo : \"TRUE\"," +
+				"setPatientObstetricStatus : \"FALSE\"," +
+
+				"             },\n" +
+				"             success : function(e){\n" +
+				"                 $(\"#searchTarget\").html(e);\n" +
+				"             }\n" +
+
+				"         });" +
+				"        });\n" +
+				"    });\n" +
+				"</script>";
+
+		result.append(javaScriptCodeUnsetObstetric);
 
 		response.setContentType("text/plain");
 		PrintWriter resp = response.getWriter();
