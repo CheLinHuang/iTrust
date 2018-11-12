@@ -519,3 +519,19 @@ CREATE TABLE officeVisitRecord(
   FOREIGN KEY(patientID) REFERENCES patients(MID),
   FOREIGN KEY(HCPID) REFERENCES personnel(MID)
 ) ENGINE=MYISAM;
+
+CREATE TABLE ultraSoundRecord(
+  id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+  officeVisitRecordID BIGINT(20) UNSIGNED NOT NULL,
+  crownRumpLength float,
+  biparietalDiameter float,
+  headCircumference float,
+  femurLength float,
+  occiFrontalDiameter float,
+  abdoCircumference float,
+  humerusLength float,
+  estimatedFetalWeight float,
+  ultraSoundImage varchar(100),
+  PRIMARY KEY(id),
+  FOREIGN KEY(officeVisitID) REFERENCES officeVisitRecord(id)
+) ENGINE=MYISAM;
