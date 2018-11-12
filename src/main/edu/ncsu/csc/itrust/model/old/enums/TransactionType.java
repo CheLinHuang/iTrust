@@ -216,6 +216,8 @@ public enum TransactionType {
     APPOINTMENT_REMOVE(2213, "Delete Scheduled Appointment", "canceled your scheduled appointment", true),
     /**APPOINTMENT_ALL_VIEW*/
     APPOINTMENT_ALL_VIEW(2220, "View All Scheduled Appointments", "viewed all scheduled appointments", true),
+	/**OFFICE_VISIT_RECORDS_VIEW*/
+	OFFICE_VISIT_RECORDS_VIEW(2225, "View Office Visit Records", "viewed office visit records", false),
     /**APPOINTMENT_CONFLICT_OVERRIDE*/
     APPOINTMENT_CONFLICT_OVERRIDE(2230, "Schedule conflict override", "overrided a schedule conflict", true),
     /**APPOINTMENT_REQUEST_SUBMITTED*/
