@@ -90,6 +90,10 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/clearAppointments.sql");
 	}
 
+	public void clearOfficeVisitRecords() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/clearOfficeVisitRecords.sql");
+	}
+
 	public void clearFakeEmail() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/clearFakeemail.sql");
 	}

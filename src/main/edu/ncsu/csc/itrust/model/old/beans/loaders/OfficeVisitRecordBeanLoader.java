@@ -12,7 +12,7 @@ public class OfficeVisitRecordBeanLoader implements BeanLoader<OfficeVisitRecord
     @Override
     public List<OfficeVisitRecordBean> loadList(ResultSet rs) throws SQLException {
         List<OfficeVisitRecordBean> list = new ArrayList<OfficeVisitRecordBean>();
-        while(rs.next()){
+        while (rs.next()) {
             list.add(loadSingle(rs));
         }
         return list;
@@ -30,6 +30,7 @@ public class OfficeVisitRecordBeanLoader implements BeanLoader<OfficeVisitRecord
         ovRecordBean.setNumberOfPregnancy(rs.getInt("numberOfPregnancy"));
         ovRecordBean.setWeightGain(rs.getDouble("weightGain"));
         ovRecordBean.setCurrentDate(rs.getTimestamp("currentDate"));
+        ovRecordBean.setWeeksOfPregnant(rs.getString("weeksOfPregnant"));
         return ovRecordBean;
     }
 
