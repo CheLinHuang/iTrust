@@ -94,4 +94,22 @@ public class OfficeVisitRecordBean {
     public void setCurrentDate(Timestamp currentDate){
         this.currentDate = currentDate;
     }
+
+    /**
+     * Returns true if both id's are equal. Probably needs more advance field by field checking.
+     */
+    @Override public boolean equals(Object other) {
+
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof OfficeVisitRecordBean)) {
+            return false;
+        }
+
+        OfficeVisitRecordBean otherOfficeVisitRecord = (OfficeVisitRecordBean)other;
+        return otherOfficeVisitRecord.getOfficeVisitRecordID() == getOfficeVisitRecordID();
+
+    }
 }

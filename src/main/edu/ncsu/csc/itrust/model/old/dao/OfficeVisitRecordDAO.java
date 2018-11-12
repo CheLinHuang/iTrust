@@ -65,8 +65,8 @@ public class OfficeVisitRecordDAO {
 
     public List<OfficeVisitRecordBean> getOfficeVisitRecord(final long id) throws SQLException, DBException {
         ResultSet results = null;
-        try(Connection conn = factory.getConnection(); PreparedStatement stmt
-                = conn.prepareStatement("SELELCT * FROM officeVisitRecord WHERE id=?")){
+        try(Connection conn = factory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELELCT * FROM officeVisitRecord WHERE id=?")){
             stmt.setLong(1, id);
             results = stmt.executeQuery();
             List<OfficeVisitRecordBean> abList = officeVisitRecordBeanLoader.loadList(results);
