@@ -516,6 +516,9 @@ public class PersonnelDAO {
 			if (result.next()) {
 				returnString = result.getString(1);
 			}
+			if (returnString == null) {
+				return false;
+			}
 			isOBGYN = returnString.contains("OB") || returnString.contains("GYN");
 		} catch (SQLException e) {
 			System.out.println(e);

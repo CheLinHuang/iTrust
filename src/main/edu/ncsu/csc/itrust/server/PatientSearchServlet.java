@@ -168,7 +168,6 @@ public class PatientSearchServlet extends HttpServlet {
 				"        $(\".setObstetric\").click(function(){\n" +
 				"            var id = $(this).attr(\"id\");\n" +
 
-				"            alert(\"Making Patient - MID:'\" + id + \"' Eligible for Obstetric Care\");\n         " +
 
 				"$.ajax({\n" +
 
@@ -180,7 +179,7 @@ public class PatientSearchServlet extends HttpServlet {
 				"id : id," +
 				"patientObstetricInfo : \"TRUE\"," +
 				"setPatientObstetricStatus : \"TRUE\"," +
-
+				"loggedInMID :" + loggedInMID +
 				"             },\n" +
 				"             success : function(e){\n" +
 				"                 $(\"#searchTarget\").html(e);\n" +
@@ -200,8 +199,6 @@ public class PatientSearchServlet extends HttpServlet {
 				"        $(\".unsetObstetric\").click(function(){\n" +
 				"            var id = $(this).attr(\"id\");\n" +
 
-				"            alert(\"Canceling Patient - MID:'\" + id + \"' for Obstetric Care\");\n         " +
-
 				"$.ajax({\n" +
 
 				"             url : \"PatientSearchServlet\",\n" +
@@ -212,7 +209,7 @@ public class PatientSearchServlet extends HttpServlet {
 				"id : id," +
 				"patientObstetricInfo : \"TRUE\"," +
 				"setPatientObstetricStatus : \"FALSE\"," +
-
+				"loggedInMID : " + loggedInMID +
 				"             },\n" +
 				"             success : function(e){\n" +
 				"                 $(\"#searchTarget\").html(e);\n" +

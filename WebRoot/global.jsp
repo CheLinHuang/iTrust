@@ -31,6 +31,7 @@ Long loggedInMID = new Long(0L);
 String userRole  = "";
 try {
 	loggedInMID = (Long) session.getAttribute("loggedInMID");
+	// System.out.println(loggedInMID);
 	userRole    = (String) session.getAttribute("userRole");
 
 	if (userRole == null) {
