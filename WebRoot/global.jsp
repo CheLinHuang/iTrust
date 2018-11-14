@@ -9,14 +9,13 @@
 DAOFactory prodDAO = DAOFactory.getProductionInstance(); 
 AuthDAO authDAO    = prodDAO.getAuthDAO();
 EventLoggingAction loggingAction = new EventLoggingAction(prodDAO);
-LoginFailureAction loginFailureAction = (LoginFailureAction)session.getAttribute("loginFailureAction"); 
+LoginFailureAction loginFailureAction = (LoginFailureAction)session.getAttribute("loginFailureAction");
 
 if(loginFailureAction == null)
 {
 	loginFailureAction = new LoginFailureAction(prodDAO, request.getRemoteAddr());
 	session.setAttribute("loginFailureAction", loginFailureAction);
 }
-
 
 
 String pageTitle    = null;

@@ -100,6 +100,7 @@ public class PatientSearchServlet extends HttpServlet {
 		if (search.size() == 0) {
 			searchStringResultNotification = "<br><br><h5 style='color: red;'>Patient MID or Name does NOT exist! Please renter a valid patient MID or Name</h3>";
 		}
+		// Main component of the web page
 		StringBuffer result = new StringBuffer(searchStringResultNotification);
 
 		if(isAudit){
@@ -124,8 +125,7 @@ public class PatientSearchServlet extends HttpServlet {
 		} else {
 			// if from patient information dropdown
 			boolean isForPatientInfo = patientObstetricInfo != null;
-			// Used to change search table html outline and returned results based on if request is sent from Patient Obstetrics Care History
-			boolean isForObstetric = obstetricSearch != null;
+
 			String htmlTableString;
 			// only show obstetric status column in the table for Patient Information dropdown menu && only when the HCP is of OB or GYN speciality.
 			htmlTableString = (isForPatientInfo && hcpIsOBGYN) ?
@@ -134,13 +134,26 @@ public class PatientSearchServlet extends HttpServlet {
 
 			result.append(htmlTableString);
 
-
+			String patientMIDButtonString = "";
 			for(PatientBean p : search){
 				String htmlLinkForSettingObstetric;
 
 				result.append("<tr>");
 				result.append("<td>");
-				result.append("<input type='button' style='width:100px;' onclick=\"parent.location.href='getPatientID.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + "&forward=" + StringEscapeUtils.escapeHtml("" + forward ) +"';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />");
+
+
+
+				/*   Patient MID button with certain actions   */
+				// For obstetric care dropdown menu  --> initialization
+				if (obstetricSearch != null && obstetricSearch.equals("YES")) {
+					patientMIDButtonString = "<input type='button' style='width:100px;' onclick=\"parent.location.href='obstetricHistory.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID())  + "';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />";
+				} else {
+					patientMIDButtonString = "<input type='button' style='width:100px;' onclick=\"parent.location.href='getPatientID.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + "&forward=" + StringEscapeUtils.escapeHtml("" + forward ) +"';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />";
+				}
+				result.append(patientMIDButtonString);
+
+
+
 				result.append("</td>");
 				result.append("<td>" + p.getFirstName() + "</td>");
 				result.append("<td>" + p.getLastName()  + " </td>");
