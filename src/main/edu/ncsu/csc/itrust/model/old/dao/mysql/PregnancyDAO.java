@@ -52,7 +52,7 @@ public class PregnancyDAO {
   public List<PregnancyBean> getAllPregnancy(final long mid) throws DBException {
     try (Connection conn = factory.getConnection();
          PreparedStatement stmt = conn
-             .prepareStatement("SELECT * FROM pregnancy WHERE MID=?")) {
+             .prepareStatement("SELECT * FROM pregnancy WHERE MID=? ORDER BY yearOfConception DESC;")) {
       stmt.setLong(1, mid);
       final ResultSet results = stmt.executeQuery();
       final List<PregnancyBean> allPregnancy = pregnancyBeanLoader.loadList(results);

@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@include file="/global.jsp" %>
+<%@page import="javax.servlet.http.HttpServletRequest" %>
+<%@page import="javax.servlet.http.HttpServletResponse" %>
+<%@ page import="javax.servlet.http.HttpUtils.*" %>
+
+
 <%@page import="java.util.List" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory" %>
 <%@page import="edu.ncsu.csc.itrust.action.SearchUsersAction" %>
@@ -19,6 +24,7 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.loaders.ObstetricsInitRecordBeanLoader" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.loaders.PregnancyBeanLoader" %>
 <%@page import="edu.ncsu.csc.itrust.action.ObstetricHistoryAction" %>
+
 
 
 
@@ -48,7 +54,6 @@
 
     // used to identify if HCP is of OB or GYN -> To create buttons for creation of Obstetric Initializations
     SearchUsersAction sua = new SearchUsersAction(DAOFactory.getProductionInstance(), -1);
-
     boolean hcpIsOBGYN = loggedInMID != null ? sua.isOBGYNHCP(loggedInMID) : false;
 
 
@@ -59,6 +64,7 @@
     List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(pid);
 %>
 <div>
+
     <div>
         <h1>
         Patient Maid: <%= uid_pid %>
@@ -72,11 +78,28 @@
             <% } %>
         </p>
 
-        <% if (hcpIsOBGYN) { // button of obstetric initialize records will appear if the hcp is of OB/GYN speciality%>
-        <div>
-            <%--<input type='button' style='width:100px;' onclick=\"parent.location.href='obstetricHistory.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID())  + "';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />"--%>
-            <input type='button' style='width:250px;' onclick="#" value="Initialize Obstetric Record">
-        </div>
+        <% if (hcpIsOBGYN) { // button of obstetric initialize records will appear if the hcp is of OB/GYN speciality
+            String requestURI = request.getRequestURI();
+            String currentURL = javax.servlet.http.HttpUtils.getRequestURL(request).toString();
+
+            int serverSubstringEndIndex = currentURL.indexOf(requestURI);
+
+            String serverURI = currentURL.substring(0, serverSubstringEndIndex);
+
+            StringBuilder linkURLSB = new StringBuilder(serverURI);
+            linkURLSB.append("/iTrust/auth/hcp/initObstetricRecord.jsp");
+            /*
+                serverURI
+                javax.servlet.http.HttpUtils.getRequestURL(request)
+             */
+
+        %>
+
+            <div>
+                <%--<input type='button' style='width:100px;' onclick=\"parent.location.href='obstetricHistory.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID())  + "';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />"--%>
+                <input type='button' style='width:250px;' onclick="location.href='<%= linkURLSB.toString() %>'" value="Initialize Obstetric Record">
+            </div>
+
         <% } %>
     </div>
 </div>
@@ -84,7 +107,7 @@
 <div id="obstetricInitRecord" style="float:left">
     <table style="width:50%">
         <tr>
-            <th colspan="4"  style="text-align:center;">Obstetric Init Record</th>
+            <th colspan="4"  style="text-align:center; color:blue">Obstetric Init Record</th>
         </tr>
         <tr>
             <th>&nbsp&nbsp</th>
@@ -115,11 +138,12 @@
 <div id="pregnancyRecord" style="float:left">
     <table style="width:50%">
         <tr>
-            <th colspan="4"  style="text-align:center;">Pregnancy Record</th>
+            <th colspan="4"  style="text-align:center; color:palevioletred">Pregnancy Record</th>
         </tr>
         <tr>
             <th>&nbsp&nbsp</th>
             <th>Conception Year</th>
+            <th>Pregnancy Weeks</th>
             <th>Labor Hours</th>
             <th>Weight Gain</th>
             <th>Delivery Type</th>
@@ -131,6 +155,7 @@
             <tr>
                 <td><%=i + 1%>.</td>
                 <td><%= p.getYearOfConception() %></td>
+                <td><%= p.getWeeksOfPregnant() %></td>
                 <td><%= p.getHoursInLabor() %></td>
                 <td><%= p.getWeightGain() %></td>
                 <td><%= p.getDeliveryType() %></td>

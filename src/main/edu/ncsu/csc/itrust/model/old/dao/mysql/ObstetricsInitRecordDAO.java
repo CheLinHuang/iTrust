@@ -45,7 +45,7 @@ public class ObstetricsInitRecordDAO {
 
   /**
    * Returns all of the obstetrics initialization records that are associated with a MID.
-   *
+   * Ordered by recordCreatedTime in Descending order (The most recent created record at the front)
    * @param mid The MID of the patient.
    * @return A java.util.List of ObstetricsInitRecordBean.
    * @throws DBException
@@ -54,7 +54,7 @@ public class ObstetricsInitRecordDAO {
       throws DBException {
     try (Connection conn = factory.getConnection();
          PreparedStatement stmt = conn
-             .prepareStatement("SELECT * FROM obstetricsInitRecord WHERE MID=?")) {
+             .prepareStatement("SELECT * FROM obstetricsInitRecord WHERE MID=? ORDER BY recordCreatedTime DESC")) {
       stmt.setLong(1, mid);
       final ResultSet results = stmt.executeQuery();
       final List<ObstetricsInitRecordBean> allObstetricsInitRecord

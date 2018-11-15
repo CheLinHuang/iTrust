@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: roger
-  Date: 11/13/18
-  Time: 4:40 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld"%>
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
 
