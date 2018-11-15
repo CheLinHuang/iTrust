@@ -20,11 +20,8 @@ public class AddOfficeVisitRecordAction extends OfficeVisitRecordAction {
     public String addOfficeVisitRecord(OfficeVisitRecordBean ov, boolean ignoreConflicts) throws FormValidationException, SQLException, DBException {
         try {
             officeVisitRecordDAO.addOfficeVisitRecord(ov);
-            TransactionLogger.getInstance().logTransaction(TransactionType.APPOINTMENT_ADD, loggedInMID, ov.getPatient(), "");
-            if (ignoreConflicts) {
-                TransactionLogger.getInstance().logTransaction(TransactionType.APPOINTMENT_CONFLICT_OVERRIDE, loggedInMID, ov.getPatient(), "");
-            }
-            return "Success: " + "office visit for " + ov.getCurrentDate() + " added";
+            TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORD_ADD, loggedInMID, ov.getPatient(), "");
+            return "Success: Office Visit Record for " + ov.getCurrentDate() + " added";
         } catch (SQLException e) {
             return e.getMessage();
         }
