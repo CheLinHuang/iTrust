@@ -26,6 +26,7 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PregnancyDAO" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.ObstetricsInitRecordBean" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ObstetricsInitRecordDAO" %>
+<%@page import="edu.ncsu.csc.itrust.model.old.validate.ObstetricsInitRecordBeanValidator" %>
 
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.loaders.ObstetricsInitRecordBeanLoader" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.loaders.PregnancyBeanLoader" %>
@@ -37,6 +38,7 @@
 <%@page import="java.text.SimpleDateFormat" %>
 <%@page import="java.util.Date" %>
 <%@page import="java.time.temporal.ChronoUnit" %>
+
 
 <%@include file="/global.jsp"%>
 
@@ -58,6 +60,7 @@
 
 
 
+
     // System.out.println(pidString);
     Long pid = pidString == null ? null : Long.parseLong(pidString);
 
@@ -68,8 +71,8 @@
     }
 
     /* If the patient id doesn't check out, then kick 'em out to the exception handler */
-    EditPatientAction action = new EditPatientAction(prodDAO,
-            loggedInMID.longValue(), pidString);
+//    EditPatientAction action = new EditPatientAction(prodDAO,
+//            loggedInMID.longValue(), pidString);pidString
 
 
     /* Now take care of updating information */
@@ -82,41 +85,83 @@
     ObstetricHistoryAction oba = new ObstetricHistoryAction(DAOFactory.getProductionInstance());
 
 
-    PatientBean p;
+    // Accessing latest preganancy history data for display in the prepopulated form
+    List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(pid);
+    PregnancyBean mostRecentPregnancy = null;
+    if (pregnancyHistoryList.size() > 0) {
+        mostRecentPregnancy = pregnancyHistoryList.get(0);
+    }
+//
+//    String LMPValue = "";
+//    String formattedEDD = "";
+//    String weeksPregnant = "";
+//    String yearOfConception = "";
+//    String weekOfPregnancy = "";
+//    String hoursInLabor = "";
+//    String weightGain = "";
+//    String deliveryType = "";
+
     if (formIsFilled) {
-        p = new BeanBuilder<PatientBean>().build(request
-                .getParameterMap(), new PatientBean());
-        try {
-            action.updateInformation(p);
-            loggingAction.logEvent(TransactionType.DEMOGRAPHICS_EDIT, loggedInMID.longValue(), p.getMID(), "");
-
-
-%>
-
-
-<br />
-<div align=center>
-    <span class="iTrustMessage">Information Successfully Updated</span>
-</div>
-<br />
-<%
-} catch (FormValidationException e) {
 %>
 <br />
 <div align=center>
-    <span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage()) %></span>
+    <span class="iTrustMessage">Obstetric Initialized for Patient MID : <%=pidString%></span>
 </div>
 <br />
 <%
-        }
-    } else {
-        p = action.getPatient();
-        loggingAction.logEvent(TransactionType.DEMOGRAPHICS_VIEW, loggedInMID.longValue(), p.getMID(), "");
     }
 
+////    PatientBean p;
+//    if (formIsFilled) {
+////        p = new BeanBuilder<PatientBean>().build(request
+////                .getParameterMap(), new PatientBean());
+////        try {
+//////            action.updateInformation(p);
+//
+//
+//            int initializationRecord = oba.initializationObstetricRecord(pidString, LMPValue, formattedEDD, weeksPregnant);
+//            if (initializationRecord != -1) {
+//                System.out.println("Init Record okay~!");
+//            }
+//            // Add only if prior pregnancy is not in the iTrust system
+//            int addPregnanacyInfo = 0;
+//            if (mostRecentPregnancy == null) {
+//                addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType);
+//            }
+//            if (addPregnanacyInfo != -1) {
+//                System.out.println("Pregnancy okay~!");
+//            }
+//
+//
+//            // loggingAction.logEvent(TransactionType.DEMOGRAPHICS_EDIT, loggedInMID.longValue(), p.getMID(), "");
+
+
 %>
 
-<form id="editForm" action="editPatient.jsp" method="post"><input type="hidden"
+
+<%--<br />--%>
+<%--<div align=center>--%>
+    <%--<span class="iTrustMessage">Obstetric Initialized for Patient MID : <%=pidString%></span>--%>
+<%--</div>--%>
+<%--<br />--%>
+<%--<%--%>
+<%--} catch (FormValidationException e) {--%>
+<%--%>--%>
+<%--<br />--%>
+<%--<div align=center>--%>
+    <%--<span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage()) %></span>--%>
+<%--</div>--%>
+<%--<br />--%>
+<%--<%--%>
+<%--//        }--%>
+    <%--}--%>
+<%--//    else {--%>
+<%--//        p = action.getPatient();--%>
+<%--//        loggingAction.logEvent(TransactionType.DEMOGRAPHICS_VIEW, loggedInMID.longValue(), p.getMID(), "");--%>
+<%--//    }--%>
+<%--%>--%>
+
+<form id="editForm" action="initObstetricRecord.jsp" method="post"><input type="hidden"
                                                                   name="formIsFilled" value="true"> <br />
     <table cellspacing=0 align=center cellpadding=0>
         <tr>
@@ -290,7 +335,8 @@
                             <td>
                                 <input type=text name="dateOfBirthStr" maxlength="10"
                                        size="10" id="LMPvalue"
-                                       value="<%= LMPDateStringIsNull ? StringEscapeUtils.escapeHtml("" + formattedTodaysDate) : StringEscapeUtils.escapeHtml("" + LMPDateString) %>">
+                                        <% String LMPValue = LMPDateStringIsNull ? formattedTodaysDate : LMPDateString; %>
+                                       value="<%= StringEscapeUtils.escapeHtml("" + LMPValue) %>">
                                 <input
                                         type=button value="Select Date"
                                         onclick="displayDatePicker('dateOfBirthStr');">
@@ -334,7 +380,8 @@
                         <td class="subHeaderVertical">Weeks Pregnant:</td>
                         <td>
                             <input name="weeksPregnant"
-                                   value="<%=weeks.toString()%>-<%=days.toString()%>" type="text" size="12" maxlength="12">
+                                   <% String weeksPregnant = weeks.toString() + "-" + days.toString(); %>
+                                   value="<%=weeksPregnant%>" type="text" size="12" maxlength="12">
                         </td>
                     </tr>
                     <tr>
@@ -354,42 +401,47 @@
                         <th colspan=2>Pregnancy Information</th>
                     </tr>
 
-                    <%
-                        List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(pid);
-                        PregnancyBean mostRecentPregnancy = pregnancyHistoryList.get(0);
-                    %>
+                    <%--<%--%>
+                        <%--List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(pid);--%>
+                        <%--PregnancyBean mostRecentPregnancy = pregnancyHistoryList.get(0);--%>
+                    <%--%>--%>
 
                     <tr>
                         <td class="subHeaderVertical">Year of Conception:</td>
                         <td><input name="yearOfConception"
-                                   value="<%= mostRecentPregnancy == null ? "" : StringEscapeUtils.escapeHtml("" + (mostRecentPregnancy.getYearOfConception())) %>" type="text"></td>
+                                   <%String yearOfConception = mostRecentPregnancy == null ? "" : Integer.toString(mostRecentPregnancy.getYearOfConception()); %>
+                                   value="<%= yearOfConception %>" type="text"></td>
                     </tr>
                     <tr>
                         <td class="subHeaderVertical">Weeks of Pregnancy:</td>
                         <td>
                             <input name="weekOfPregnancy"
-                                   value="<%= mostRecentPregnancy == null ? "" : StringEscapeUtils.escapeHtml("" + (mostRecentPregnancy.getWeeksOfPregnant())) %>" type="text" size="12" maxlength="12">
+                                    <%String weekOfPregnancy = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getWeeksOfPregnant(); %>
+                                   value="<%= weekOfPregnancy %>" type="text" size="12" maxlength="12">
                         </td>
                     </tr>
                     <tr>
                         <td class="subHeaderVertical">Hours In Labor:</td>
                         <td>
                             <input name="hoursInLabor"
-                                   value="<%= mostRecentPregnancy == null ? "" : StringEscapeUtils.escapeHtml("" + (mostRecentPregnancy.getHoursInLabor())) %>" type="text" size="12" maxlength="12">
+                                    <%String hoursInLabor = mostRecentPregnancy == null ? "" : Double.toString(mostRecentPregnancy.getHoursInLabor()); %>
+                                   value="<%= hoursInLabor %>" type="text" size="12" maxlength="12">
                         </td>
                     </tr>
                     <tr>
                         <td class="subHeaderVertical">Weight Gain:</td>
                         <td>
                             <input name="weightGain"
-                                   value="<%= mostRecentPregnancy == null ? "" : StringEscapeUtils.escapeHtml("" + (mostRecentPregnancy.getWeightGain())) %>" type="text" size="12" maxlength="12">
+                                    <%String weightGain = mostRecentPregnancy == null ? "" : Double.toString(mostRecentPregnancy.getWeightGain()); %>
+                                   value="<%= weightGain %>" type="text" size="12" maxlength="12">
                         </td>
                     </tr>
                     <tr>
                         <td class="subHeaderVertical">Delivery Type:</td>
                         <td>
                             <input name="deliveryType"
-                                   value="<%= mostRecentPregnancy == null ? "" : StringEscapeUtils.escapeHtml("" + (mostRecentPregnancy.getDeliveryType())) %>" type="text" size="12" maxlength="12">
+                                    <%String deliveryType = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getDeliveryType(); %>
+                                   value="<%= deliveryType %>" type="text" size="20" maxlength="20">
                         </td>
                     </tr>
                 </table>
@@ -399,15 +451,67 @@
     <br />
 
     <div align=center>
-        <% if(p.getDateOfDeactivationStr().equals("")){ %>
+        <%--<% if(p.getDateOfDeactivationStr().equals("")){ %>--%>
         <input type="submit" name="action" style="font-size: 16pt; font-weight: bold;" value="Edit Patient Record">
-        <% } else { %>
-        <span style="font-size: 16pt; font-weight: bold;">Patient is deactivated.  Cannot edit.</span>
-        <% } %>
-        <br /><br />
-        <span style="font-size: 14px;">
-		Note: in order to set the password for this user, use the "Reset Password" link at the login page.
-	</span>
+        <%
+            //    PatientBean p;
+            if (formIsFilled) {
+//        p = new BeanBuilder<PatientBean>().build(request
+//                .getParameterMap(), new PatientBean());
+//        try {
+////            action.updateInformation(p);
+
+
+                int initializationRecord = oba.initializationObstetricRecord(pidString, LMPValue, formattedEDD, weeksPregnant);
+                if (initializationRecord != -1) {
+                    System.out.println("Init Record okay~!");
+                }
+//                // Add only if prior pregnancy is not in the iTrust system
+//                int addPregnanacyInfo = 0;
+
+                yearOfConception = request.getParameter("yearOfConception");
+                weekOfPregnancy = request.getParameter("weekOfPregnancy");
+                hoursInLabor = request.getParameter("hoursInLabor");
+                weightGain = request.getParameter("weightGain");
+                deliveryType = request.getParameter("deliveryType");
+
+                System.out.println(yearOfConception);
+                System.out.println(weekOfPregnancy);
+                System.out.println(hoursInLabor);
+                System.out.println(weightGain);
+                System.out.println(deliveryType);
+
+                System.out.println("+++++++Before++++++");
+
+                System.out.println(pidString);
+                int addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType);
+
+                System.out.println("-------After--------");
+                System.out.println(pidString);
+
+                System.out.println(yearOfConception);
+                System.out.println(weekOfPregnancy);
+                System.out.println(hoursInLabor);
+                System.out.println(weightGain);
+                System.out.println(deliveryType);
+
+                if (addPregnanacyInfo != -1) {
+                    System.out.println("Pregnancy okay~!");
+                }
+                // loggingAction.logEvent(TransactionType.DEMOGRAPHICS_EDIT, loggedInMID.longValue(), p.getMID(), "");
+            } else {
+                System.out.println("No Idea wtf to do...");
+            }
+
+        %>
+
+        <%--<% } else { %>--%>
+        <%--<span style="font-size: 16pt; font-weight: bold;">Patient is deactivated.  Cannot edit.</span>--%>
+        <%--<% } %>--%>
+        <%--<br /><br />--%>
+        <%--<span style="font-size: 14px;">--%>
+		<%--Note: in order to set the password for this user, use the "Reset Password" link at the login page.--%>
+	<%--</span>--%>
     </div>
 </form>
 <br />
