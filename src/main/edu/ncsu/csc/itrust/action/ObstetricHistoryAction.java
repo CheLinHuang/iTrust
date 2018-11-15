@@ -34,9 +34,29 @@ public class ObstetricHistoryAction {
         this.pregnancyDAO = factory.getPregnancyDAO();
     }
 
+    /**
+     * Takes in patient MID chosen by OB/GYN hcp's from the front end and return
+     * a list of all obstetric history Bean object of that patient
+     * @param mid
+     * @return
+     */
     public List<ObstetricsInitRecordBean> getPatientObstericsInitRecords(long mid) {
         try {
             List<ObstetricsInitRecordBean> result = obstetricsInitRecordDAO.getAllObstetricsInitRecord(mid);
+            return result;
+        } catch (DBException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Takes in patient MID chosen by hcps from the fron end and return a list of all pregnancy Bean object of that patient
+     * @param mid
+     * @return
+     */
+    public List<PregnancyBean> getAllPregnancy(long mid) {
+        try {
+            List<PregnancyBean> result = pregnancyDAO.getAllPregnancy(mid);
             return result;
         } catch (DBException e) {
             return null;

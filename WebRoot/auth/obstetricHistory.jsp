@@ -33,7 +33,6 @@
 <%
     String uid_pid = request.getParameter("UID_PATIENTID");
     Long pid = uid_pid == null ? null : Long.parseLong(uid_pid);
-    System.out.println(uid_pid);
 
     session.setAttribute("pid", uid_pid);
 //    if (null != uid_pid && !"".equals(uid_pid)) {
@@ -46,17 +45,49 @@
         firstName = "";
     if(lastName == null)
         lastName = "";
-%>
-<h1>
-    <%= uid_pid %>
-</h1>
 
-<%
+    // used to identify if HCP is of OB or GYN -> To create buttons for creation of Obstetric Initializations
+    SearchUsersAction sua = new SearchUsersAction(DAOFactory.getProductionInstance(), -1);
+
+    boolean hcpIsOBGYN = loggedInMID != null ? sua.isOBGYNHCP(loggedInMID) : false;
+
+
+
     ObstetricHistoryAction oba = new ObstetricHistoryAction(DAOFactory.getProductionInstance());
-    List<ObstetricsInitRecordBean> historyList = oba.getPatientObstericsInitRecords(pid);
+    List<ObstetricsInitRecordBean> obstetricInitHistoryList = oba.getPatientObstericsInitRecords(pid);
+
+    List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(pid);
 %>
-    <table style="width:100%">
+<div>
+    <div>
+        <h1>
+        Patient Maid: <%= uid_pid %>
+    </h1>
+        <p>
+            <% if (obstetricInitHistoryList.size() == 0) { %>
+            <span style="color: orangered">There are <bold><em>0</em></bold> records</span>
+            <% } else { %>
+            Total Obstetric Initialize Records: <%=obstetricInitHistoryList.size()%> <br>
+            Total Pregnancy Records: <%=pregnancyHistoryList.size()%>
+            <% } %>
+        </p>
+
+        <% if (hcpIsOBGYN) { // button of obstetric initialize records will appear if the hcp is of OB/GYN speciality%>
+        <div>
+            <%--<input type='button' style='width:100px;' onclick=\"parent.location.href='obstetricHistory.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID())  + "';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />"--%>
+            <input type='button' style='width:250px;' onclick="#" value="Initialize Obstetric Record">
+        </div>
+        <% } %>
+    </div>
+</div>
+
+<div id="obstetricInitRecord" style="float:left">
+    <table style="width:50%">
         <tr>
+            <th colspan="4"  style="text-align:center;">Obstetric Init Record</th>
+        </tr>
+        <tr>
+            <th>&nbsp&nbsp</th>
             <th>LMP</th>
             <th>EDD</th>
             <th>Weeks of Pregnancy</th>
@@ -65,22 +96,51 @@
 
 
 <%
-    for (ObstetricsInitRecordBean b : historyList) {
+    for (int i = 0; i < obstetricInitHistoryList.size(); i++) {
+        ObstetricsInitRecordBean b = obstetricInitHistoryList.get(i);
 %>
         <tr>
-            <th><%= b.getLMP() %></th>
-            <th><%= b.getEDD() %></th>
-            <th><%= b.getWeeksOfPregnant() %></th>
-            <th><%= StringEscapeUtils.escapeHtml("" + b.getRecordCreatedTime()) %></th>
+            <td><%=i + 1%>.</td>
+            <td><%= b.getLMP() %></td>
+            <td><%= b.getEDD() %></td>
+            <td><%= b.getWeeksOfPregnant() %></td>
+            <td><%= StringEscapeUtils.escapeHtml("" + b.getRecordCreatedTime()) %></td>
         </tr>
 <%
     }
 %>
     </table>
+</div>
 
-<p><%=historyList%></p>
+<div id="pregnancyRecord" style="float:left">
+    <table style="width:50%">
+        <tr>
+            <th colspan="4"  style="text-align:center;">Pregnancy Record</th>
+        </tr>
+        <tr>
+            <th>&nbsp&nbsp</th>
+            <th>Conception Year</th>
+            <th>Labor Hours</th>
+            <th>Weight Gain</th>
+            <th>Delivery Type</th>
+        </tr>
+        <%
+            for (int i = 0; i < pregnancyHistoryList.size(); i++) {
+                PregnancyBean p = pregnancyHistoryList.get(i);
+        %>
+            <tr>
+                <td><%=i + 1%>.</td>
+                <td><%= p.getYearOfConception() %></td>
+                <td><%= p.getHoursInLabor() %></td>
+                <td><%= p.getWeightGain() %></td>
+                <td><%= p.getDeliveryType() %></td>
+            </tr>
+        <%
+            }
+        %>
 
 
-
+    </table>
+</div>
 
 <%@include file="/footer.jsp" %>
