@@ -9,7 +9,9 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 
@@ -19,6 +21,8 @@
     pageTitle = "iTrust - Document an Office Visit";
 
     String headerMessage = "Please fill out the form properly - all entries are required.";
+
+    String noticeMessage = "";
 %>
 
 <%@include file="/header.jsp" %>
@@ -26,7 +30,7 @@
 <form id="mainForm" method="post" action="documentOfficeVisit.jsp">
 <%
     AddOfficeVisitRecordAction action = new AddOfficeVisitRecordAction(prodDAO, loggedInMID.longValue());
-    //PatientDAO patientDAO = prodDAO.getPatientDAO();
+    PatientDAO patientDAO = prodDAO.getPatientDAO();
     long patientID = 0L;
     boolean error = false;
     boolean isObstetrics = true;
@@ -101,12 +105,14 @@
                     weightGainD = Double.parseDouble(weightGain);
                     bloodPressureD = Double.parseDouble(bloodPressure);
                     fetalHeartRateD = Double.parseDouble(fetalHeartRate);
+                    numberOfPregnancyI = Integer.parseInt(numberOfPregnancy);
                 } catch (NumberFormatException nfe){
                     error = true;
                 }
                 if (error){
                     headerMessage = "Invalid Value!";
                 }else{
+                    String bloodType = "";
                     ovrecord.setWeightGain(weightGainD);
                     ovrecord.setBloodPressure(bloodPressureD);
                     ovrecord.setFetalHeartRate(fetalHeartRateD);
@@ -114,11 +120,18 @@
                     try {
                         headerMessage = action.addOfficeVisitRecord(ovrecord, false);
                         if(headerMessage.startsWith("Success")) {
+                            bloodType = patientDAO.getPatient(patientID).getBloodType().toString();
+                            int weeks = Integer.valueOf(weeksOfPregnant.split("-")[0]);
+                            if(!bloodType.equals("N/S") && weeks > 28){
+                                String symbol = bloodType.substring(bloodType.length() - 1);
+                                if(symbol.equals("-"))
+                                    noticeMessage =  "**** Needs RH immune globulin shot if not have yet! ****";
+                            }
                             session.removeAttribute("pid");
                         }
                     } catch (FormValidationException e){
                     %>
-                    <div align=center><span class="iTrustError">test by yidan !********************************<%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
+                    <div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
                     <%
                     }
                 }
@@ -130,6 +143,7 @@
     <h2>Document an Office Visit</h2>
     <h4>with <%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp/documentOfficeVisit.jsp">someone else</a>):</h4>
     <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (headerMessage )) %></span><br /><br />
+    <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (noticeMessage )) %></span><br /><br />
     <span>Weeks Of Pregnancy: </span>
     <input style="width: 250px;" type="text" name="weeksOfPregnant" value="<%= StringEscapeUtils.escapeHtml("" + ( weeksOfPregnant)) %>" />
     <br /><br />
