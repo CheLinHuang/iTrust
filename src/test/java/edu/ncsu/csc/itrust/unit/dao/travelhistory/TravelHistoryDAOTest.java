@@ -39,7 +39,6 @@ public class TravelHistoryDAOTest extends TestCase {
             thb.setEndDate(new java.sql.Date(System.currentTimeMillis() - 1000000000L));
             thb.setTravelledCities("Paris,France");
             tdao.addTravelHistory(thb);
-            int asdf = tdao.getTravelHistoriesByMID(12L).size();
             assertEquals(1, tdao.getTravelHistoriesByMID(12L).size());
         } catch (DBException e) {
             fail();

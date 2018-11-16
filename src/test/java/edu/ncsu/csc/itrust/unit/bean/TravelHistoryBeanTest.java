@@ -5,8 +5,6 @@ import junit.framework.TestCase;
 
 public class TravelHistoryBeanTest extends TestCase {
     TravelHistoryBean testBean;
-    TravelHistoryBean testBean2;
-    TravelHistoryBean testBean3;
 
     /**
      * setUp
@@ -14,40 +12,31 @@ public class TravelHistoryBeanTest extends TestCase {
     @Override
     public void setUp() {
         testBean = new TravelHistoryBean();
-        testBean2 = new TravelHistoryBean();
-        testBean3 = new TravelHistoryBean();
     }
 
     /**
      * testPatientMID
      */
     public void testPatientMID() {
-        testBean.setPatientMID(1L);
-        assertEquals(testBean.getPatientMID(), 1L);
+        testBean.setPatientMID(10L);
+        assertEquals(testBean.getPatientMID(), 10L);
     }
 
     /**
      * testStartDate
      */
     public void testStartDate() {
-        testBean.setStartDate(null);
-
-        assertEquals(testBean.getStartDate(), null);
+        java.sql.Date date = new java.sql.Date(System.currentTimeMillis() - 10000000000L);
+        testBean.setStartDate(date);
+        assertEquals(testBean.getStartDate(), date);
     }
 
     /**
      * testEndDate
      */
     public void testEndDate() {
-        testBean.setEndDate(null);
-
-        assertEquals(testBean.getEndDate(), null);
-    }
-
-    /**
-     * testEquals
-     */
-    public void testEquals() {
-        assertTrue(testBean2.equals(testBean3));
+        java.sql.Date date = new java.sql.Date(System.currentTimeMillis() - 10000000000L);
+        testBean.setEndDate(date);
+        assertEquals(testBean.getEndDate(), date);
     }
 }
