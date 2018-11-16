@@ -9,14 +9,11 @@
 <%@page errorPage="/auth/exceptionHandler.jsp" %>
 
 <%@page import="java.util.List"%>
-<%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean"%>
-<%@page import="edu.ncsu.csc.itrust.action.EditRepresentativesAction"%>
-<%@page import="edu.ncsu.csc.itrust.exception.ITrustException" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.Role" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.TravelHistoryDAO" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean" %>
 <%@page import="edu.ncsu.csc.itrust.exception.DBException" %>
-
+<%@page import="java.util.Date" %>
 <%@include file="/global.jsp" %>
 
 <%
@@ -58,13 +55,36 @@
         <br />
 <%
     }
+    Date d = new Date();
+    String cities = "LA Chicago New York";
+%>
+<div align=center>
+    <h1>Patient Travel History</h1>
+</div>
 
+<table align=center>
+    <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Travelled Cities</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th><%=d.toString()%></th>
+        <th><%=d.toString()%></th>
+        <th><%=cities%></th>
+    </tr>
+    </tbody>
+
+
+</table>
+<%
 //    for (TravelHistoryBean travelHistory : travelHistories) {
 //        Date startDate = travelHistory.getStartDate();
 //        Date endDate = travelHistory.getEndDate();
-//        String travelledCities = travelHistory.getTravelledCities();
+//        String cities = travelHistory.getTravelledCities();
 //    }
-
-
 %>
 <%@include file="/footer.jsp" %>
