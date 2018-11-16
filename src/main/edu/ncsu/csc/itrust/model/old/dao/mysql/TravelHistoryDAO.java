@@ -66,7 +66,7 @@ public class TravelHistoryDAO {
     public boolean addTravelHistory(TravelHistoryBean travelHistory) throws DBException, ITrustException {
         try (Connection conn = factory.getConnection();
              PreparedStatement ps = travelHistoryLoader
-                     .loadParameters(conn.prepareStatement("INSERT INTO TravelHistories (mid, startDate, endDate, travelledCities) "
+                     .loadParameters(conn.prepareStatement("INSERT INTO TravelHistories (patientMID, startDate, endDate, travelledCities) "
                              + "VALUES (?,?,?,?)"), travelHistory)) {
             boolean added = ps.executeUpdate() == 1;
             return added;

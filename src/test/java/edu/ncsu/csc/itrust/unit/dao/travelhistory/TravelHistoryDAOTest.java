@@ -4,23 +4,13 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.TravelHistoryDAO;
-import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import junit.framework.TestCase;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class TravelHistoryDAOTest extends TestCase {
     /** TravelHistoryDAO instance for testing */
@@ -39,20 +29,18 @@ public class TravelHistoryDAOTest extends TestCase {
 
     /**
      * Tests adding a TravelHistory to the TravelHistoryTable.
-     * Pre-condition: assuming the TravelHistoryDAO.getAllTravelHistory() works
      */
     @Test
-    public final void testAddTravelHistoryValid() {
+    public final void testAddTravelHistoryValid() throws DBException{
         try {
             TravelHistoryBean thb = new TravelHistoryBean();
             thb.setPatientMID(12L);
-            java.sql.Date before = new java.sql.Date(System.currentTimeMillis() - 100000L);
-            java.sql.Date rightNow = new java.sql.Date(System.currentTimeMillis());
-            thb.setStartDate(before);
-            thb.setEndDate(rightNow);
+            thb.setStartDate(new java.sql.Date(System.currentTimeMillis() - 10000000000L));
+            thb.setEndDate(new java.sql.Date(System.currentTimeMillis() - 1000000000L));
             thb.setTravelledCities("Paris,France");
             tdao.addTravelHistory(thb);
-            assertEquals(1, tdao.getTravelHistoriesByMID(12).size());
+            int asdf = tdao.getTravelHistoriesByMID(12L).size();
+            assertEquals(1, tdao.getTravelHistoriesByMID(12L).size());
         } catch (DBException e) {
             fail();
         } catch (ITrustException e) {
@@ -71,6 +59,9 @@ public class TravelHistoryDAOTest extends TestCase {
             List<TravelHistoryBean> l = tdao.getTravelHistoriesByMID(16L);
             // test getting TravelHistory for p1
             assertEquals(1, l.size());
+
+            l = tdao.getTravelHistoriesByMID(1L);
+            assertEquals(4, l.size());
         } catch (DBException e) {
             fail();
         } catch (ITrustException e) {
