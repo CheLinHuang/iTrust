@@ -8,7 +8,8 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
-+<%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>   // Need to add UC93 files
+<%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>   // Need to add UC93 files
+
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
@@ -16,6 +17,7 @@
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 
 <%@include file="/global.jsp" %>
+
 
 <%
     pageTitle = "iTrust - Document an Office Visit";
@@ -30,6 +32,7 @@
 <form id="mainForm" method="post" action="documentOfficeVisit.jsp">
 <%
     AddOfficeVisitRecordAction action = new AddOfficeVisitRecordAction(prodDAO, loggedInMID.longValue());
+    //ObstetricHistoryAction oba = new ObstetricHistoryAction(DAOFactory.getProductionInstance());   Remember to modify me -- UC93
     PatientDAO patientDAO = prodDAO.getPatientDAO();
     long patientID = 0L;
     boolean error = false;
@@ -59,7 +62,6 @@
     String numberOfPregnancy="";
 
 
-
     if (patientID == 0L) {
         response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp/documentOfficeVisit.jsp");
     }else if(!isObstetrics){
@@ -73,6 +75,7 @@
         if (request.getParameter("officeVisitRecord") != null) {
 
             /** Modify me ---UC93
+
              +            // Get obstetrics patient initializations list
              +            List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(patientID);
              +            PregnancyBean mostRecentPregnancy = null;
@@ -80,6 +83,7 @@
              +                mostRecentPregnancy = pregnancyHistoryList.get(0);
              +            weeksOfPregnant = mostRecentPregnancy.getWeeksOfPregnant();
              +             **/
+
 
             if(request.getParameter("weightGain").equals(""))
                 headerMessage = "Please input weight gain.";
