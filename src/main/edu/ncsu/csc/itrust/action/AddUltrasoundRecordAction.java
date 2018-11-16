@@ -19,7 +19,7 @@ public class AddUltrasoundRecordAction extends UltrasoundRecordAction {
         this.loggedInMID = loggedInMID;
     }
 
-    public String addUltrasoundRecordAction(UltraSoundRecordBean ultrasoundRecord, boolean ignoreConflicts) throws FormValidationException, SQLException, DBException {
+    public String addUltrasoundRecord(UltraSoundRecordBean ultrasoundRecord, boolean ignoreConflicts) throws FormValidationException, SQLException, DBException {
         validator.validate(ultrasoundRecord);
 
         try {
