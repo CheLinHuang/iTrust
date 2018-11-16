@@ -90,6 +90,7 @@ CREATE TABLE patients(
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
+
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
@@ -502,4 +503,13 @@ CREATE TABLE medicalProcedure
 	PRIMARY KEY (id),
 	FOREIGN KEY (visitId) 	REFERENCES officeVisit(visitID),
 	FOREIGN KEY (cptCode) 	REFERENCES cptCode(code)
+) ENGINE=MyISAM;
+
+CREATE TABLE TravelHistories
+(
+  patientMID BIGINT unsigned NOT NULL default 0,
+  startDate DATE default NULL,
+  endDate DATE default NULL,
+  travelledCities VARCHAR(512) default '',
+  PRIMARY KEY (patientMID)
 ) ENGINE=MyISAM;

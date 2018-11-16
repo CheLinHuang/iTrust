@@ -18,7 +18,7 @@
 <Resource
 	username="root" 
 	password=""
-	url="jdbc:mysql://localhost:3306/itrust?createDatabaseIfNotExist=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
+	url="jdbc:mysql://localhost:3306/itrust?createDatabaseIfNotExist=true"
 	name="jdbc/itrust"
 	auth="Container"
 	type="javax.sql.DataSource"
