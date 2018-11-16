@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,12 @@ import java.util.GregorianCalendar;
 public class DateUtil {
 	public static final long YEAR_IN_MS = 1000L * 60L * 60L * 24L * 365L;
 
+	public static Date stringToDate(String s) throws ParseException {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		Date date = simpleDateFormat.parse(s);
+		return date;
+	}
 	/**
 	 * Returns a MM/dd/yyyy format of the date for the given years ago
 	 * 

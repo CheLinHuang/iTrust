@@ -8,14 +8,6 @@
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld" %>
 <%@page errorPage="/auth/exceptionHandler.jsp" %>
 
-<%@page import="java.util.List"%>
-<%@page import="edu.ncsu.csc.itrust.model.old.enums.Role" %>
-<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.TravelHistoryDAO" %>
-<%@page import="edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean" %>
-<%@page import="edu.ncsu.csc.itrust.exception.DBException" %>
-<%@page import="java.util.Date" %>
-<%@page import="edu.ncsu.csc.itrust.DateUtil" %>
-<%@page import="java.lang.StringBuilder"%>
 <%@include file="/global.jsp" %>
 
 <%
@@ -28,7 +20,7 @@
     String pidString = request.getParameter("patientMID");
 %>
 <form method="post" action="addTravelHistoryToDB.jsp?patientMID=<%=pidString%>">
-    Starting Date(Format: "yyyy/MM/dd"):<br>
+    Starting Date(Format: "yyyy-MM-dd"):<br>
     <input type="text" name="startDate">
     <br>
     Ending Date(Format: "yyyy/MM/dd"):<br>

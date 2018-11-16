@@ -5,13 +5,6 @@
   Time: 3:00 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%--
-  Created by IntelliJ IDEA.
-  User: jaewooklee
-  Date: 11/15/18
-  Time: 10:20 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld" %>
 <%@page errorPage="/auth/exceptionHandler.jsp" %>
 
