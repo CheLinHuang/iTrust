@@ -147,10 +147,8 @@ public class PatientSearchServlet extends HttpServlet {
 				// For obstetric care dropdown menu  --> initialization
 				if (obstetricSearch != null && obstetricSearch.equals("YES")) {
 					patientMIDButtonString = "<input type='button' style='width:100px;' onclick=\"parent.location.href='obstetricHistory.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID())  + "';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />";
-				} else if (isForPatientInfo) { // If is for 'patient information' ignore the MID buttons, they don't nee to be linked anywhere...
-					patientMIDButtonString = "<input type='button' style='width:100px;color:white;background-color:black;' onclick=\"#\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />";
 				} else { // The original one
-					patientMIDButtonString = "<input type='button' style='width:100px;' onclick=\"parent.location.href='getPatientID.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + "&forward=" + StringEscapeUtils.escapeHtml("" + forward ) +"';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />";
+					patientMIDButtonString = "<input type='button' style='width:100px;color:white;background-color:black;' onclick=\"parent.location.href='getPatientID.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + "&forward=" + StringEscapeUtils.escapeHtml("" + forward ) +"';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />";
 				}
 				result.append(patientMIDButtonString);
 
