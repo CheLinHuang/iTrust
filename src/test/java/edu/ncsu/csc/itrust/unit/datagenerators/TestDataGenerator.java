@@ -833,9 +833,10 @@ public class TestDataGenerator {
 	public void uc61reviews() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/reviews.sql");
 	}
-	
-	
 
+	public void travelHistory1() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/TravelHistory1.sql");
+	}
 	/**
 	 * generate the dependency of Baby Programmer on Andy Programmer
 	 */
@@ -979,7 +980,9 @@ public class TestDataGenerator {
 		patient28();
 		patient29();
 		patient30();
-		
+
+		travelHistory1();
+
 		setMode();
 	}
 
