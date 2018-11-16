@@ -8,7 +8,7 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
-<%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>
++<%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>   // Need to add UC93 files
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
@@ -52,7 +52,7 @@
     }
 
     String weightGain="";
-    String weeksOfPregnant="";
+    String weeksOfPregnant="20-01";  // For test. Modify me --- UC93
     String lowLyingPlacenta="";
     String bloodPressure="";
     String fetalHeartRate="";
@@ -72,6 +72,15 @@
     }else{
         if (request.getParameter("officeVisitRecord") != null) {
 
+            /** Modify me ---UC93
+             +            // Get obstetrics patient initializations list
+             +            List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(patientID);
+             +            PregnancyBean mostRecentPregnancy = null;
+             +            if (pregnancyHistoryList.size() > 0)
+             +                mostRecentPregnancy = pregnancyHistoryList.get(0);
+             +            weeksOfPregnant = mostRecentPregnancy.getWeeksOfPregnant();
+             +             **/
+
             if(request.getParameter("weightGain").equals(""))
                 headerMessage = "Please input weight gain.";
 
@@ -88,7 +97,6 @@
                 lowLyingPlacenta = request.getParameter("lowLyingPlacenta");
                 bloodPressure = request.getParameter("bloodPressure");
                 fetalHeartRate = request.getParameter("fetalHeartRate");
-                weeksOfPregnant = request.getParameter("weeksOfPregnant");
                 numberOfPregnancy = request.getParameter("numberOfPregnancy");
                 OfficeVisitRecordBean ovrecord = new OfficeVisitRecordBean();
                 ovrecord.setHcp(loggedInMID);
@@ -144,9 +152,6 @@
     <h4>with <%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp/documentOfficeVisit.jsp">someone else</a>):</h4>
     <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (headerMessage )) %></span><br /><br />
     <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (noticeMessage )) %></span><br /><br />
-    <span>Weeks Of Pregnancy: </span>
-    <input style="width: 250px;" type="text" name="weeksOfPregnant" value="<%= StringEscapeUtils.escapeHtml("" + ( weeksOfPregnant)) %>" />
-    <br /><br />
     <span>Weight Gain: </span>
     <input style="width: 250px;" type="text" name="weightGain" value="<%= StringEscapeUtils.escapeHtml("" + ( weightGain)) %>" />
     <br /><br />
