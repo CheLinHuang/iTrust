@@ -24,10 +24,11 @@ public class TravelHistoryBeanLoader implements BeanLoader<TravelHistoryBean> {
 
     @Override
     public TravelHistoryBean loadSingle(ResultSet rs) throws SQLException {
-        TravelHistoryBean travelHistory = new TravelHistoryBean(rs.getLong("patientMID"),
-                rs.getDate("startDate"),
-                rs.getDate("endDate"),
-                rs.getString("travelledCities"));
+        TravelHistoryBean travelHistory = new TravelHistoryBean();
+        travelHistory.setPatientMID(rs.getLong("patientMID"));
+        travelHistory.setStartDate(rs.getDate("startDate"));
+        travelHistory.setEndDate(rs.getDate("endDate"));
+        travelHistory.setTravelledCities(rs.getString("travelledCities"));
         return travelHistory;
     }
 
