@@ -9,7 +9,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean"%>
-+<%@page import="edu.ncsu.csc.itrust.action.AddUltrasoundRecordAction"%>   // Need to add UC93 files
++<%@page import="edu.ncsu.csc.itrust.action.AddUltrasoundRecordAction"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.UltraSoundRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
@@ -35,18 +35,11 @@
         boolean error = false;
         String hidden = "";
 
-//        if (session.getAttribute("pid") != null) {
-//            String pidString = (String) session.getAttribute("pid");
-//            patientID = Long.parseLong(pidString);
-//            try {
-//                action.getName(patientID);
-//            } catch (ITrustException ite) {
-//                patientID = 0L;
-//            }
-//        }
-//        else {
-//            session.removeAttribute("pid");
-//        }
+        if (request.getParameter("apt") != null) {
+            String officevisitString = (String) request.getParameter("apt");
+            officeVisitRecordID = Long.parseLong(officevisitString);
+        }
+
         String crownRumpLength="";
         String biparietalDiameter="";
         String headCircumference="";
@@ -55,12 +48,13 @@
         String occipitofromtalDiameter="";
         String humerusLength="";
         String estimatedFetalWeight="";
+        String image="";
 
-        patientID = 1L;  // For test. Needs to delete
         if (request.getParameter("ultraSoundRecord") != null) {
 
             UltraSoundRecordBean ulrecord = new UltraSoundRecordBean();
             ulrecord.setOfficeVisitID(officeVisitRecordID);
+            ulrecord.setUltraSoundImage(image);
 
             double crownRumpLengthD = 0;
             double biparietalDiameterD = 0;
@@ -100,7 +94,7 @@
                 try {
                     headerMessage = action.addUltrasoundRecord(ulrecord, false);
                     if(headerMessage.startsWith("Success")) {
-                        session.removeAttribute("pid");
+                        //session.removeAttribute("pid");
                     }
                 } catch (FormValidationException e){
                     %>
@@ -114,7 +108,6 @@
     %>
     <div align="left" <%=hidden %> id="ultraSoundDiv">
         <h2>Document an Ultra Sound</h2>
-        <h4>with <%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp/documentUltraSound.jsp">someone else</a>):</h4>
         <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (headerMessage )) %></span><br /><br />
         <span>Crown rump length: </span>
         <input style="width: 250px;" type="text" name="crownRumpLength" value="<%= StringEscapeUtils.escapeHtml("" + ( crownRumpLength)) %>" />

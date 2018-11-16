@@ -8,7 +8,7 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
-<%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>   // Need to add UC93 files
+<%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>
 
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
