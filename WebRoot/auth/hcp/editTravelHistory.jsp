@@ -15,6 +15,7 @@
 <%@page import="edu.ncsu.csc.itrust.exception.DBException" %>
 <%@page import="java.util.Date" %>
 <%@page import="edu.ncsu.csc.itrust.DateUtil" %>
+<%@page import="java.lang.StringBuilder"%>
 <%@include file="/global.jsp" %>
 
 <%
@@ -87,11 +88,21 @@
                     startDate = travelHistory.getStartDate();
                     endDate = travelHistory.getEndDate();
                     cities = travelHistory.getTravelledCities();
+                    String[] splited = cities.split("&");
                     %>
                     <tr>
                         <th><%=DateUtil.dateToSimpleDate(startDate)%></th>
                         <th><%=DateUtil.dateToSimpleDate(endDate)%></th>
-                        <th><%=cities%></th>
+                        <th>
+                        <%
+                            for (String city : splited) {
+                                %>
+                                <%=city%>
+                                <br />
+                                <%
+                            }
+                        %>
+                        </th>
                     </tr>
                     <%
                 }
