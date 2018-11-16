@@ -9,23 +9,23 @@ import java.util.Objects;
  */
 
 public class TravelHistoryBean {
+    long patientMID;
     Date startDate;
     Date endDate;
     String travelledCities;
-    long patientMID;
 
     public TravelHistoryBean() {
+        patientMID = 1L;
         startDate = null;
         endDate = null;
         travelledCities = "";
-        patientMID = 1L;
     }
 
-    public TravelHistoryBean(Date sd, Date ed, String tc, long pmid) {
+    public TravelHistoryBean(long pmid, Date sd, Date ed, String tc) {
+        patientMID = pmid;
         startDate = sd;
         endDate = ed;
         travelledCities = tc;
-        patientMID = pmid;
     }
 
     public Date getStartDate() {

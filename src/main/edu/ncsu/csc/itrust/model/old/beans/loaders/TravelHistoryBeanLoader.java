@@ -24,12 +24,20 @@ public class TravelHistoryBeanLoader implements BeanLoader<TravelHistoryBean> {
 
     @Override
     public TravelHistoryBean loadSingle(ResultSet rs) throws SQLException {
-        TravelHistoryBean travelHistory = new TravelHistoryBean(rs.getDate("startDate"), rs.getDate("endDate"), rs.getString("travelledCities"), rs.getLong("patientMID"));
+        TravelHistoryBean travelHistory = new TravelHistoryBean(rs.getLong("patientMID"),
+                rs.getDate("startDate"),
+                rs.getDate("endDate"),
+                rs.getString("travelledCities"));
         return travelHistory;
     }
 
     @Override
     public PreparedStatement loadParameters(PreparedStatement ps, TravelHistoryBean bean) throws SQLException {
-        throw new IllegalStateException("unimplemented!");
+        int i = 1;
+        ps.setLong(i++, bean.getPatientMID());
+        ps.setDate(i++, bean.getStartDate());
+        ps.setDate(i++, bean.getEndDate());
+        ps.setString(i++, bean.getTravelledCities());
+        return ps;
     }
 }

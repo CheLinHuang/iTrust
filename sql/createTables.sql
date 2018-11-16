@@ -507,7 +507,7 @@ CREATE TABLE medicalProcedure
 
 CREATE TABLE TravelHistories
 (
-  patientMID BIGINT unsigned NOT NULL default 0,
+  patientMID BIGINT unsigned default 0 auto_increment,
   startDate DATE default NULL,
   endDate DATE default NULL,
   travelledCities VARCHAR(512) default '',

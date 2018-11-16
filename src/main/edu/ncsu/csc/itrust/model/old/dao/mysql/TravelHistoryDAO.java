@@ -21,7 +21,7 @@ import java.util.List;
 
 public class TravelHistoryDAO {
     private DAOFactory factory;
-    private TravelHistoryBeanLoader TravelHistoryLoader = new TravelHistoryBeanLoader();
+    private TravelHistoryBeanLoader travelHistoryLoader;
 
     /**
      * The typical constructor.
@@ -30,6 +30,7 @@ public class TravelHistoryDAO {
      */
     public TravelHistoryDAO(DAOFactory factory) {
         this.factory = factory;
+        this.travelHistoryLoader = new TravelHistoryBeanLoader();
     }
 
     /**
@@ -43,10 +44,10 @@ public class TravelHistoryDAO {
     public List<TravelHistoryBean> getTravelHistoriesByMID(long patientMID) throws DBException {
         try (Connection conn = factory.getConnection();
              PreparedStatement ps = conn
-                     .prepareStatement("SELECT * FROM TravelHistories WHERE PatientMID = ? ORDER BY StartDate")) {
+                     .prepareStatement("SELECT * FROM TravelHistories WHERE patientMID = ? ORDER BY startDate")) {
             ps.setLong(1, patientMID);
             ResultSet rs = ps.executeQuery();
-            List<TravelHistoryBean> TravelHistories = TravelHistoryLoader.loadList(rs);
+            List<TravelHistoryBean> TravelHistories = travelHistoryLoader.loadList(rs);
             rs.close();
             return TravelHistories;
         } catch (SQLException e) {
@@ -57,20 +58,16 @@ public class TravelHistoryDAO {
     /**
      * Adds a TravelHistory
      *
-     * @param TravelHistory The TravelHistoryBean object to insert.
+     * @param travelHistory The TravelHistoryBean object to insert.
      * @return A boolean indicating whether the insertion was successful.
      * @throws DBException
      * @throws ITrustException
      */
-    public boolean addTravelHistory(TravelHistoryBean TravelHistory) throws DBException, ITrustException {
+    public boolean addTravelHistory(TravelHistoryBean travelHistory) throws DBException, ITrustException {
         try (Connection conn = factory.getConnection();
-             PreparedStatement ps = conn
-                     .prepareStatement("INSERT INTO TravelHistories (mid, startDate, endDate, travelledCities) "
-                             + "VALUES (?,?,?,?)")) {
-            ps.setLong(1, TravelHistory.getPatientMID());
-            ps.setDate(2, TravelHistory.getStartDate());
-            ps.setDate(3, TravelHistory.getEndDate());
-            ps.setString(4, TravelHistory.getTravelledCities());
+             PreparedStatement ps = travelHistoryLoader
+                     .loadParameters(conn.prepareStatement("INSERT INTO TravelHistories (mid, startDate, endDate, travelledCities) "
+                             + "VALUES (?,?,?,?)"), travelHistory)) {
             boolean added = ps.executeUpdate() == 1;
             return added;
         } catch (SQLException e) {
@@ -93,8 +90,8 @@ public class TravelHistoryDAO {
     public int updateTravelHistory(TravelHistoryBean TravelHistory, Date newStartDate) throws DBException {
         try (Connection conn = factory.getConnection();
              PreparedStatement ps = conn
-                     .prepareStatement("UPDATE TravelHistories SET StartDate=?, EndDate=?, TravelledCities=?"
-                             + "WHERE PatientMID = ?, StartDate = ?")) {
+                     .prepareStatement("UPDATE TravelHistories SET startDate=?, endDate=?, travelledCities=?"
+                             + "WHERE patientMID = ?, startDate = ?")) {
             ps.setDate(1, newStartDate);
             ps.setDate(2, TravelHistory.getEndDate());
             ps.setString(3, TravelHistory.getTravelledCities());
@@ -119,7 +116,7 @@ public class TravelHistoryDAO {
     public boolean removeTravelHistory(long patientMID, Date startDate) throws DBException {
         try (Connection conn = factory.getConnection();
              PreparedStatement ps = conn.prepareStatement("DELETE FROM TravelHistories"
-                     + "WHERE PatientMID = ?, StartDate = ?")) {
+                     + "WHERE patientMID = ?, startDate = ?")) {
             ps.setLong(1, patientMID);
             ps.setDate(2, startDate);
             boolean deleted = ps.executeUpdate() == 1;
