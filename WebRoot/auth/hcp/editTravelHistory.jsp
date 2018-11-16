@@ -14,6 +14,7 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean" %>
 <%@page import="edu.ncsu.csc.itrust.exception.DBException" %>
 <%@page import="java.util.Date" %>
+<%@page import="edu.ncsu.csc.itrust.DateUtil" %>
 <%@include file="/global.jsp" %>
 
 <%
@@ -54,37 +55,43 @@
         </div>
         <br />
 <%
+        return;
     }
-    Date d = new Date();
-    String cities = "LA Chicago New York";
-%>
-<div align=center>
-    <h1>Patient Travel History</h1>
-</div>
 
-<table align=center>
-    <thead>
-        <tr>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Travelled Cities</th>
-        </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th><%=d.toString()%></th>
-        <th><%=d.toString()%></th>
-        <th><%=cities%></th>
-    </tr>
-    </tbody>
+    if (travelHistories.size() == 0) {
+        %>
+        <div align=center>
+            <h1>No Travel History for <%=authDAO.getUserName(MID)%></h1>
+        </div>
+        <%
+    } else {
+        Date startDate = new Date();
+        Date endDate = new Date();
+        String cities = "LA New York";
+        %>
+        <div align=center>
+            <h1>Travel History for <%=authDAO.getUserName(MID)%></h1>
+        </div>
 
-
-</table>
+        <table width="59%" border="1" align=center>
+            <thead>
+            <tr>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Travelled Cities</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th><%=DateUtil.dateToSimpleDate(startDate)%></th>
+                <th><%=DateUtil.dateToSimpleDate(endDate)%></th>
+                <th><%=cities%></th>
+            </tr>
+            </tbody>
+        </table>
 <%
-//    for (TravelHistoryBean travelHistory : travelHistories) {
-//        Date startDate = travelHistory.getStartDate();
-//        Date endDate = travelHistory.getEndDate();
-//        String cities = travelHistory.getTravelledCities();
-//    }
+    }
+
 %>
+
 <%@include file="/footer.jsp" %>
