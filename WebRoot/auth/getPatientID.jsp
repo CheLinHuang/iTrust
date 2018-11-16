@@ -3,6 +3,10 @@
 <%@page import="edu.ncsu.csc.itrust.action.SearchUsersAction" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean" %>
 
+<%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelAction"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.beans.PersonnelBean"%>
+
+
 <%
 pageTitle = "iTrust - Please Select a Patient";
 %>
@@ -109,29 +113,57 @@ pageTitle = "iTrust - Please Select a Patient";
 	%>
 	</table>
 	</div>
-</div>			
-	
-	
-	
+</div>
+
+<%--<script type = 'text/javascript'>--%>
+<%--var searchBarValue = document.getElementById(\"searchBox\");--%>
+	<%--$(document).ready(function() {--%>
+	<%--$(".setObstetric").click(function(){--%>
+	<%--var id = $(this).attr("id");--%>
+
+	<%--alert("Making Patient - MID:'" + id + "' Eligible for Obstetric Care");--%>
+
+	<%--$.ajax({--%>
+
+	<%--url : "PatientSearchServlet",--%>
+
+	<%--data : {--%>
+
+	<%--q : searchBarValue.value,--%>
+	<%--id : id,--%>
+	<%--patientObstetricInfo : "True",--%>
+	<%--setPatientToObstetric : "SET",--%>
+
+				<%--},--%>
+				<%--success : function(e){--%>
+					<%--$(\"#searchTarget\").html(e);--%>
+				<%--}--%>
+
+			 <%--});--%>
+			<%--});--%>
+		<%--});--%>
+<%--</script>--%>
+
+
 <script type="text/javascript">
  $(function(){
-	
 	$("#searchBox").keyup(function(){
-		$this = $(this);
-		var q = $this.val();
-		$.ajax({
-			url : "PatientSearchServlet",
-			data : {
-				q : q,
-				forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
-				isAudit : <%= isAudit %>,
-				allowDeactivated : $("#allowDeactivated").attr("checked")
-			},
-			success : function(e){
-				$("#searchTarget").html(e);
-			}
-		});
-	});
+         $this = $(this);
+         var q = $this.val();
+         $.ajax({
+             url : "PatientSearchServlet",
+             data : {
+                 q : q,
+                 forward : "<%= StringEscapeUtils.escapeHtml(request.getParameter("forward")) %>",
+                 isAudit : <%= isAudit %>,
+                 allowDeactivated : $("#allowDeactivated").attr("checked"),
+
+             },
+             success : function(e){
+                 $("#searchTarget").html(e);
+             }
+         });
+     });
 	$("#allowDeactivated").click(function(){
 		var q = $("#searchBox").val();
 		$.ajax({
@@ -174,5 +206,9 @@ else
 <!-- <iframe id="userSearch" style="width:100%;min-height:600px;border:none;"></iframe> -->
 
 <div id="searchTarget"></div>
+
+
+
+
 
 <%@include file="/footer.jsp" %>
