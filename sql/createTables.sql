@@ -533,5 +533,5 @@ CREATE TABLE ultraSoundRecord(
   estimatedFetalWeight float,
   ultraSoundImage varchar(100),
   PRIMARY KEY(id),
-  FOREIGN KEY(officeVisitID) REFERENCES officeVisitRecord(id)
+  FOREIGN KEY(officeVisitRecordID) REFERENCES officeVisitRecord(id)
 ) ENGINE=MYISAM;
