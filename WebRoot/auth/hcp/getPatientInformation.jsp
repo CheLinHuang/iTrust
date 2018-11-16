@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: roger
-  Date: 11/8/18
-  Time: 9:39 PM
+  Date: 11/15/18
+  Time: 9:46 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld"%>
@@ -20,7 +20,7 @@
 <%@include file="/global.jsp"%>
 
 <%
-    pageTitle = "iTrust - Obstetric Patient List";
+    pageTitle = "iTrust - All patient info";
 %>
 
 <%@include file="/header.jsp"%>
@@ -30,13 +30,14 @@
     String pidString = (String) session.getAttribute("pid");
 
 
-    if (pidString == null || pidString.equals("") || 1 > pidString.length() || pidString != null ) {
+    if (pidString == null || pidString.equals("") || 1 > pidString.length() || pidString != null) {
         out.println("pidstring is null");
-        response.sendRedirect("/iTrust/auth/getObstetricPatientID.jsp?forward=hcp/obstetricPatient.jsp");
+        response.sendRedirect("/iTrust/auth/getPatientInfo.jsp?forward=hcp/getPatientInfo.jsp"); //
         return;
     }
 %>
 <itrust:patientNav thisTitle="Demographics" />
 
 <%@include file="/footer.jsp"%>
+
 

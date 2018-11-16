@@ -106,6 +106,7 @@ public class ObstetricHistoryAction {
             validator.validate(pregnancyBean);
         } catch (FormValidationException e) {
             System.out.println("Invalid input for pregnancy data!");
+            System.out.println(e);
             return -1;
         }
 

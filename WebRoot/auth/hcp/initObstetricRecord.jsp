@@ -165,146 +165,6 @@
                                                                   name="formIsFilled" value="true"> <br />
     <table cellspacing=0 align=center cellpadding=0>
         <tr>
-            <%--<td valign=top>--%>
-                <%--<table class="fTable" align=center style="width: 350px;">--%>
-                    <%--<tr>--%>
-                        <%--<th colspan=2>Patient Information</th>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-
-                        <%--<td class="subHeaderVertical">First Name:</td>--%>
-                        <%--<td><input name="firstName" value="<%= StringEscapeUtils.escapeHtml("" + (p.getFirstName())) %>" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Last Name:</td>--%>
-                        <%--<td><input name="lastName" value="<%= StringEscapeUtils.escapeHtml("" + (p.getLastName())) %>" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Email:</td>--%>
-                        <%--<td><input name="email" value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmail())) %>" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Address:</td>--%>
-                        <%--<td><input name="streetAddress1"--%>
-                                   <%--value="<%= StringEscapeUtils.escapeHtml("" + (p.getStreetAddress1())) %>" type="text"><br />--%>
-                            <%--<input name="streetAddress2" value="<%= StringEscapeUtils.escapeHtml("" + (p.getStreetAddress2())) %>" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">City:</td>--%>
-                        <%--<td><input name="city" value="<%= StringEscapeUtils.escapeHtml("" + (p.getCity())) %>" type="text">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">State:</td>--%>
-                        <%--<td><itrust:state name="state" value="<%= StringEscapeUtils.escapeHtml(p.getState()) %>" /></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Zip:</td>--%>
-                        <%--<td>--%>
-                            <%--<input name="zip" value="<%= StringEscapeUtils.escapeHtml("" + (p.getZip())) %>" maxlength="10" type="text" size="10">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Phone:</td>--%>
-                        <%--<td>--%>
-                            <%--<input name="phone" value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone())) %>" type="text" size="12" maxlength="12">--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Mother MID:</td>--%>
-                        <%--<td><input name="motherMID" value="<%= StringEscapeUtils.escapeHtml("" + (p.getMotherMID())) %>"--%>
-                                   <%--maxlength="10" type="text"></td>--%>
-                    <%--</tr>--%>
-
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Father MID:</td>--%>
-                        <%--<td><input name="fatherMID" value="<%= StringEscapeUtils.escapeHtml("" + (p.getFatherMID())) %>"--%>
-                                   <%--maxlength="10" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Credit Card Type:</td>--%>
-                        <%--<td><select name="creditCardType">--%>
-                            <%--<option value="">Select:</option>--%>
-                            <%--<option value="MASTERCARD" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("MASTERCARD") ? "selected" : "" )) %>>Mastercard</option>--%>
-                            <%--<option value="VISA" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("VISA") ? "selected" : "" )) %>>Visa</option>--%>
-                            <%--<option value="DISCOVER" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("DISCOVER") ? "selected" : "" )) %>>Discover</option>--%>
-                            <%--<option value="AMEX" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("AMEX") ? "selected" : "" )) %>>American Express</option>--%>
-                        <%--</select>--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Credit Card Number:</td>--%>
-                        <%--<td><input name="creditCardNumber" value="<%= StringEscapeUtils.escapeHtml("" + (p.getCreditCardNumber())) %>"--%>
-                                   <%--maxlength="19" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Directions to Home:</td>--%>
-                        <%--<td ><textarea name="directionsToHome"><%= StringEscapeUtils.escapeHtml("" + (p.getDirectionsToHome())) %></textarea></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Religion:</td>--%>
-                        <%--<td ><input name="religion" value="<%= StringEscapeUtils.escapeHtml("" + (p.getReligion())) %>" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Language:</td>--%>
-                        <%--<td ><input name="language" value="<%= StringEscapeUtils.escapeHtml("" + (p.getLanguage())) %>" type="text"></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Spiritual Practices:</td>--%>
-                        <%--<td ><textarea name="spiritualPractices"><%= StringEscapeUtils.escapeHtml("" + (p.getSpiritualPractices())) %></textarea></td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Alternate Name:</td>--%>
-                        <%--<td ><input name="alternateName" value="<%= StringEscapeUtils.escapeHtml("" + (p.getAlternateName())) %>" type="text"></td>--%>
-                    <%--</tr>--%>
-                <%--</table>--%>
-                <%--<br />--%>
-                <%--<table class="fTable" align=center style="width: 350px;">--%>
-                    <%--<tr>--%>
-                        <%--<th colspan=2>Insurance Information</th>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Name:</td>--%>
-                        <%--<td><input name="icName" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcName())) %>" type="text">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Address:</td>--%>
-                        <%--<td><input name="icAddress1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcAddress1())) %>"--%>
-                                   <%--type="text"><br />--%>
-                            <%--<input name="icAddress2" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcAddress2())) %>" type="text">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">City:</td>--%>
-                        <%--<td><input name="icCity" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcCity())) %>" type="text">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">State:</td>--%>
-                        <%--<td><itrust:state name="icState" value="<%= StringEscapeUtils.escapeHtml(p.getIcState()) %>" />--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Zip:</td>--%>
-                        <%--<td>--%>
-                            <%--<input name="icZip" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcZip())) %>" maxlength="10" type="text" size="10">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Phone:</td>--%>
-                        <%--<td>--%>
-                            <%--<input name="icPhone" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone())) %>" type="text" size="12" maxlength="12">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<tr>--%>
-                        <%--<td class="subHeaderVertical">Insurance ID:</td>--%>
-                        <%--<td><input name="icID" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcID())) %>" type="text">--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                <%--</table>--%>
-            <%--</td>--%>
-
             <td width="15px">&nbsp;</td>
             <td valign=top>
 
@@ -415,10 +275,43 @@
                     <tr>
                         <td class="subHeaderVertical">Weeks of Pregnancy:</td>
                         <td>
-                            <input name="weekOfPregnancy"
-                                    <%String weekOfPregnancy = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getWeeksOfPregnant(); %>
-                                   value="<%= weekOfPregnancy %>" type="text" size="12" maxlength="12">
+                        <%String weekOfPregnancy = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getWeeksOfPregnant(); %>
+                        <%
+                            String week = "";
+                            String day = "";
+                            if (!weekOfPregnancy.equals("")) {
+                                String[] weekDayStringArray = weekOfPregnancy.split("-");
+                                week = weekDayStringArray[0];
+                                day = weekDayStringArray[1];
+                            }
+                        %>
+                            <select name="weeksOfPregnancy">
+                                <% if (!weekOfPregnancy.equals("")) { %>
+                                    <option value="<%=week%>"><%=week%></option>
+                                <%} else {%>
+                                    <option value="">Select:</option>
+                                    <% for (int i = 0; i <= 42; i++) { %>
+                                        <option value="<%=i%>"><%=i%></option>
+                                    <%}%>
+                                <%}%>
+                            </select>
+                            -
+                            <select name="daysOfPregnancy">
+                                <% if (!day.equals("")) { %>
+                                    <option value="<%=day%>"><%=day%></option>
+                                <%} else {%>
+                                    <option value="">Select:</option>
+                                    <% for (int i = 0; i <= 6; i++) { %>
+                                        <option value="<%=i%>"><%=i%></option>
+                                    <%}%>
+                                <%}%>
+                            </select>
                         </td>
+                        <%--<td>--%>
+                            <%--<input name="weekOfPregnancy"--%>
+                                    <%--<%String weekOfPregnancy = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getWeeksOfPregnant(); %>--%>
+                                   <%--value="<%= weekOfPregnancy %>" type="text" size="12" maxlength="12">--%>
+                        <%--</td>--%>
                     </tr>
                     <tr>
                         <td class="subHeaderVertical">Hours In Labor:</td>
@@ -438,10 +331,28 @@
                     </tr>
                     <tr>
                         <td class="subHeaderVertical">Delivery Type:</td>
+                        <%String deliveryType = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getDeliveryType(); %>
                         <td>
-                            <input name="deliveryType"
-                                    <%String deliveryType = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getDeliveryType(); %>
-                                   value="<%= deliveryType %>" type="text" size="20" maxlength="20">
+                            <select name="deliveryType">
+                                <% if (!deliveryType.equals("")) { %>
+                                    <option value="<%=deliveryType%>"><%=deliveryType%></option>
+                                    <option value="vaginal delivery">Vaginal Delivery</option>
+                                    <option value="vaginal delivery vacuum assist">Vaginal Delivery Vacuum Assist</option>
+                                    <option value="vaginal delivery forceps assist">Vaginal Delivery Forceps Assist</option>
+                                    <option value="caesarean section">Caesarean Section</option>
+                                    <option value="miscarriage">Miscarriage</option>
+                                <%} else {%>
+                                <option value="">Select:</option>
+                                <option value="vaginal delivery">Vaginal Delivery</option>
+                                <option value="vaginal delivery vacuum assist">Vaginal Delivery Vacuum Assist</option>
+                                <option value="vaginal delivery forceps assist">Vaginal Delivery Forceps Assist</option>
+                                <option value="caesarean section">Caesarean Section</option>
+                                <option value="miscarriage">Miscarriage</option>
+                                <%}%>
+                            </select>
+                            <%--<input name="deliveryType"--%>
+                                    <%--<%String deliveryType = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getDeliveryType(); %>--%>
+                                   <%--value="<%= deliveryType %>" type="text" size="20" maxlength="20">--%>
                         </td>
                     </tr>
                 </table>
@@ -470,7 +381,13 @@
 //                int addPregnanacyInfo = 0;
 
                 yearOfConception = request.getParameter("yearOfConception");
-                weekOfPregnancy = request.getParameter("weekOfPregnancy");
+                // weekOfPregnancy = request.getParameter("weekOfPregnancy");
+                String weekString = request.getParameter("weeksOfPregnancy");
+                String dayString = request.getParameter("daysOfPregnancy");
+                weekOfPregnancy = weekString + "-" + dayString;
+
+
+
                 hoursInLabor = request.getParameter("hoursInLabor");
                 weightGain = request.getParameter("weightGain");
                 deliveryType = request.getParameter("deliveryType");
