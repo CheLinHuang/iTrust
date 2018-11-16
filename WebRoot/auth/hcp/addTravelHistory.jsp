@@ -23,7 +23,7 @@
     Starting Date(Format: "yyyy-MM-dd"):<br>
     <input type="text" name="startDate">
     <br>
-    Ending Date(Format: "yyyy/MM/dd"):<br>
+    Ending Date(Format: "yyyy-MM-dd"):<br>
     <input type="text" name="endDate">
     <br>
     Travelled Cities(Format: "city,country & city,country & ..."):<br>
