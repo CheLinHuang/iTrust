@@ -82,11 +82,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th><%=DateUtil.dateToSimpleDate(startDate)%></th>
-                <th><%=DateUtil.dateToSimpleDate(endDate)%></th>
-                <th><%=cities%></th>
-            </tr>
+            <%
+                for (TravelHistoryBean travelHistory : travelHistories) {
+                    startDate = travelHistory.getStartDate();
+                    endDate = travelHistory.getEndDate();
+                    cities = travelHistory.getTravelledCities();
+                    %>
+                    <tr>
+                        <th><%=DateUtil.dateToSimpleDate(startDate)%></th>
+                        <th><%=DateUtil.dateToSimpleDate(endDate)%></th>
+                        <th><%=cities%></th>
+                    </tr>
+                    <%
+                }
+            %>
             </tbody>
         </table>
 <%
