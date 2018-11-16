@@ -27,6 +27,19 @@ public class DateUtil {
 	}
 
 	/**
+	 * Returns a MM/dd/yyyy format of the date for the given date
+	 * @param d Date
+	 * @return
+	 */
+	public static String dateToSimpleDate(Date d) {
+		String pattern = "MM/dd/yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		String date = simpleDateFormat.format(d);
+		return date;
+	}
+
+	/**
 	 * Checks to see if a given date is within a range of months <strong>INCLUSIVELY</strong>, agnostic of
 	 * the year. <br />
 	 * <br />
