@@ -21,10 +21,10 @@ public class UltraSoundRecordDAO {
 
     public void addUltraSoundRecord(final UltraSoundRecordBean ultraSoundRecordBean) throws SQLException, DBException{
         try(Connection conn = factory.getConnection(); PreparedStatement stmt =
-                ultraSoundRecordBeanLoader.loadParameters(conn.prepareStatement("INSERT INTO ultraSoundRecord(officeVisitID, " +
+                ultraSoundRecordBeanLoader.loadParameters(conn.prepareStatement("INSERT INTO ultraSoundRecord(id, officeVisitRecordID, " +
                         "crownRumpLength, biparietalDiameter, headCircumference, " +
                         "femurLength, occiFrontalDiameter, abdoCircumference, humerusLength, " +
-                        "estimatedFetalWeight, ultraSoundImage) VALUES (?,?,?,?,?,?,?,?,?,?)"), ultraSoundRecordBean)){
+                        "estimatedFetalWeight, ultraSoundImage) VALUES (?,?,?,?,?,?,?,?,?,?,?)"), ultraSoundRecordBean)){
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e);

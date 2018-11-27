@@ -51,7 +51,7 @@
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getNumberOfPregnancy() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getLowLyingPlacenta() )) %></td>
         <td>Edit</td>
-        <%--<td><a href="editOfficeVisitRecord.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Edit</a></td>--%>
+        <td><a href="editOfficeVisitRecord.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Edit</a></td>
         <%--<td>Add</td>--%>
         <td><a href="documentUltraSound.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Add</a></td>
         </tr>
