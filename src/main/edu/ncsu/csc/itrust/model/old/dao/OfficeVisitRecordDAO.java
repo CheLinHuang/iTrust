@@ -66,13 +66,46 @@ public class OfficeVisitRecordDAO {
     public List<OfficeVisitRecordBean> getOfficeVisitRecord(final long id) throws SQLException, DBException {
         ResultSet results = null;
         try(Connection conn = factory.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM officeVisitRecord WHERE HCPID=?")){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM officeVisitRecord WHERE id=?")){
             stmt.setLong(1, id);
             results = stmt.executeQuery();
             List<OfficeVisitRecordBean> abList = officeVisitRecordBeanLoader.loadList(results);
+            results.close();
             return abList;
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
+
+    public List<OfficeVisitRecordBean> getOfficeVisitRecordsFor(final long mid) throws SQLException, DBException {
+        try (Connection conn = factory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT * FROM officeVisitRecord WHERE HCPID=? ORDER BY currentDate DESC;")){
+            stmt.setLong(1, mid);
+
+            ResultSet results = stmt.executeQuery();
+            List<OfficeVisitRecordBean> abList = officeVisitRecordBeanLoader.loadList(results);
+            results.close();
+            return abList;
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+//    public List<ApptBean> getAllApptsFor(long mid) throws SQLException, DBException {
+//        try (Connection conn = factory.getConnection();
+//             PreparedStatement stmt = (mid >= MIN_MID)
+//                     ? conn.prepareStatement("SELECT * FROM appointment WHERE doctor_id=? ORDER BY sched_date;")
+//                     : conn.prepareStatement("SELECT * FROM appointment WHERE patient_id=? ORDER BY sched_date;")) {
+//            stmt.setLong(1, mid);
+//
+//            final ResultSet results = stmt.executeQuery();
+//            final List<ApptBean> abList = this.abloader.loadList(results);
+//            results.close();
+//            return abList;
+//        } catch (SQLException e) {
+//            throw new DBException(e);
+//        }
+//
+//    }
 }
