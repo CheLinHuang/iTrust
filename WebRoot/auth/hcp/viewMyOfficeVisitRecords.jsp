@@ -21,6 +21,7 @@
     <h2>My Office Visit</h2>
     <%
         ViewMyOfficeVisitRecordsAction action = new ViewMyOfficeVisitRecordsAction(prodDAO, loggedInMID.longValue());
+        System.out.println(loggedInMID);
         List<OfficeVisitRecordBean> officeVisitRecords = action.getMyOfficeVisitRecords();
         session.setAttribute("officeVisitRecords", officeVisitRecords);
         if (officeVisitRecords.size() > 0) { %>
@@ -50,7 +51,7 @@
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getFetalHeartRate() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getNumberOfPregnancy() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getLowLyingPlacenta() )) %></td>
-        <td>Edit</td>
+        <%--<td>Edit</td>--%>
         <td><a href="editOfficeVisitRecord.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Edit</a></td>
         <%--<td>Add</td>--%>
         <td><a href="documentUltraSound.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Add</a></td>

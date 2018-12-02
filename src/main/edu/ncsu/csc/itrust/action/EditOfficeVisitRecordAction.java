@@ -19,6 +19,7 @@ public class EditOfficeVisitRecordAction extends OfficeVisitRecordAction {
     private OfficeVisitRecordBeanValidator validator = new OfficeVisitRecordBeanValidator();
     private long loggedInMID;
     private long originalPatient;
+    private long originalOfficeVisitRecordID;
 
     /**
      * EditApptAction
@@ -27,6 +28,10 @@ public class EditOfficeVisitRecordAction extends OfficeVisitRecordAction {
      */
     public EditOfficeVisitRecordAction(DAOFactory factory, long loggedInMID) {
         this(factory, loggedInMID, 0L, 0L);
+    }
+
+    public void setOriginalOfficeVisitRecordID(long id) {
+        this.originalOfficeVisitRecordID = id;
     }
 
     public void setOriginalPatient(long patient) {
@@ -46,6 +51,7 @@ public class EditOfficeVisitRecordAction extends OfficeVisitRecordAction {
         super(factory, loggedInMID);
         this.loggedInMID = loggedInMID;
         this.originalPatient = originalPatient;
+        this.originalOfficeVisitRecordID = originalOfficeVisitRecordID;
     }
 
     /**

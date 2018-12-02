@@ -23,10 +23,11 @@ public class ViewMyOfficeVisitRecordsAction extends OfficeVisitRecordAction {
     }
 
     public List<OfficeVisitRecordBean> getMyOfficeVisitRecords() throws SQLException, DBException {
-        return officeVisitRecordDAO.getOfficeVisitRecord(loggedInMID);
+        return officeVisitRecordDAO.getOfficeVisitRecordsFor(loggedInMID);
     }
 
     public List<OfficeVisitRecordBean> getAllMyOfficeVisitRecords() throws SQLException, DBException {
+        //
         return officeVisitRecordDAO.getOfficeVisitRecord(loggedInMID);
     }
 
