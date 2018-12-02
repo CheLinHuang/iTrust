@@ -62,6 +62,7 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String spiritualPractices = "";
 	private String alternateName = "";
 	private String dateOfDeactivationStr = "";
+	private String perferMethod = "";
 
 
 	public BloodType getBloodType() {
@@ -484,6 +485,14 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 
 	public void setDateOfDeactivationStr(String dateOfDeactivationStr) {
 		this.dateOfDeactivationStr = dateOfDeactivationStr;
+	}
+
+	public String getperferMethod() {
+		return perferMethod;
+	}
+
+	public void setperferMethod(String perferMethod) {
+		this.perferMethod = perferMethod;
 	}
 
 	@Override

@@ -62,8 +62,28 @@
 %>
 
 <div align="left" <%=hidden %> id="apptDiv">
-	<h2>Drug Used Record UI to be implemented</h2>
+
 	<h4><%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp-uap/drugUsedRecord.jsp">Search for other patient</a>):</h4>
+	<p>Drug Used Record: </p>
 </div>
+<form>
+	<div>
+	<input type="radio" name="Pitocin" id="Pitocin" value="Pitocin">
+	<label for="Pitocin">Pitocin</label>
+	<input type="radio" name="Nitrous oxide" id="Nitrous oxide" value="Nitrous oxide">
+	<label for="Nitrous oxide">Nitrous oxide</label>
+	<input type="radio" name="Pethidine" id="Pethidine" value="Pethidine">
+	<label for="Pethidine">Pethidine</label>
+	<input type="radio" name="Epidural anaesthesia" id="Epidural anaesthesia" value="Epidural anaesthesia">
+	<label for="Epidural anaesthesia">Epidural anaesthesia</label>
+	<input type="radio" name="Magnesium sulfate" id="Magnesium sulfate" value="Magnesium sulfate">
+	<label for="Magnesium sulfate">Magnesium sulfate</label>
+	<input type="radio" name="RH immune globulin" id="RH immune globulin" value="RH immune globulin">
+	<label for="RH immune globulin">RH immune globulin</label>
+	</div>
+	<div>
+		<button type="submit">Submit</button>
+	</div>
+</form>
 
 <%@include file="/footer.jsp" %>
