@@ -68,62 +68,87 @@
 
 	<h4><%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp-uap/drugUsedRecord.jsp">Search for other patient</a>):</h4>
 
-	<p>Current prefered childbirth method: <%%></p>
-	<p>Please select used drug Record: </p>
 </div>
 
-<% String Pitocin =(String)request.getParameter("Pitocin");
-	System.out.println(Pitocin);
-	String Nitrous_oxide =(String)request.getParameter("Nitrous oxide");
-	System.out.println(Nitrous_oxide);
-	String Pethidine =(String)request.getParameter("Pethidine");
-	System.out.println(Pethidine);
-	String Epidural_anaesthesia =(String)request.getParameter("Epidural anaesthesia");
-	System.out.println(Epidural_anaesthesia);
-	String Magnesium_sulfate =(String)request.getParameter("Magnesium sulfate");
-	System.out.println(Magnesium_sulfate);
-	String RH =(String)request.getParameter("RH immune globulin");
-	System.out.println(RH);
-
-
+<%
 	String pidString = (String) session.getAttribute("pid");
 	PatientDAO PatientDAO = prodDAO.getPatientDAO();
 	PatientBean p = PatientDAO.getPatient(patientID);
-	Boolean drug1 = p.getdrug1();
-	System.out.println("first drug drom database" +drug1);
+	Boolean Pitocin_db = p.getPitocin();
+	Boolean Nitrous_db = p.getNitrous_oxide();
+	Boolean Pethidine_db = p.getPethidine();
+	Boolean Epidural_db = p.getEpidural_anaesthesia();
+	Boolean Magnesium_db = p.getMagnesium_sulfate();
+	Boolean RH_db = p.getRH_immune_globulin();
 
-	if(Pitocin != null){
+	String  update =(String)request.getParameter("update");
+
+	if(update != null){
+		String Pitocin =(String)request.getParameter("Pitocin");
+		String Nitrous_oxide =(String)request.getParameter("Nitrous oxide");
+		String Pethidine =(String)request.getParameter("Pethidine");
+		String Epidural_anaesthesia =(String)request.getParameter("Epidural anaesthesia");
+		String Magnesium_sulfate =(String)request.getParameter("Magnesium sulfate");
+		String RH =(String)request.getParameter("RH immune globulin");
+		//System.out.println(Pitocin +Nitrous_oxide+Pethidine+Epidural_anaesthesia+Magnesium_sulfate+RH);
+
+		Pitocin_db = (Pitocin == null) ? false : true;
+		Nitrous_db = (Nitrous_oxide == null) ? false : true;
+		Pethidine_db = (Pethidine == null) ? false : true;
+		Epidural_db = (Epidural_anaesthesia == null) ? false : true;
+		Magnesium_db = (Magnesium_sulfate == null) ? false : true;
+		RH_db = (RH == null) ? false : true;
 		try {
-			p.setdrug1(true);
+			p.setPitocin(Pitocin_db);
+			p.setNitrous_oxide(Nitrous_db);
+			p.setPethidine(Pethidine_db);
+			p.setEpidural_anaesthesia(Epidural_db);
+			p.setMagnesium_sulfate(Magnesium_db);
+			p.setRH_immune_globulin(RH_db);
+
 			EditPatientAction edit = new EditPatientAction(prodDAO, loggedInMID.longValue(), pidString);
 			edit.updateInformation(p);
+%>
+<br />
+<div align=center>
+	<span class="iTrustMessage">Information Successfully Updated</span>
+</div>
+<br />
+<%
 		} catch (FormValidationException e) { }
 
 	}
+
+
+
+
 %>
+
+<p>Please select used drug Record: </p>
+
 <form>
 	<div>
-	<input type="checkbox" name="Pitocin" id="Pitocin" value="Pitocin">
+	<input type="checkbox" name="Pitocin" id="Pitocin" value="Pitocin" <%=Pitocin_db ? "checked" : ""%>>
 	<label for="Pitocin">Pitocin</label>
 		<br />
-	<input type="checkbox" name="Nitrous oxide" id="Nitrous oxide" value="Nitrous oxide">
+	<input type="checkbox" name="Nitrous oxide" id="Nitrous oxide" value="Nitrous oxide" <%=Nitrous_db ? "checked" : ""%>>
 	<label for="Nitrous oxide">Nitrous oxide</label>
 		<br />
-	<input type="checkbox" name="Pethidine" id="Pethidine" value="Pethidine">
+	<input type="checkbox" name="Pethidine" id="Pethidine" value="Pethidine" <%=Pethidine_db ? "checked" : ""%>>
 	<label for="Pethidine">Pethidine</label>
 		<br />
-	<input type="checkbox" name="Epidural anaesthesia" id="Epidural anaesthesia" value="Epidural anaesthesia">
+	<input type="checkbox" name="Epidural anaesthesia" id="Epidural anaesthesia" value="Epidural anaesthesia" <%=Epidural_db ? "checked" : ""%>>
 	<label for="Epidural anaesthesia">Epidural anaesthesia</label>
 		<br />
-	<input type="checkbox" name="Magnesium sulfate" id="Magnesium sulfate" value="Magnesium sulfate">
+	<input type="checkbox" name="Magnesium sulfate" id="Magnesium sulfate" value="Magnesium sulfate" <%=Magnesium_db ? "checked" : ""%>>
 	<label for="Magnesium sulfate">Magnesium sulfate</label>
 		<br />
-	<input type="checkbox" name="RH immune globulin" id="RH immune globulin" value="RH immune globulin" <%="checked"%>>
+	<input type="checkbox" name="RH immune globulin" id="RH immune globulin" value="RH immune globulin" <%=RH_db ? "checked" : ""%>>
 	<label for="RH immune globulin">RH immune globulin</label>
 		<br />
 	</div>
 	<div>
-		<button type="submit">Submit</button>
+		<button type="submit" name = "update">Update</button>
 	</div>
 </form>
 

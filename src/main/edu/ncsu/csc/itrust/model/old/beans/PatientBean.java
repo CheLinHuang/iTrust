@@ -62,60 +62,60 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String spiritualPractices = "";
 	private String alternateName = "";
 	private String dateOfDeactivationStr = "";
-	private String perferMethod = "";
-    private Boolean drug1 = false;
-    private Boolean drug2 = false;
-    private Boolean drug3 = false;
-    private Boolean drug4 = false;
-    private Boolean drug5 = false;
-    private Boolean drug6 = false;
+	private String preferMethod = "";
+    private Boolean Pitocin = false;
+    private Boolean Nitrous_oxide = false;
+    private Boolean Pethidine = false;
+    private Boolean Epidural_anaesthesia = false;
+    private Boolean Magnesium_sulfate = false;
+    private Boolean RH_immune_globulin = false;
 
-    public Boolean getdrug1() {
-        return this.drug1;
+    public Boolean getPitocin() {
+        return this.Pitocin;
     }
 
-    public void setdrug1(Boolean drug) {
-        this.drug1 = drug;
+    public void setPitocin(Boolean drug) {
+        this.Pitocin = drug;
     }
 
-    public Boolean getdrug2() {
-        return this.drug2;
+    public Boolean getNitrous_oxide() {
+        return this.Nitrous_oxide;
     }
 
-    public void setdrug2(Boolean drug) {
-        this.drug2 = drug;
+    public void setNitrous_oxide(Boolean drug) {
+        this.Nitrous_oxide = drug;
     }
 
-    public Boolean getdrug3() {
-        return this.drug3;
+    public Boolean getPethidine() {
+        return this.Pethidine;
     }
 
-    public void setdrug3(Boolean drug) {
-        this.drug3 = drug;
+    public void setPethidine(Boolean drug) {
+        this.Pethidine = drug;
     }
 
-    public Boolean getdrug4() {
-        return this.drug4;
+    public Boolean getEpidural_anaesthesia() {
+        return this.Epidural_anaesthesia;
     }
 
-    public void setdrug4(Boolean drug) {
-        this.drug4 = drug;
+    public void setEpidural_anaesthesia(Boolean drug) {
+        this.Epidural_anaesthesia = drug;
     }
 
-    public Boolean getdrug5() {
-        return this.drug5;
+    public Boolean getMagnesium_sulfate() {
+        return this.Magnesium_sulfate;
     }
 
-    public void setdrug5(Boolean drug) {
-        this.drug5 = drug;
+    public void setMagnesium_sulfate(Boolean drug) {
+        this.Magnesium_sulfate = drug;
     }
 
-    public Boolean getdrug6() {
-        return this.drug6;
+    public Boolean getRH_immune_globulin() {
+        return this.RH_immune_globulin;
     }
 
-    public void setdrug6(Boolean drug) {
-        this.drug6 = drug;
+    public void setRH_immune_globulin(Boolean drug) {
+        this.RH_immune_globulin = drug;
     }
 
 	public BloodType getBloodType() {
@@ -540,12 +540,12 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 		this.dateOfDeactivationStr = dateOfDeactivationStr;
 	}
 
-	public String getperferMethod() {
-		return this.perferMethod;
+	public String getPreferMethod() {
+		return this.preferMethod;
 	}
 
-	public void setperferMethod(String perferMethod) {
-		this.perferMethod = perferMethod;
+	public void setPreferMethod(String preferMethod) {
+		this.preferMethod = preferMethod;
 	}
 
 	@Override

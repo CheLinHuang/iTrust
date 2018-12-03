@@ -81,13 +81,13 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		if (dateOfDeactivation != null){
 			p.setDateOfDeactivationStr(DATE_FORMAT.format(dateOfDeactivation));
 		}
-		p.setperferMethod(rs.getString("PerferMethod"));
-		p.setdrug1(rs.getBoolean("Drug1"));
-		p.setdrug2(rs.getBoolean("Drug2"));
-		p.setdrug3(rs.getBoolean("Drug3"));
-		p.setdrug4(rs.getBoolean("Drug4"));
-		p.setdrug5(rs.getBoolean("Drug5"));
-		p.setdrug6(rs.getBoolean("Drug6"));
+		p.setPreferMethod(rs.getString("PreferMethod"));
+		p.setPitocin(rs.getBoolean("Pitocin"));
+		p.setNitrous_oxide(rs.getBoolean("Nitrous_oxide"));
+		p.setPethidine(rs.getBoolean("Pethidine"));
+		p.setEpidural_anaesthesia(rs.getBoolean("Epidural_anaesthesia"));
+		p.setMagnesium_sulfate(rs.getBoolean("Magnesium_sulfate"));
+		p.setRH_immune_globulin(rs.getBoolean("RH_immune_globulin"));
 
 
 	}
@@ -183,13 +183,13 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 			}
 		}
 		ps.setDate(i++, date);
-		ps.setString(i++, p.getperferMethod());
-		ps.setBoolean(i++, p.getdrug1());
-		ps.setBoolean(i++, p.getdrug2());
-		ps.setBoolean(i++, p.getdrug3());
-		ps.setBoolean(i++, p.getdrug4());
-		ps.setBoolean(i++, p.getdrug5());
-		ps.setBoolean(i++, p.getdrug6());
+		ps.setString(i++, p.getPreferMethod());
+		ps.setBoolean(i++, p.getPitocin());
+		ps.setBoolean(i++, p.getNitrous_oxide());
+		ps.setBoolean(i++, p.getPethidine());
+		ps.setBoolean(i++, p.getEpidural_anaesthesia());
+		ps.setBoolean(i++, p.getMagnesium_sulfate());
+		ps.setBoolean(i++, p.getRH_immune_globulin());
 
 		return ps;
 	}

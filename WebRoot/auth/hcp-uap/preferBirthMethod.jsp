@@ -80,17 +80,16 @@
 
 		PatientDAO PatientDAO = prodDAO.getPatientDAO();
 		PatientBean p = PatientDAO.getPatient(patientID);
-		databaseperfm = p.getperferMethod();
-
-		if (databaseperfm == ""){
+		databaseperfm = p.getPreferMethod();
+		if (databaseperfm.isEmpty()){
 			databaseperfm = "No";
 		}
 
 		if (perfm != null){
 			databaseperfm = perfm;
-			System.out.println("add method to "+ patientID);
+			//System.out.println("add method to "+ patientID);
 			try {
-				p.setperferMethod(perfm);
+				p.setPreferMethod(perfm);
 				EditPatientAction edit = new EditPatientAction(prodDAO, loggedInMID.longValue(), pidString);
 				edit.updateInformation(p);
 	%>
@@ -103,8 +102,8 @@
 		} catch (FormValidationException e) { }
 	}
 	%>
+	<div><span class="iTrustMessage">Current prefered childbirth method: <%=databaseperfm%></span></div>
 
-	<p>Current prefered childbirth method: <%=databaseperfm%></p>
 	<p>Please select prefered Childbirth Method:</p>
 	<form>
 	<div>

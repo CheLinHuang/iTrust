@@ -90,13 +90,13 @@ CREATE TABLE patients(
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
-	PerferMethod VARCHAR(50) default '',
-	Drug1 BOOLEAN default false,
-	Drug2 BOOLEAN default false,
-	Drug3 BOOLEAN default false,
-	Drug4 BOOLEAN default false,
-	Drug5 BOOLEAN default false,
-	Drug6 BOOLEAN default false,
+	PreferMethod VARCHAR(50) default '',
+	Pitocin BOOLEAN default false,
+	Nitrous_oxide BOOLEAN default false,
+	Pethidine BOOLEAN default false,
+	Epidural_anaesthesia BOOLEAN default false,
+	Magnesium_sulfate BOOLEAN default false,
+	RH_immune_globulin BOOLEAN default false,
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
