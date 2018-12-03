@@ -11,6 +11,7 @@
 <%@page import="edu.ncsu.csc.itrust.action.AddApptAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditApptTypeAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyApptsAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.EditPatientAction"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
@@ -31,52 +32,10 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 %>
 
 <%@include file="/header.jsp" %>
-<%-- <%
-			AddApptAction action = new AddApptAction(prodDAO, loggedInMID.longValue());
-			PatientDAO patientDAO = prodDAO.getPatientDAO(); 
-			
-			long patientID = 0L;
-			
-			boolean isDead = false;
-			if (session.getAttribute("pid") != null) {
-				String pidString = (String) session.getAttribute("pid");
-				patientID = Long.parseLong(pidString);
-				try {
-			action.getName(patientID);
-				} catch (ITrustException ite) {
-			patientID = 0L;
-				}
-				
-				isDead = patientDAO.getPatient(patientID).getDateOfDeathStr().length()>0;
-			}
-			else {
-				session.removeAttribute("pid");
-			}
-			
-			String lastSchedDate="";
-			String lastTime1="";
-			String lastTime2="";
-			String lastTime3="";
-			String lastComment="";
-			String last_gender="";
-			String last_delivery_method="";
-			
-			if (patientID == 0L) {
-				response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/childDelivery.jsp");
-			} else if(isDead){
-		%>
-		<div align=center>
-			<span class="iTrustError">Cannot schedule appointment. This patient is deceased. Please return and select a different patient.</span>
-			<br />
-			<a href="/iTrust/auth/getPatientID.jsp?forward=hcp-uap/childDelivery.jsp">Back</a>		</div>
-		<%	
-	}
-%> --%>
-
 <%
 	//This page is not actually a "page", it just adds a user and forwards.
 	AddApptAction action = new AddApptAction(prodDAO, loggedInMID.longValue());
-	//PatientDAO patientDAO = prodDAO.getPatientDAO(); 
+	EditPatientAction parent_action = new EditPatientAction(prodDAO, loggedInMID.longValue(), (String) session.getAttribute("pid"));
 	long patientID = 0L;
 	
 	boolean isDead = false;
@@ -99,11 +58,13 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 
 	
 	PatientBean p;
+	PatientBean parent;
 	PatientDAO patientDAO = prodDAO.getPatientDAO();
 	boolean formIsFilled = request.getParameter("formIsFilled") != null && request.getParameter("formIsFilled").equals("true");
 	if (formIsFilled) {
 		//This page is not actually a "page", it just adds a user and forwards.
 		p = new PatientBean();
+		parent= patientDAO.getPatient(patientID);
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String dateOfBirth = request.getParameter("dateOfBirthStr");
@@ -111,11 +72,14 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		String Time1 = request.getParameter("time1");
 		String Time2 = request.getParameter("time2");
 		String Time3 = request.getParameter("time3");
+		String preferMethod = request.getParameter("delivery_method");
 		
 		p.setFirstName(firstName);
 		p.setLastName(lastName);
 		p.setDateOfBirthStr(dateOfBirth);
 		p.setGenderStr(gender);
+		// p.getperferMethod(); //get prefer method
+		parent.setperferMethod(preferMethod); //set prefer method
 		if (patientDAO.getPatient(patientID).getGender()==Gender.Male) {
 			String fatherMidStr=Long.toString(patientDAO.getPatient(patientID).getMID());
 			p.setFatherMID(fatherMidStr);
@@ -144,6 +108,7 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 				newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addPatient(p, loggedInMID.longValue());
 			} */
 			newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addPatient(p, loggedInMID.longValue());
+			parent_action.updateInformation(parent);
 			session.setAttribute("pid", Long.toString(newMID));
 			String fullname;
 			String password;
@@ -168,7 +133,7 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 			</table>
 			<br />Please get this information to <b><%= StringEscapeUtils.escapeHtml("" + (fullname)) %></b>! 
 			<p>
-				<a href = "/iTrust/auth/hcp-uap/childDelivery.jsp">Continue to patient information.</a>
+				<a href = "/iTrust/auth/hcp-uap/editPatient.jsp">Continue to patient information.</a>
 			</p>
 		</div>
 	<%
