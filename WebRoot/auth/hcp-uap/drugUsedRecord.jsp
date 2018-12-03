@@ -15,6 +15,9 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean"%>
+<%@page import="edu.ncsu.csc.itrust.action.EditPatientAction"%>
 
 <%@include file="/global.jsp" %>
 
@@ -64,22 +67,60 @@
 <div align="left" <%=hidden %> id="apptDiv">
 
 	<h4><%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp-uap/drugUsedRecord.jsp">Search for other patient</a>):</h4>
-	<p>Drug Used Record: </p>
+
+	<p>Current prefered childbirth method: <%%></p>
+	<p>Please select used drug Record: </p>
 </div>
+
+<% String Pitocin =(String)request.getParameter("Pitocin");
+	System.out.println(Pitocin);
+	String Nitrous_oxide =(String)request.getParameter("Nitrous oxide");
+	System.out.println(Nitrous_oxide);
+	String Pethidine =(String)request.getParameter("Pethidine");
+	System.out.println(Pethidine);
+	String Epidural_anaesthesia =(String)request.getParameter("Epidural anaesthesia");
+	System.out.println(Epidural_anaesthesia);
+	String Magnesium_sulfate =(String)request.getParameter("Magnesium sulfate");
+	System.out.println(Magnesium_sulfate);
+	String RH =(String)request.getParameter("RH immune globulin");
+	System.out.println(RH);
+
+
+	String pidString = (String) session.getAttribute("pid");
+	PatientDAO PatientDAO = prodDAO.getPatientDAO();
+	PatientBean p = PatientDAO.getPatient(patientID);
+	Boolean drug1 = p.getdrug1();
+	System.out.println("first drug drom database" +drug1);
+
+	if(Pitocin != null){
+		try {
+			p.setdrug1(true);
+			EditPatientAction edit = new EditPatientAction(prodDAO, loggedInMID.longValue(), pidString);
+			edit.updateInformation(p);
+		} catch (FormValidationException e) { }
+
+	}
+%>
 <form>
 	<div>
-	<input type="radio" name="Pitocin" id="Pitocin" value="Pitocin">
+	<input type="checkbox" name="Pitocin" id="Pitocin" value="Pitocin">
 	<label for="Pitocin">Pitocin</label>
-	<input type="radio" name="Nitrous oxide" id="Nitrous oxide" value="Nitrous oxide">
+		<br />
+	<input type="checkbox" name="Nitrous oxide" id="Nitrous oxide" value="Nitrous oxide">
 	<label for="Nitrous oxide">Nitrous oxide</label>
-	<input type="radio" name="Pethidine" id="Pethidine" value="Pethidine">
+		<br />
+	<input type="checkbox" name="Pethidine" id="Pethidine" value="Pethidine">
 	<label for="Pethidine">Pethidine</label>
-	<input type="radio" name="Epidural anaesthesia" id="Epidural anaesthesia" value="Epidural anaesthesia">
+		<br />
+	<input type="checkbox" name="Epidural anaesthesia" id="Epidural anaesthesia" value="Epidural anaesthesia">
 	<label for="Epidural anaesthesia">Epidural anaesthesia</label>
-	<input type="radio" name="Magnesium sulfate" id="Magnesium sulfate" value="Magnesium sulfate">
+		<br />
+	<input type="checkbox" name="Magnesium sulfate" id="Magnesium sulfate" value="Magnesium sulfate">
 	<label for="Magnesium sulfate">Magnesium sulfate</label>
-	<input type="radio" name="RH immune globulin" id="RH immune globulin" value="RH immune globulin">
+		<br />
+	<input type="checkbox" name="RH immune globulin" id="RH immune globulin" value="RH immune globulin" <%="checked"%>>
 	<label for="RH immune globulin">RH immune globulin</label>
+		<br />
 	</div>
 	<div>
 		<button type="submit">Submit</button>

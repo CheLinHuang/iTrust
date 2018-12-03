@@ -91,6 +91,12 @@ CREATE TABLE patients(
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
 	PerferMethod VARCHAR(50) default '',
+	Drug1 BOOLEAN default false,
+	Drug2 BOOLEAN default false,
+	Drug3 BOOLEAN default false,
+	Drug4 BOOLEAN default false,
+	Drug5 BOOLEAN default false,
+	Drug6 BOOLEAN default false,
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 

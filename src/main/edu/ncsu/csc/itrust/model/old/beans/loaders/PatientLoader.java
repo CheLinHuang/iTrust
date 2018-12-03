@@ -81,6 +81,15 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		if (dateOfDeactivation != null){
 			p.setDateOfDeactivationStr(DATE_FORMAT.format(dateOfDeactivation));
 		}
+		p.setperferMethod(rs.getString("PerferMethod"));
+		p.setdrug1(rs.getBoolean("Drug1"));
+		p.setdrug2(rs.getBoolean("Drug2"));
+		p.setdrug3(rs.getBoolean("Drug3"));
+		p.setdrug4(rs.getBoolean("Drug4"));
+		p.setdrug5(rs.getBoolean("Drug5"));
+		p.setdrug6(rs.getBoolean("Drug6"));
+
+
 	}
 	
 	/**
@@ -175,6 +184,13 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		}
 		ps.setDate(i++, date);
 		ps.setString(i++, p.getperferMethod());
+		ps.setBoolean(i++, p.getdrug1());
+		ps.setBoolean(i++, p.getdrug2());
+		ps.setBoolean(i++, p.getdrug3());
+		ps.setBoolean(i++, p.getdrug4());
+		ps.setBoolean(i++, p.getdrug5());
+		ps.setBoolean(i++, p.getdrug6());
+
 		return ps;
 	}
 }

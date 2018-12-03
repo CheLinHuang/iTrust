@@ -73,23 +73,26 @@
 
 
 	<%
+		String databaseperfm;
+		String display;
 		String perfm=(String)request.getParameter("Perfermethod");
-		System.out.println(perfm);
+		String pidString = (String) session.getAttribute("pid");
+
+		PatientDAO PatientDAO = prodDAO.getPatientDAO();
+		PatientBean p = PatientDAO.getPatient(patientID);
+		databaseperfm = p.getperferMethod();
+
+		if (databaseperfm == ""){
+			databaseperfm = "No";
+		}
+
 		if (perfm != null){
+			databaseperfm = perfm;
 			System.out.println("add method to "+ patientID);
 			try {
-				long newMID = 1L;
-				String pidString = (String) session.getAttribute("pid");
-				PatientDAO PatientDAO = prodDAO.getPatientDAO();
-			    PatientBean p = PatientDAO.getPatient(patientID);
 				p.setperferMethod(perfm);
 				EditPatientAction edit = new EditPatientAction(prodDAO, loggedInMID.longValue(), pidString);
 				edit.updateInformation(p);
-
-			    //action.updateInformation(p);
-				//loggingAction.logEvent(TransactionType.DEMOGRAPHICS_EDIT, loggedInMID.longValue(), p.getMID(), "");
-
-
 	%>
 	<br />
 	<div align=center>
@@ -97,30 +100,29 @@
 	</div>
 	<br />
 	<%
-		} catch (FormValidationException e) {
-		}
-		}
+		} catch (FormValidationException e) { }
+	}
 	%>
 
-	<p>Current prefered childbirth method: <%=perfm%></p>
+	<p>Current prefered childbirth method: <%=databaseperfm%></p>
 	<p>Please select prefered Childbirth Method:</p>
 	<form>
 	<div>
-		<input type="radio" id="Perfermethod" name="Perfermethod" value="vaginal_delivery">
+		<input type="radio" id="Perfermethod" name="Perfermethod" value="vaginal delivery">
 		<label for="vaginal_delivery">vaginal delivery</label>
 	</div>
 
 	<div>
-		<input type="radio" id="Perfermethod" name="Perfermethod" value="vaginal_delivery_vacuum_assist">
+		<input type="radio" id="Perfermethod" name="Perfermethod" value="vaginal delivery vacuum assist">
 		<label for="vaginal_delivery_vacuum_assist">vaginal delivery vacuum assist</label>
 	</div>
 
 	<div>
-		<input type="radio" id="Perfermethod" name="Perfermethod" value="vaginal_delivery_forceps_assist">
+		<input type="radio" id="Perfermethod" name="Perfermethod" value="vaginal delivery forceps assist">
 		<label for="vaginal_delivery_forceps_assist">vaginal delivery forceps assist</label>
 	</div>
     <div>
-        <input type="radio" id="Perfermethod" name="Perfermethod" value="caesarean_section">
+        <input type="radio" id="Perfermethod" name="Perfermethod" value="caesarean section">
         <label for="caesarean_section">caesarean section</label>
     </div>
     <div>

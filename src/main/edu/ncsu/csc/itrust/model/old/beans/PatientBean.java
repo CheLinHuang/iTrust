@@ -63,7 +63,60 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String alternateName = "";
 	private String dateOfDeactivationStr = "";
 	private String perferMethod = "";
+    private Boolean drug1 = false;
+    private Boolean drug2 = false;
+    private Boolean drug3 = false;
+    private Boolean drug4 = false;
+    private Boolean drug5 = false;
+    private Boolean drug6 = false;
 
+    public Boolean getdrug1() {
+        return this.drug1;
+    }
+
+    public void setdrug1(Boolean drug) {
+        this.drug1 = drug;
+    }
+
+    public Boolean getdrug2() {
+        return this.drug2;
+    }
+
+    public void setdrug2(Boolean drug) {
+        this.drug2 = drug;
+    }
+
+    public Boolean getdrug3() {
+        return this.drug3;
+    }
+
+    public void setdrug3(Boolean drug) {
+        this.drug3 = drug;
+    }
+
+    public Boolean getdrug4() {
+        return this.drug4;
+    }
+
+    public void setdrug4(Boolean drug) {
+        this.drug4 = drug;
+    }
+
+    public Boolean getdrug5() {
+        return this.drug5;
+    }
+
+    public void setdrug5(Boolean drug) {
+        this.drug5 = drug;
+    }
+
+    public Boolean getdrug6() {
+        return this.drug6;
+    }
+
+    public void setdrug6(Boolean drug) {
+        this.drug6 = drug;
+    }
 
 	public BloodType getBloodType() {
 		return bloodType;
@@ -488,7 +541,7 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	}
 
 	public String getperferMethod() {
-		return perferMethod;
+		return this.perferMethod;
 	}
 
 	public void setperferMethod(String perferMethod) {
