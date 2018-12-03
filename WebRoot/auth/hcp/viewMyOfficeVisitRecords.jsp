@@ -8,6 +8,7 @@
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyOfficeVisitRecordsAction"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 
 <%@include file="/global.jsp" %>
 
@@ -21,7 +22,6 @@
     <h2>My Office Visit</h2>
     <%
         ViewMyOfficeVisitRecordsAction action = new ViewMyOfficeVisitRecordsAction(prodDAO, loggedInMID.longValue());
-        System.out.println(loggedInMID);
         List<OfficeVisitRecordBean> officeVisitRecords = action.getMyOfficeVisitRecords();
         session.setAttribute("officeVisitRecords", officeVisitRecords);
         if (officeVisitRecords.size() > 0) { %>
@@ -36,12 +36,15 @@
             <th>Low Lying Placenta</th>
             <th>Change</th>
             <th>Add Ultrasound Record</th>
+            <th>RH immune globulin shot needed</th>
         </tr>
         <%
             int index = 0;
             for(OfficeVisitRecordBean ov : officeVisitRecords) {
 
                 String row = "<tr";
+                PatientDAO patient = new PatientDAO(prodDAO);
+                String bloodType = patient.getPatient(ov.getPatient()).getBloodType().getName();
         %>
         <%=row+" "+((index%2 == 1)?"class=\"alt\"":"")+">"%>
         <td><%= StringEscapeUtils.escapeHtml("" + ( action.getName(ov.getPatient()) )) %></td>
@@ -51,10 +54,9 @@
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getFetalHeartRate() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getNumberOfPregnancy() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getLowLyingPlacenta() )) %></td>
-        <%--<td>Edit</td>--%>
         <td><a href="editOfficeVisitRecord.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Edit</a></td>
-        <%--<td>Add</td>--%>
         <td><a href="documentUltraSound.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Add</a></td>
+        <td><%= bloodType != null && !bloodType.equals("") && bloodType.charAt(bloodType.length() - 1) == '-' ? "Yes" : "No" %></td>
         </tr>
         <%
                 index ++;

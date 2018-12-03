@@ -1,6 +1,8 @@
 package edu.ncsu.csc.itrust.model.old.beans;
 
 
+import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
+
 import java.sql.Timestamp;
 
 public class OfficeVisitRecordBean {
