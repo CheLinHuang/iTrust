@@ -20,10 +20,7 @@
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.Set"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.Map.Entry"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.enums.Gender"%>
 
 <%@include file="/global.jsp" %>
 
@@ -34,8 +31,6 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 %>
 
 <%@include file="/header.jsp" %>
-<form id="mainForm" method="post" action="childDelivery.jsp">
-		<input type="hidden" name="formIsFilled" value="true"> <br />
 <%-- <%
 			AddApptAction action = new AddApptAction(prodDAO, loggedInMID.longValue());
 			PatientDAO patientDAO = prodDAO.getPatientDAO(); 
@@ -89,44 +84,46 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		String pidString = (String) session.getAttribute("pid");
 		patientID = Long.parseLong(pidString);
 		try {
-	action.getName(patientID);
+			action.getName(patientID);
 		} catch (ITrustException ite) {
-	patientID = 0L;
+			patientID = 0L;
 		}
-		
-		//isDead = patientDAO.getPatient(patientID).getDateOfDeathStr().length()>0;
 	}
 	else {
 		session.removeAttribute("pid");
 	}
+	
+	if (patientID == 0L) {
+		response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/childDelivery.jsp");
+	}
 
 	
-	String lastSchedDate="";
-	String lastTime1="";
-	String lastTime2="";
-	String lastTime3="";
-	String lastComment="";
-	String last_gender="";
-	String last_delivery_method="";
-
+	PatientBean p;
+	PatientDAO patientDAO = prodDAO.getPatientDAO();
 	boolean formIsFilled = request.getParameter("formIsFilled") != null && request.getParameter("formIsFilled").equals("true");
 	if (formIsFilled) {
 		//This page is not actually a "page", it just adds a user and forwards.
-		PatientBean p = new BeanBuilder<PatientBean>().build(request.getParameterMap(), new PatientBean());
-		 Map<String, String[]> map = request.getParameterMap();
-	     Set set = map.entrySet();
-	     Iterator it = set.iterator();
-	     
-	     while (it.hasNext()) {
-	    	 Map.Entry<String, String[]> entry = (Entry<String, String[]>) it.next();
-	             String paramName = entry.getKey();
-	             System.out.print(paramName);
-	             String[] paramValues = entry.getValue();
-	             for (int i = 0; i < paramValues.length; i++) {
-	                    System.out.println("   "+paramValues[i]);
-	             }
-	     }
-	     
+		p = new PatientBean();
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String dateOfBirth = request.getParameter("dateOfBirthStr");
+		String gender = request.getParameter("genderStr");
+		String Time1 = request.getParameter("time1");
+		String Time2 = request.getParameter("time2");
+		String Time3 = request.getParameter("time3");
+		
+		p.setFirstName(firstName);
+		p.setLastName(lastName);
+		p.setDateOfBirthStr(dateOfBirth);
+		p.setGenderStr(gender);
+		if (patientDAO.getPatient(patientID).getGender()==Gender.Male) {
+			String fatherMidStr=Long.toString(patientDAO.getPatient(patientID).getMID());
+			p.setFatherMID(fatherMidStr);
+		}else if (patientDAO.getPatient(patientID).getGender()==Gender.Female) {
+			String motherMidStr=Long.toString(patientDAO.getPatient(patientID).getMID());
+			p.setMotherMID(motherMidStr);
+		}
+		
 	     
 		try{
 			boolean isDependent = false;
@@ -185,6 +182,9 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 	}
 %>
 
+
+<form id="mainForm" method="post" action="childDelivery.jsp">
+		<input type="hidden" name="formIsFilled" value="true"> <br />
 <div align="left"  id="apptDiv">
 	<h2>Child Birth Date and Time</h2>
 	<h4>with <%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp-uap/childDelivery.jsp">someone else</a>):</h4>
