@@ -19,11 +19,11 @@ public class ListAllPregnancyTest extends TestCase {
   }
 
   public void testListAllPregnancy() throws Exception {
-    List<PregnancyBean> list = pregnancyDAO.getAllPregnancy(1L);
+    List<PregnancyBean> list = pregnancyDAO.getAllPregnancy(6L);
     assertEquals(1, list.size());
     PregnancyBean pregnancyBean = list.get(0);
 
-    assertEquals(1, pregnancyBean.getMID());
+    assertEquals(6, pregnancyBean.getMID());
     assertEquals(2018, pregnancyBean.getYearOfConception());
     assertEquals("40-6", pregnancyBean.getWeeksOfPregnant());
     assertEquals(4.5, pregnancyBean.getHoursInLabor());

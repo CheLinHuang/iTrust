@@ -6,7 +6,7 @@ hoursInLabor,
 weightGain,
 deliveryType)
 VALUES
-(1,
+(6,
 2018,
 '40-6',
 4.5,
