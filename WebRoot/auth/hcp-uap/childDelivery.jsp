@@ -35,10 +35,20 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 <%
 	//This page is not actually a "page", it just adds a user and forwards.
 	AddApptAction action = new AddApptAction(prodDAO, loggedInMID.longValue());
-	EditPatientAction parent_action = new EditPatientAction(prodDAO, loggedInMID.longValue(), (String) session.getAttribute("pid"));
+	
 	long patientID = 0L;
 	
 	boolean isDead = false;
+	
+	String pid = (String) session.getAttribute("pid");
+	if (pid == null || pid.equals("") || 1 > pid.length()) {
+		out.println("pidstring is null");		
+		response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/childDelivery.jsp");
+		return;
+	}
+	EditPatientAction parent_action = new EditPatientAction(prodDAO, loggedInMID.longValue(), pid);
+	
+	
 	if (session.getAttribute("pid") != null) {
 		String pidString = (String) session.getAttribute("pid");
 		patientID = Long.parseLong(pidString);
@@ -60,11 +70,11 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 	PatientBean p;
 	PatientBean parent;
 	PatientDAO patientDAO = prodDAO.getPatientDAO();
+	parent= patientDAO.getPatient(patientID);
 	boolean formIsFilled = request.getParameter("formIsFilled") != null && request.getParameter("formIsFilled").equals("true");
 	if (formIsFilled) {
 		//This page is not actually a "page", it just adds a user and forwards.
 		p = new PatientBean();
-		parent= patientDAO.getPatient(patientID);
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String dateOfBirth = request.getParameter("dateOfBirthStr");
@@ -79,7 +89,7 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		p.setDateOfBirthStr(dateOfBirth);
 		p.setGenderStr(gender);
 		// p.getperferMethod(); //get prefer method
-		parent.setperferMethod(preferMethod); //set prefer method
+		parent.setPreferMethod(preferMethod); //set prefer method
 		if (patientDAO.getPatient(patientID).getGender()==Gender.Male) {
 			String fatherMidStr=Long.toString(patientDAO.getPatient(patientID).getMID());
 			p.setFatherMID(fatherMidStr);
@@ -200,11 +210,12 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		
 		<span>Delivery Method</span>
 		<select name="delivery_method">
-		<option   value="vaginal delivery">vaginal delivery</option>
-		<option  value="vaginal delivery vacuum assist">vaginal delivery vacuum assist</option>
-		<option   value="vaginal delivery forceps assist">vaginal delivery forceps assist</option>
-		<option  value="caesarean section">caesarean section</option>
-		<option  value="miscarriage">miscarriage</option>
+		<option value="">Select:</option>
+		<option value="vaginal delivery" <%= StringEscapeUtils.escapeHtml("" + ( parent.getPreferMethod().equals("vaginal delivery") ? "selected" : "" )) %>>vaginal delivery</option>
+		<option value="vaginal delivery vacuum assist"<%= StringEscapeUtils.escapeHtml("" + ( parent.getPreferMethod().equals("vaginal delivery vacuum assist") ? "selected" : "" )) %>>vaginal delivery vacuum assist</option>
+		<option value="vaginal delivery forceps assist" <%= StringEscapeUtils.escapeHtml("" + ( parent.getPreferMethod().equals("vaginal delivery forceps assist") ? "selected" : "" )) %>>vaginal delivery forceps assist</option>
+		<option value="caesarean section" <%= StringEscapeUtils.escapeHtml("" + ( parent.getPreferMethod().equals("caesarean section") ? "selected" : "" )) %>>caesarean section</option>
+		<option value="miscarriage" <%= StringEscapeUtils.escapeHtml("" + ( parent.getPreferMethod().equals("miscarriage") ? "selected" : "" )) %>>miscarriage</option>
 		
 		</select><br /><br />
 		
