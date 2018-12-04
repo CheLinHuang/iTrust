@@ -62,6 +62,7 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String spiritualPractices = "";
 	private String alternateName = "";
 	private String dateOfDeactivationStr = "";
+
 	private String preferMethod = "";
 	private String birthTime = "";
     private Boolean Pitocin = false;
@@ -118,6 +119,17 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
     public void setRH_immune_globulin(Boolean drug) {
         this.RH_immune_globulin = drug;
     }
+
+	private String obstetricEligible = "";
+
+	public String getObstetricEligible() {
+		return obstetricEligible;
+	}
+
+	public void setObstetricEligible(String obstetricEligible) {
+		this.obstetricEligible = obstetricEligible;
+	}
+
 
 	public BloodType getBloodType() {
 		return bloodType;

@@ -96,6 +96,8 @@ public enum ValidationFormat {
 	PRIORITY("[1-3]", "Priority must be between 1 and 3"),
 	WEEKS_PREGNANT("^([0-9]|[1-3][0-9]|4[0-2])-[0-6]{1}$", "Weeks must be between 0 and 42, Days must be between 0 and 6"),
 	HOURS_LABOR("[\\d]{0,3}.[\\d]{0,2}", "Hours in labor must between 0.0 and 999.99"),
+	DELIVERYTYPE("^(?:vaginal delivery|vaginal delivery vacuum assist|vaginal delivery forceps assist|caesarean section|miscarriage)$",
+			"must be one of {vaginal delivery, vaginal delivery vacuum assist, vaginal delivery forceps assist, caesarean section, miscarriage}"),
 	FHR("^[0-9]\\d*", "Must be 0 or positive integer."),
 	FHU("^[0-9]*.^[1-9][0-9]*|^[1-9][0-9]*.?[0-9]*$", "Must be a positive double."),
 	WEEKS_PREGNANT_OV("^([0-9]|[1-3][0-9]|4[0-2])-[0-6]{1}$", "The patient chosen is not a current obstetrics patient"),
@@ -111,7 +113,9 @@ public enum ValidationFormat {
 	TRIGLYCERIDE_OV("^(?:[1-5][0-9]{2}|600)$", "integer between 100 and 600"),
 	LDL_OV("^(?:[1-5]?[0-9]{1,2}|600)$", "integer between 0 and 600"),
 	HSS_OV("^[1-3]$","1, 2, or 3, representing household smoking status"),
-	PSS_OV("^[1-59]$","1-5 or 9, representing patient smoking status")
+	PSS_OV("^[1-59]$","1-5 or 9, representing patient smoking status"),
+	Travelled_Cities("^.{1,512}$","Up to 512 characters are valid travelledCities"),
+	START_END_DATE("[\\d]{4}-[\\d]{2}-[\\d]{2}", "YYYY-MM-DD")
 	;
 
 	private Pattern regex;

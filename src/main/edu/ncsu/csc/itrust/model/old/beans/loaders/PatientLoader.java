@@ -81,6 +81,7 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		if (dateOfDeactivation != null){
 			p.setDateOfDeactivationStr(DATE_FORMAT.format(dateOfDeactivation));
 		}
+
 		p.setPreferMethod(rs.getString("PreferMethod"));
 		p.setBirthTime(rs.getString("BirthTime"));
 		p.setPitocin(rs.getBoolean("Pitocin"));
@@ -90,6 +91,10 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		p.setMagnesium_sulfate(rs.getBoolean("Magnesium_sulfate"));
 		p.setRH_immune_globulin(rs.getBoolean("RH_immune_globulin"));
 
+
+
+		// Update ObstetricEligible data in patient
+		p.setObstetricEligible(rs.getString("ObstetricEligible"));
 
 	}
 	

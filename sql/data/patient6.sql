@@ -25,7 +25,8 @@ fathermid,
 bloodtype,
 ethnicity,
 gender,
-topicalnotes)
+topicalnotes,
+ObstetricEligible)
 VALUES
 (6,
 'A',
@@ -53,7 +54,8 @@ VALUES
 'AB+',
 'African American',
 'Female',
-'')
+'',
+true)
 ;
 
 INSERT INTO users(MID, password, role, sQuestion, sAnswer) 

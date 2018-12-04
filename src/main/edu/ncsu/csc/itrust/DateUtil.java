@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,12 @@ import java.util.GregorianCalendar;
 public class DateUtil {
 	public static final long YEAR_IN_MS = 1000L * 60L * 60L * 24L * 365L;
 
+	public static Date stringToDate(String s) throws ParseException {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		Date date = simpleDateFormat.parse(s);
+		return date;
+	}
 	/**
 	 * Returns a MM/dd/yyyy format of the date for the given years ago
 	 * 
@@ -24,6 +31,19 @@ public class DateUtil {
 		Calendar rightNow = Calendar.getInstance();
 		rightNow.set(Calendar.YEAR, rightNow.get(Calendar.YEAR) - (int)(years));
 		return new SimpleDateFormat("MM/dd/yyyy").format(rightNow.getTime());
+	}
+
+	/**
+	 * Returns a MM/dd/yyyy format of the date for the given date
+	 * @param d Date
+	 * @return
+	 */
+	public static String dateToSimpleDate(Date d) {
+		String pattern = "MM/dd/yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		String date = simpleDateFormat.format(d);
+		return date;
 	}
 
 	/**

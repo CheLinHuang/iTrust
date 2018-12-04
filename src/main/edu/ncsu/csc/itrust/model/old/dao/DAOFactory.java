@@ -9,8 +9,7 @@ import edu.ncsu.csc.itrust.model.old.dao.mysql.*;
  * The central mediator for all Database Access Objects. The production instance uses the database connection
  * pool provided by Tomcat (so use the production instance when doing stuff from JSPs in the "real code").
  * Both the production and the test instance parses the context.xml file to get the JDBC connection.
- * 
- * Also, @see {@link EvilDAOFactory} and @see {@link TestDAOFactory}.
+ *
  * 
  * Any DAO that is added to the system should be added in this class, in the same way that all other DAOs are.
  * 
@@ -231,6 +230,32 @@ public class DAOFactory {
 	public ReviewsDAO getReviewsDAO() {
 		return new ReviewsDAO(this);
 	}
-	
 
+
+	/**
+	 *
+	 * @return this DAOFactory's TravelHistoryDAO
+	 */
+	public TravelHistoryDAO getTravelHistoryDAO()
+	{
+		return new TravelHistoryDAO(this);
+	}
+
+
+	/**
+	 * Gets the DAO for pregnancy with the DB table pregnancy.
+	 * @return this DAOFactory's PregnancyDAO
+	 */
+	public PregnancyDAO getPregnancyDAO() {
+		return new PregnancyDAO(this);
+	}
+
+
+  /**
+   * Gets the DAO for obstetricsInitRecord with the DB table obstetricsInitRecord.
+   * @return this DAOFactory's ObstetricsInitRecord
+   */
+  public ObstetricsInitRecordDAO getObstetricsInitRecordDAO() {
+    return new ObstetricsInitRecordDAO(this);
+  }
 }

@@ -442,6 +442,7 @@ function updateDateField(dateFieldName, dateString)
   // (note that this will only run if the user actually selected a date from the datepicker)
   if ((dateString) && (typeof(datePickerClosed) == "function"))
     datePickerClosed(targetDateField);
+
 }
 
 
@@ -494,5 +495,5 @@ function adjustiFrame(pickerDiv, iFrameDiv)
  
   } catch (ee) {
   }
- 
+
 }
