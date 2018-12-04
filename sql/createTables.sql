@@ -75,6 +75,7 @@ CREATE TABLE patients(
 	iCID varchar(20)  default '', 
 	DateOfBirth DATE,
 	DateOfDeath DATE,
+	BirthTime VARCHAR(50) default '',
 	CauseOfDeath VARCHAR(10) default '',
 	MotherMID INTEGER(10) default 0,
 	FatherMID INTEGER(10) default 0,
@@ -90,7 +91,17 @@ CREATE TABLE patients(
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
+
+	PreferMethod VARCHAR(50) default '',
+	Pitocin BOOLEAN default false,
+	Nitrous_oxide BOOLEAN default false,
+	Pethidine BOOLEAN default false,
+	Epidural_anaesthesia BOOLEAN default false,
+	Magnesium_sulfate BOOLEAN default false,
+	RH_immune_globulin BOOLEAN default false,
+
 	ObstetricEligible BOOLEAN NOT NULL default false,
+
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
