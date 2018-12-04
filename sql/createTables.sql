@@ -529,3 +529,12 @@ CREATE TABLE obstetricsInitRecord
 	PRIMARY KEY (id),
 	FOREIGN KEY (MID) REFERENCES patients(MID)
 ) ENGINE=MyISAM;
+
+CREATE TABLE TravelHistories
+(
+  patientMID BIGINT unsigned NOT NULL default 0,
+  startDate DATE default NULL,
+  endDate DATE default NULL,
+  travelledCities VARCHAR(512) default ''
+) ENGINE=MyISAM;
+

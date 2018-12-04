@@ -113,7 +113,9 @@ public enum ValidationFormat {
 	TRIGLYCERIDE_OV("^(?:[1-5][0-9]{2}|600)$", "integer between 100 and 600"),
 	LDL_OV("^(?:[1-5]?[0-9]{1,2}|600)$", "integer between 0 and 600"),
 	HSS_OV("^[1-3]$","1, 2, or 3, representing household smoking status"),
-	PSS_OV("^[1-59]$","1-5 or 9, representing patient smoking status")
+	PSS_OV("^[1-59]$","1-5 or 9, representing patient smoking status"),
+	Travelled_Cities("^.{1,512}$","Up to 512 characters are valid travelledCities"),
+	START_END_DATE("[\\d]{4}-[\\d]{2}-[\\d]{2}", "YYYY-MM-DD")
 	;
 
 	private Pattern regex;
