@@ -39,6 +39,13 @@
 			String hidden = "";
 
 			boolean isDead = false;
+			String pid = (String) session.getAttribute("pid");
+			if (pid == null || pid.equals("") || 1 > pid.length()) {
+				out.println("pidstring is null");		
+				response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/preferBirthMethod.jsp");
+				return;
+			}
+			
 			if (session.getAttribute("pid") != null) {
 				String pidString = (String) session.getAttribute("pid");
 				patientID = Long.parseLong(pidString);
