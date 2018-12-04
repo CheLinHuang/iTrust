@@ -616,6 +616,58 @@ public class PatientDAO {
 	}
 
 	/**
+	 * Returns all patients that are Eligible for Obstetric Healthcare
+	 * with names "LIKE" (as in SQL) the passed in parameters.
+	 *
+	 * @param first
+	 * 			  The patient's first name.
+	 * @param last
+	 * 			  The patient's last name.
+	 * @return A java.util.List of PatientBeans.
+	 * @throws DBException
+	 */
+	public List<PatientBean> searchForObstetricCarePatientsWithName(String first, String last) throws DBException {
+		if (first.equals("%") && last.equals("%")) {
+			return new Vector<PatientBean>();
+		}
+
+		try (Connection conn = factory.getConnection();
+				PreparedStatement ps = conn.prepareStatement(
+						"SELECT * FROM patients WHERE firstName LIKE ? AND lastName LIKE ? AND ObstetricEligible = ?")) {
+			ps.setString(1, "%" + first + "%");
+			ps.setString(2, "%" + last + "%");
+			ps.setBoolean(3, true);
+			ResultSet rs = ps.executeQuery();
+			List<PatientBean> patientsList = patientLoader.loadList(rs);
+			rs.close();
+			return patientsList;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		}
+	}
+
+	/**
+	 * Returns all Obstetric patients with the given MID as a substring in their MID
+	 * @param MID
+	 * @return
+	 * @throws DBException
+	 */
+	public List<PatientBean> searchForObstetricPatientsWithMID(long MID) throws DBException {
+		try (Connection conn = factory.getConnection();
+			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM patients WHERE MID LIKE ? AND ObstetricEligible = ? ORDER BY MID")) {
+			ps.setString(1, "%" + MID + "%");
+			ps.setBoolean(2, true);
+
+			ResultSet rs = ps.executeQuery();
+			List<PatientBean> loadlist = patientLoader.loadList(rs);
+			rs.close();
+			return loadlist;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		}
+	}
+
+	/**
 	 * Returns all patients with names "LIKE" with wildcards (as in SQL) the
 	 * passed in parameters.
 	 * 
@@ -727,6 +779,41 @@ public class PatientDAO {
 			ps.setLong(1, patientMID);
 			int numDeleted = ps.executeUpdate();
 			return numDeleted;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		}
+	}
+
+	/**
+	 * Sets the designated patient according to patientMID Eligible for Obstetric care to TRUE.
+	 * For patients that are not yet eligible for obstetric care.
+	 * @param patientMID
+	 * @return
+	 * @throws DBException
+	 */
+	public int setPatientEligibleToObstetric(long patientMID) throws DBException {
+		try (Connection conn = factory.getConnection();
+				PreparedStatement ps = conn.prepareStatement("UPDATE patients SET ObstetricEligible = TRUE WHERE MID = ?;")) {
+			ps.setLong(1, patientMID);
+			int patientIsSet = ps.executeUpdate();
+			return patientIsSet;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		}
+	}
+
+	/**
+	 * Set the designated patient according to patientMID Eligible for Obstetric care to FALSE.
+	 * @param patientMID
+	 * @return
+	 * @throws DBException
+	 */
+	public int setObstetricPatientToNormalPatient(long patientMID) throws DBException {
+		try (Connection conn = factory.getConnection();
+				PreparedStatement ps = conn.prepareStatement("UPDATE patients SET ObstetricEligible = FALSE WHERE MID = ?;")) {
+			ps.setLong(1, patientMID);
+			int patientIsSet = ps.executeUpdate();
+			return patientIsSet;
 		} catch (SQLException e) {
 			throw new DBException(e);
 		}

@@ -834,6 +834,20 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/reviews.sql");
 	}
 
+	/**
+	 * Generate a pregnancy record.
+	 */
+	public void pregnancy1() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/pregnancy1.sql");
+	}
+
+	/**
+	 * Generate a obstetrics initialization record.
+	 */
+	public void obstetricsInitRecord1() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/obstetricsInitRecord1.sql");
+	}
+
 	public void travelHistory1() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/TravelHistory1.sql");
 	}
@@ -981,6 +995,10 @@ public class TestDataGenerator {
 		patient29();
 		patient30();
 
+		// Added for UC 93
+		pregnancy1();
+		obstetricsInitRecord1();
+    
 		travelHistory1();
 
 		setMode();

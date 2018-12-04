@@ -13,6 +13,7 @@ import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO;
 
+
 /**
  * SearchUsersAction
  */
@@ -32,7 +33,31 @@ public class SearchUsersAction {
 		this.patientDAO = factory.getPatientDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
 	}
-	
+
+	/**
+	 * Calls on the Patient DAO to set the patients ObstetricEligible column to TRUE in the database
+	 * @param patientMID
+	 * @return
+	 */
+	public void setPatientEligibleToObstetric(long patientMID) {
+		try {
+			patientDAO.setPatientEligibleToObstetric(patientMID);
+		} catch (DBException e) {
+			return;
+		}
+	}
+
+	/**
+	 * Calls on the Patient DAO to set the patients ObstetricEligible column to FALSE in the database
+	 * @param patientMID
+	 */
+	public void setObstetricPatientToNormalPatient(long patientMID) {
+		try {
+			patientDAO.setObstetricPatientToNormalPatient(patientMID);
+		} catch (DBException e) {
+			return;
+		}
+	}
 
 	/**
 	 * Searches for all personnel with the first name and last name specified in the parameter list.
@@ -113,6 +138,25 @@ public class SearchUsersAction {
 			return null;
 		}
 	}
+
+	/**
+	 * Search for all eligible obstetric health care patients with first name and last name given in parameters.
+	 * @param firstName The first name of the patient being searched.
+	 * @param lastName The last name of the patient being searched.
+	 * @return A java.util.List of PatientBeans
+	 */
+	public List<PatientBean> searchForObstetricCarePatientsWithName(String firstName, String lastName) {
+
+		try {
+			if ("".equals(firstName))
+				firstName = "%";
+			if ("".equals(lastName))
+				lastName = "%";
+			return patientDAO.searchForObstetricCarePatientsWithName(firstName, lastName);
+		} catch (DBException e) {
+			return null;
+		}
+	}
 	
 	/**
 	 * Search for all patients with first name and last name given in parameters.
@@ -188,7 +232,72 @@ public class SearchUsersAction {
 		Collections.reverse(results);
 		return results;
 	}
-	
+
+	/**
+	 * Search for all eligible obstetric health care patients with first name and last name given in parameters.
+	 * @param query
+	 * @param allowDeactivated
+	 * @return
+	 */
+	public List<PatientBean> fuzzySearchForObstetricCarePatientsWithName(String query, boolean allowDeactivated) {
+		String[] subqueries=null;
+
+		Set<PatientBean> patientsSet = new TreeSet<PatientBean>();
+		if(query!=null && query.length()>0 && !query.startsWith("_")){
+			subqueries = query.split(" ");
+			Set<PatientBean>[] patients = new Set[subqueries.length];
+			int i=0;
+			for(String q : subqueries){
+				try {
+					patients[i] = new TreeSet<PatientBean>();
+					List<PatientBean> first = patientDAO.searchForObstetricCarePatientsWithName(q, "");
+					List<PatientBean> last = patientDAO.searchForObstetricCarePatientsWithName("", q);
+					patients[i].addAll(first);
+					patients[i].addAll(last);
+
+					try{
+						long mid = Long.valueOf(q);
+						//If the patient exists with the mid, then add the patient to the patient list
+						List<PatientBean> searchMID = patientDAO.searchForObstetricPatientsWithMID(mid);
+						patients[i].addAll(searchMID);
+
+						//old way of doing it when they only were returning one person
+						//now that we are returning everybody with that as a substring in their MID, not necessary
+						//yet want to keep it in case we revert sometime
+
+					}catch(NumberFormatException e) {
+						//TODO
+					}
+					i++;
+				} catch (DBException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (i > 0) {
+				patientsSet.addAll(patients[0]);
+			}
+			for(Set<PatientBean> results : patients){
+				try{
+					patientsSet.retainAll(results);
+				}catch(NullPointerException e) {
+					//TODO
+				}
+			}
+		}
+		ArrayList<PatientBean> results=new ArrayList<PatientBean>(patientsSet);
+
+		if(allowDeactivated == false) {
+			for(int i=results.size()-1; i>=0; i--){
+				if(!results.get(i).getDateOfDeactivationStr().equals("")){
+					results.remove(i);
+				}
+			}
+		}
+		Collections.reverse(results);
+		return results;
+	}
+
 	/**
 	 * getDeactivated is a special case used for when we want to see all deactivated patients.
 	 * @return The List of deactivated patients.
@@ -204,6 +313,16 @@ public class SearchUsersAction {
 			}
 		} catch (DBException e) {
 			//TODO
+		}
+		return result;
+	}
+
+	public boolean isOBGYNHCP(Long MID) {
+		boolean result;
+		try {
+			result = personnelDAO.isOBGYNHCP(MID);
+		} catch (DBException e) {
+			return false;
 		}
 		return result;
 	}
