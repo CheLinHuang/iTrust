@@ -515,7 +515,9 @@ CREATE TABLE pregnancy
   weightGain DOUBLE UNSIGNED,
   deliveryType enum('vaginal delivery', 'vaginal delivery vacuum assist', 'vaginal delivery forceps assist', 'caesarean section', 'miscarriage') NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (MID) REFERENCES patients(MID)
+	FOREIGN KEY (MID) REFERENCES patients(MID),
+
+	UNIQUE (MID, yearOfConception, weeksOfPregnant, hoursInLabor, weightGain, deliveryType)
 ) ENGINE=MyISAM;
 
 CREATE TABLE obstetricsInitRecord
@@ -527,7 +529,9 @@ CREATE TABLE obstetricsInitRecord
   weeksOfPregnant VARCHAR(4) NOT NULL,
   recordCreatedTime timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 	PRIMARY KEY (id),
-	FOREIGN KEY (MID) REFERENCES patients(MID)
+	FOREIGN KEY (MID) REFERENCES patients(MID),
+
+	UNIQUE (MID, LMP, EDD, weeksOfPregnant)
 ) ENGINE=MyISAM;
 
 CREATE TABLE TravelHistories
