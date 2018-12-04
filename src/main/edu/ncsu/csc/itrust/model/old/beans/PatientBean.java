@@ -63,6 +63,7 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String alternateName = "";
 	private String dateOfDeactivationStr = "";
 	private String preferMethod = "";
+	private String birthTime = "";
     private Boolean Pitocin = false;
     private Boolean Nitrous_oxide = false;
     private Boolean Pethidine = false;
@@ -546,6 +547,14 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 
 	public void setPreferMethod(String preferMethod) {
 		this.preferMethod = preferMethod;
+	}
+	
+	public String getBirthTime() {
+		return this.birthTime;
+	}
+	
+	public void setBirthTime(String birthTime) {
+		this.birthTime = birthTime;
 	}
 
 	@Override

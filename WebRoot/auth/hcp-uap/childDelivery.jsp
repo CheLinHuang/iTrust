@@ -82,12 +82,14 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		String Time1 = request.getParameter("time1");
 		String Time2 = request.getParameter("time2");
 		String Time3 = request.getParameter("time3");
+		String birthTime= Time1+":"+Time2+" "+Time3;
 		String preferMethod = request.getParameter("delivery_method");
 		
 		p.setFirstName(firstName);
 		p.setLastName(lastName);
 		p.setDateOfBirthStr(dateOfBirth);
 		p.setGenderStr(gender);
+		p.setBirthTime(birthTime);
 		// p.getperferMethod(); //get prefer method
 		parent.setPreferMethod(preferMethod); //set prefer method
 		if (patientDAO.getPatient(patientID).getGender()==Gender.Male) {

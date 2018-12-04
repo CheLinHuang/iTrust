@@ -75,6 +75,7 @@ CREATE TABLE patients(
 	iCID varchar(20)  default '', 
 	DateOfBirth DATE,
 	DateOfDeath DATE,
+	BirthTime VARCHAR(50) default '',
 	CauseOfDeath VARCHAR(10) default '',
 	MotherMID INTEGER(10) default 0,
 	FatherMID INTEGER(10) default 0,

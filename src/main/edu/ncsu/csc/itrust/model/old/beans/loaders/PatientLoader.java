@@ -82,6 +82,7 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 			p.setDateOfDeactivationStr(DATE_FORMAT.format(dateOfDeactivation));
 		}
 		p.setPreferMethod(rs.getString("PreferMethod"));
+		p.setBirthTime(rs.getString("BirthTime"));
 		p.setPitocin(rs.getBoolean("Pitocin"));
 		p.setNitrous_oxide(rs.getBoolean("Nitrous_oxide"));
 		p.setPethidine(rs.getBoolean("Pethidine"));
@@ -184,6 +185,7 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		}
 		ps.setDate(i++, date);
 		ps.setString(i++, p.getPreferMethod());
+		ps.setString(i++, p.getBirthTime());
 		ps.setBoolean(i++, p.getPitocin());
 		ps.setBoolean(i++, p.getNitrous_oxide());
 		ps.setBoolean(i++, p.getPethidine());
