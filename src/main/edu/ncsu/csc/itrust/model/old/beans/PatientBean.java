@@ -63,6 +63,62 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String alternateName = "";
 	private String dateOfDeactivationStr = "";
 	private String obstetricEligible = "";
+	private String preferMethod = "";
+	private String birthTime = "";
+  private Boolean Pitocin = false;
+  private Boolean Nitrous_oxide = false;
+  private Boolean Pethidine = false;
+  private Boolean Epidural_anaesthesia = false;
+  private Boolean Magnesium_sulfate = false;
+  private Boolean RH_immune_globulin = false;
+
+  public Boolean getPitocin() {
+      return this.Pitocin;
+  }
+
+  public void setPitocin(Boolean drug) {
+      this.Pitocin = drug;
+  }
+
+  public Boolean getNitrous_oxide() {
+      return this.Nitrous_oxide;
+  }
+
+  public void setNitrous_oxide(Boolean drug) {
+      this.Nitrous_oxide = drug;
+  }
+
+  public Boolean getPethidine() {
+      return this.Pethidine;
+  }
+
+  public void setPethidine(Boolean drug) {
+      this.Pethidine = drug;
+  }
+
+  public Boolean getEpidural_anaesthesia() {
+      return this.Epidural_anaesthesia;
+  }
+
+  public void setEpidural_anaesthesia(Boolean drug) {
+      this.Epidural_anaesthesia = drug;
+  }
+
+  public Boolean getMagnesium_sulfate() {
+      return this.Magnesium_sulfate;
+  }
+
+  public void setMagnesium_sulfate(Boolean drug) {
+      this.Magnesium_sulfate = drug;
+  }
+
+  public Boolean getRH_immune_globulin() {
+      return this.RH_immune_globulin;
+  }
+
+  public void setRH_immune_globulin(Boolean drug) {
+      this.RH_immune_globulin = drug;
+  }
 
 	public String getObstetricEligible() {
 		return obstetricEligible;
@@ -492,6 +548,22 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 
 	public void setDateOfDeactivationStr(String dateOfDeactivationStr) {
 		this.dateOfDeactivationStr = dateOfDeactivationStr;
+	}
+
+	public String getPreferMethod() {
+		return this.preferMethod;
+	}
+
+	public void setPreferMethod(String preferMethod) {
+		this.preferMethod = preferMethod;
+	}
+	
+	public String getBirthTime() {
+		return this.birthTime;
+	}
+	
+	public void setBirthTime(String birthTime) {
+		this.birthTime = birthTime;
 	}
 
 	@Override

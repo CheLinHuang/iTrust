@@ -57,7 +57,7 @@ public class PregnancyBean {
   public void setDeliveryType(String deliveryType) {
     this.deliveryType = deliveryType;
   }
-
+  
   public int getPregnancyNumber() {
     return pregnancyNumber;
   }

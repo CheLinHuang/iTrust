@@ -112,6 +112,7 @@ public class PregnancyBeanValidatorTest extends TestCase {
     bean.setDeliveryType("vaginal delivery");
     bean.setHoursInLabor(5);
     bean.setPregnancyNumber(1);
+
     try {
       validator.validate(bean);
     } catch (FormValidationException e) {
