@@ -27,8 +27,8 @@ public class OfficeVisitRecordDAO {
         try(Connection conn = factory.getConnection();
             PreparedStatement stmt = officeVisitRecordBeanLoader.loadParameters((conn.prepareStatement
                     ("INSERT INTO officeVisitRecord(id," +
-                    "patientID, HCPID, weeksOfPregnant, weightGain, bloodPressure, fetalHeartRate," +
-                    "numberOfPregnancy, lowLyingPlacenta, currentDate) VALUES (?,?,?,?,?,?,?,?,?,?)")), officeVisitRecordBean)){
+                    "patientID, HCPID, weeksOfPregnant, weightGain, highbloodPressure, lowbloodPressure, fetalHeartRate," +
+                    "numberOfPregnancy, lowLyingPlacenta, currentDate) VALUES (?,?,?,?,?,?,?,?,?,?,?)")), officeVisitRecordBean)){
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e);
@@ -38,15 +38,16 @@ public class OfficeVisitRecordDAO {
     public void modifyOfficeVisitRecord(final OfficeVisitRecordBean officeVisitRecordBean) throws SQLException, DBException{
         try(Connection conn = factory.getConnection(); PreparedStatement stmt =
                 conn.prepareStatement("UPDATE officeVisitRecord SET weeksOfPregnant=?, " +
-                "weightGain=?, bloodPressure=?, fetalHeartRate=?, numberOfPregnancy=?, lowLyingPlacenta=?, currentDate=? WHERE id=?")){
+                "weightGain=?, highbloodPressure=?, lowbloodPressure=?, fetalHeartRate=?, numberOfPregnancy=?, lowLyingPlacenta=?, currentDate=? WHERE id=?")){
             stmt.setString(1, officeVisitRecordBean.getWeeksOfPregnant());
             stmt.setDouble(2, officeVisitRecordBean.getWeightGain());
-            stmt.setDouble(3, officeVisitRecordBean.getBloodPressure());
-            stmt.setDouble(4, officeVisitRecordBean.getFetalHeartRate());
-            stmt.setInt(5, officeVisitRecordBean.getNumberOfPregnancy());
-            stmt.setBoolean(6, officeVisitRecordBean.getLowLyingPlacenta());
-            stmt.setTimestamp(7, officeVisitRecordBean.getCurrentDate());
-            stmt.setLong(8, officeVisitRecordBean.getOfficeVisitRecordID());
+            stmt.setDouble(3, officeVisitRecordBean.getHighBloodPressure());
+            stmt.setDouble(4, officeVisitRecordBean.getLowBloodPressure());
+            stmt.setDouble(5, officeVisitRecordBean.getFetalHeartRate());
+            stmt.setInt(6, officeVisitRecordBean.getNumberOfPregnancy());
+            stmt.setBoolean(7, officeVisitRecordBean.getLowLyingPlacenta());
+            stmt.setTimestamp(8, officeVisitRecordBean.getCurrentDate());
+            stmt.setLong(9, officeVisitRecordBean.getOfficeVisitRecordID());
             stmt.executeUpdate();
         } catch (SQLException e){
             throw new DBException(e);
