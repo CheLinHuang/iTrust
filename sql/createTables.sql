@@ -514,10 +514,13 @@ CREATE TABLE pregnancy
   hoursInLabor DOUBLE UNSIGNED,
   weightGain DOUBLE UNSIGNED,
   deliveryType enum('vaginal delivery', 'vaginal delivery vacuum assist', 'vaginal delivery forceps assist', 'caesarean section', 'miscarriage') NOT NULL,
+
+  pregnancyNumber SMALLINT(4) UNSIGNED DEFAULT 1 NOT NULL,
+
 	PRIMARY KEY (id),
 	FOREIGN KEY (MID) REFERENCES patients(MID),
 
-	UNIQUE (MID, yearOfConception, weeksOfPregnant, hoursInLabor, weightGain, deliveryType)
+	UNIQUE (MID, yearOfConception, weeksOfPregnant, hoursInLabor, weightGain, deliveryType, pregnancyNumber)
 ) ENGINE=MyISAM;
 
 CREATE TABLE obstetricsInitRecord

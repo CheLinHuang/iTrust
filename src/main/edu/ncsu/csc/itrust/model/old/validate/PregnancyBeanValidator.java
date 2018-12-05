@@ -22,6 +22,7 @@ public class PregnancyBeanValidator extends BeanValidator<PregnancyBean> {
     errorList.addIfNotNull(checkFormat("Number of weeks pregnant", bean.getWeeksOfPregnant(), ValidationFormat.WEEKS_PREGNANT, false));
     errorList.addIfNotNull(checkFormat("Number of hours in labor", bean.getHoursInLabor(), ValidationFormat.HOURS_LABOR, true));
     errorList.addIfNotNull(checkFormat("Delivery Type", bean.getDeliveryType(), ValidationFormat.DELIVERYTYPE, false));
+    errorList.addIfNotNull(checkFormat("Pregnancy Number", bean.getPregnancyNumber(), ValidationFormat.WEEKS_PREGNANT, false));
     if (errorList.hasErrors())
       throw new FormValidationException(errorList);
   }

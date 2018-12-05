@@ -364,6 +364,14 @@
                                    <%--value="<%= deliveryType %>" type="text" size="20" maxlength="20">--%>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="subHeaderVertical">Pregnancy Numer:</td>
+                        <td>
+                            <input name="pregnancyNumber"
+                                <%String pregnancyNumber = mostRecentPregnancy == null ? "" : Integer.toString(mostRecentPregnancy.getPregnancyNumber()); %>
+                                   value="<%= pregnancyNumber %>" type="text" size="12" maxlength="12">
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
@@ -415,7 +423,7 @@
                 System.out.println("+++++++Before++++++");
 
                 System.out.println(pidString);
-                int addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType);
+                int addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType, pregnancyNumber);
 
                 System.out.println("-------After--------");
                 System.out.println(pidString);
