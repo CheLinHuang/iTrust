@@ -419,9 +419,9 @@ public enum TransactionType {
 	/**SUBMIT_REVIEW*/
 	SUBMIT_REVIEW(6102, "Patient submitted a review for an HCP.", "submitted review", true),
 	/**CREATE_INITIAL_OBSTETRICS_RECORD**/
-	CREATE_INITIAL_OBSTETRICS_RECORD(6300, "Create Initial Obstetric Record", "Create Initial Obstetric Record", true),
+	CREATE_INITIAL_OBSTETRICS_RECORD(9300, "Create Initial Obstetric Record", "Create Initial Obstetric Record", true),
 	/**VIEW_INITIAL_OBSTETRICS_RECORD**/
-	VIEW_INITIAL_OBSTETRICS_RECORD(6301, "View Initial Obstetric Record", "View Initial Obstetric Record", true),
+	VIEW_INITIAL_OBSTETRICS_RECORD(9301, "View Initial Obstetric Record", "View Initial Obstetric Record", true),
 	/**CREATE_INITIAL_OBSTETRICS_RECORD**/
 	CREATE_OBSTETRICS_OV(6400, "Create Obstetric Office Visit", "Create Obstetric Office Visit", true),
 	/**VIEW_INITIAL_OBSTETRICS_RECORD**/

@@ -297,10 +297,13 @@
                             <select name="weeksOfPregnancy">
                                 <% if (!weekOfPregnancy.equals("")) { %>
                                     <option value="<%=week%>"><%=week%></option>
+                                    <% for (int i = 0; i <= 42; i++) { %>
+                                        <option value="<%=Integer.toString(i)%>"><%=i%></option>
+                                    <%}%>
                                 <%} else {%>
                                     <option value="">Select:</option>
                                     <% for (int i = 0; i <= 42; i++) { %>
-                                        <option value="<%=i%>"><%=i%></option>
+                                        <option value="<%=Integer.toString(i)%>"><%=i%></option>
                                     <%}%>
                                 <%}%>
                             </select>
@@ -308,10 +311,13 @@
                             <select name="daysOfPregnancy">
                                 <% if (!day.equals("")) { %>
                                     <option value="<%=day%>"><%=day%></option>
+                                    <% for (int i = 0; i <= 6; i++) { %>
+                                        <option value="<%=Integer.toString(i)%>"><%=i%></option>
+                                    <%}%>
                                 <%} else {%>
                                     <option value="">Select:</option>
                                     <% for (int i = 0; i <= 6; i++) { %>
-                                        <option value="<%=i%>"><%=i%></option>
+                                        <option value="<%=Integer.toString(i)%>"><%=i%></option>
                                     <%}%>
                                 <%}%>
                             </select>
