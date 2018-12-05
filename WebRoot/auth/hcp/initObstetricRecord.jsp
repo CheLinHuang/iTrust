@@ -414,11 +414,14 @@
                 weightGain = request.getParameter("weightGain");
                 deliveryType = request.getParameter("deliveryType");
 
+                pregnancyNumber = request.getParameter("pregnancyNumber");
+
                 System.out.println(yearOfConception);
                 System.out.println(weekOfPregnancy);
                 System.out.println(hoursInLabor);
                 System.out.println(weightGain);
                 System.out.println(deliveryType);
+                System.out.println(pregnancyNumber);
 
                 System.out.println("+++++++Before++++++");
 
@@ -433,6 +436,7 @@
                 System.out.println(hoursInLabor);
                 System.out.println(weightGain);
                 System.out.println(deliveryType);
+                System.out.println(pregnancyNumber);
 
                 if (addPregnanacyInfo != -1) {
                     System.out.println("Pregnancy okay~!");
