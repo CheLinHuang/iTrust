@@ -75,6 +75,7 @@ CREATE TABLE patients(
 	iCID varchar(20)  default '', 
 	DateOfBirth DATE,
 	DateOfDeath DATE,
+	BirthTime VARCHAR(50) default '',
 	CauseOfDeath VARCHAR(10) default '',
 	MotherMID INTEGER(10) default 0,
 	FatherMID INTEGER(10) default 0,
@@ -91,6 +92,13 @@ CREATE TABLE patients(
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
 	ObstetricEligible BOOLEAN NOT NULL default false,
+	PreferMethod VARCHAR(50) default '',
+	Pitocin BOOLEAN default false,
+	Nitrous_oxide BOOLEAN default false,
+	Pethidine BOOLEAN default false,
+	Epidural_anaesthesia BOOLEAN default false,
+	Magnesium_sulfate BOOLEAN default false,
+	RH_immune_globulin BOOLEAN default false,
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
@@ -514,12 +522,9 @@ CREATE TABLE pregnancy
   hoursInLabor DOUBLE UNSIGNED,
   weightGain DOUBLE UNSIGNED,
   deliveryType enum('vaginal delivery', 'vaginal delivery vacuum assist', 'vaginal delivery forceps assist', 'caesarean section', 'miscarriage') NOT NULL,
-
   pregnancyNumber SMALLINT(4) UNSIGNED DEFAULT 1 NOT NULL,
-
 	PRIMARY KEY (id),
 	FOREIGN KEY (MID) REFERENCES patients(MID),
-
 	UNIQUE (MID, yearOfConception, weeksOfPregnant, hoursInLabor, weightGain, deliveryType, pregnancyNumber)
 ) ENGINE=MyISAM;
 

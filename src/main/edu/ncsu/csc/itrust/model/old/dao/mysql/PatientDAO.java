@@ -163,8 +163,8 @@ public class PatientDAO {
 								+ "DateOfDeath=?,CauseOfDeath=?,MotherMID=?,FatherMID=?,"
 								+ "BloodType=?,Ethnicity=?,Gender=?,TopicalNotes=?, CreditCardType=?, CreditCardNumber=?, "
 								+ "DirectionsToHome=?, Religion=?, Language=?, SpiritualPractices=?, "
-								+ "AlternateName=?, DateOfDeactivation=? WHERE MID=?"), p)) {
-			ps.setLong(37, p.getMID());
+								+ "AlternateName=?, DateOfDeactivation=?, PreferMethod = ?, BirthTime = ?, Pitocin = ?, Nitrous_oxide = ?, Pethidine = ?, Epidural_anaesthesia = ?, Magnesium_sulfate = ?, RH_immune_globulin = ? WHERE MID=?"), p)) {
+			ps.setLong(45, p.getMID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBException(e);
@@ -497,7 +497,7 @@ public class PatientDAO {
 	 * Removes all dependencies participated by the patient passed in the
 	 * parameter
 	 * 
-	 * @param representerMID
+	 * @param representeeMID
 	 *            the mid for the patient to remove all representees for
 	 * @throws DBException
 	 */

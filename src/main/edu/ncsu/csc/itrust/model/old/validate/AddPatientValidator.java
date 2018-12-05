@@ -29,7 +29,7 @@ public class AddPatientValidator extends BeanValidator<PatientBean> {
 		ErrorList errorList = new ErrorList();
 		errorList.addIfNotNull(checkFormat("First name", p.getFirstName(), ValidationFormat.NAME, false));
 		errorList.addIfNotNull(checkFormat("Last name", p.getLastName(), ValidationFormat.NAME, false));
-		errorList.addIfNotNull(checkFormat("Email", p.getEmail(), ValidationFormat.EMAIL, false));
+		//errorList.addIfNotNull(checkFormat("Email", p.getEmail(), ValidationFormat.EMAIL, false));
 		if (errorList.hasErrors())
 			throw new FormValidationException(errorList);
 	}

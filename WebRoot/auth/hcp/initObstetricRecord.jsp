@@ -117,7 +117,6 @@
 //    String weightGain = "";
 //    String deliveryType = "";
 
-    ////
 
 ////    PatientBean p;
 //    if (formIsFilled) {
@@ -168,6 +167,7 @@
 <%--//        loggingAction.logEvent(TransactionType.DEMOGRAPHICS_VIEW, loggedInMID.longValue(), p.getMID(), "");--%>
 <%--//    }--%>
 <%--%>--%>
+
 <p style="text-align: center;">After submission, record would be updated in the database <br>
     <span style="color:blue">Server will redirect back to patient's (MID: <%=pidString%>) obstetric record history shortly in 2 seconds...</span></p>
 <form id="editForm" action="<%=FormSubmitAction.toString()%>" method="post"><input type="hidden" action="<%=FormSubmitAction.toString()%>"
@@ -429,9 +429,11 @@
                 System.out.println(deliveryType);
                 System.out.println(pregnancyNumber);
 
+
                 System.out.println("+++++++Before++++++");
 
                 System.out.println(pidString);
+
                 int addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType, pregnancyNumber);
 
                 System.out.println("-------After--------");
@@ -444,6 +446,7 @@
                 System.out.println(deliveryType);
                 System.out.println(pregnancyNumber);
 
+
                 if (addPregnanacyInfo != -1) {
                     System.out.println("Pregnancy okay~!");
                 }
@@ -451,10 +454,7 @@
             } else {
                 System.out.println("No Idea wtf to do...");
             }
-
-
         %>
-
 
         <%--<% } else { %>--%>
         <%--<span style="font-size: 16pt; font-weight: bold;">Patient is deactivated.  Cannot edit.</span>--%>
@@ -465,6 +465,7 @@
 	<%--</span>--%>
     </div>
 </form>
+
 
 <br />
 <br />
@@ -493,5 +494,6 @@
                 response.sendRedirect(redirectURL);
             }
 %>
+
 
 
