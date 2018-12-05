@@ -36,7 +36,8 @@ public class OfficeVisitRecordDAOTest extends TestCase {
         b.setOfficeVisitRecordID(3657);
         b.setWeeksOfPregnant("3-05");
         b.setWeightGain(11.2);
-        b.setBloodPressure(1.024);
+        b.setHighBloodPressure(1.024);
+        b.setLowBloodPressure(1.024);
         b.setFetalHeartRate(2.98);
         b.setNumberOfPregnancy(1);
         b.setLowLyingPlacenta(true);
@@ -54,7 +55,8 @@ public class OfficeVisitRecordDAOTest extends TestCase {
         b.setOfficeVisitRecordID(3657);
         b.setWeeksOfPregnant("3-05");
         b.setWeightGain(11.2);
-        b.setBloodPressure(1.024);
+        b.setHighBloodPressure(1.024);
+        b.setLowBloodPressure(1.024);
         b.setFetalHeartRate(2.98);
         b.setNumberOfPregnancy(1);
         b.setLowLyingPlacenta(true);
@@ -76,7 +78,8 @@ public class OfficeVisitRecordDAOTest extends TestCase {
         b.setOfficeVisitRecordID(3657);
         b.setWeeksOfPregnant("3-05");
         b.setWeightGain(11.2);
-        b.setBloodPressure(1.024);
+        b.setHighBloodPressure(1.024);
+        b.setLowBloodPressure(1.024);
         b.setFetalHeartRate(2.98);
         b.setNumberOfPregnancy(1);
         b.setLowLyingPlacenta(true);

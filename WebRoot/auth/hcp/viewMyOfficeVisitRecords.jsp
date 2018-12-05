@@ -30,7 +30,8 @@
             <th>Patient</th>
             <th>Weeks of Pregnancy</th>
             <th>Weight Gain</th>
-            <th>Blood Pressure</th>
+            <th>High Blood Pressure</th>
+            <th>Low Blood Pressure</th>
             <th>Fetal Heart Rate</th>
             <th>Number of Pregnancy</th>
             <th>Low Lying Placenta</th>
@@ -50,7 +51,8 @@
         <td><%= StringEscapeUtils.escapeHtml("" + ( action.getName(ov.getPatient()) )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getWeeksOfPregnant() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getWeightGain() )) %></td>
-        <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getBloodPressure() )) %></td>
+        <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getHighBloodPressure() )) %></td>
+        <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getLowBloodPressure() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getFetalHeartRate() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getNumberOfPregnancy() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getLowLyingPlacenta() )) %></td>

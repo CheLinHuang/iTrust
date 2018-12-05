@@ -22,7 +22,8 @@ public class OfficeVisitRecordBeanLoader implements BeanLoader<OfficeVisitRecord
     public OfficeVisitRecordBean loadSingle(ResultSet rs) throws SQLException {
         OfficeVisitRecordBean ovRecordBean = new OfficeVisitRecordBean();
         ovRecordBean.setOfficeVisitRecordID(rs.getLong("id"));
-        ovRecordBean.setBloodPressure(rs.getDouble("bloodPressure"));
+        ovRecordBean.setHighBloodPressure(rs.getDouble("highbloodPressure"));
+        ovRecordBean.setLowBloodPressure(rs.getDouble("lowbloodPressure"));
         ovRecordBean.setHcp(rs.getLong("HCPID"));
         ovRecordBean.setPatient(rs.getLong("patientID"));
         ovRecordBean.setFetalHeartRate(rs.getDouble("fetalHeartRate"));
@@ -41,11 +42,12 @@ public class OfficeVisitRecordBeanLoader implements BeanLoader<OfficeVisitRecord
         ps.setLong(3, bean.getHcp());
         ps.setString(4, bean.getWeeksOfPregnant());
         ps.setDouble(5, bean.getWeightGain());
-        ps.setDouble(6, bean.getBloodPressure());
-        ps.setDouble(7, bean.getFetalHeartRate());
-        ps.setInt(8, bean.getNumberOfPregnancy());
-        ps.setBoolean(9, bean.getLowLyingPlacenta());
-        ps.setTimestamp(10, bean.getCurrentDate());
+        ps.setDouble(6, bean.getHighBloodPressure());
+        ps.setDouble(7, bean.getLowBloodPressure());
+        ps.setDouble(8, bean.getFetalHeartRate());
+        ps.setInt(9, bean.getNumberOfPregnancy());
+        ps.setBoolean(10, bean.getLowLyingPlacenta());
+        ps.setTimestamp(11, bean.getCurrentDate());
         return ps;
     }
 }

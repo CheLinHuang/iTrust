@@ -510,7 +510,8 @@ CREATE TABLE officeVisitRecord(
   HCPID BIGINT(20) UNSIGNED NOT NULL,
   weeksOfPregnant varchar(5),
   weightGain float,
-  bloodPressure float,
+  highbloodPressure float,
+  lowbloodPressure float,
   fetalHeartRate float,
   numberOfPregnancy int,
   lowLyingPlacenta boolean,
@@ -531,7 +532,7 @@ CREATE TABLE ultraSoundRecord(
   abdoCircumference float,
   humerusLength float,
   estimatedFetalWeight float,
-  ultraSoundImage varchar(100),
+  ultraSoundImage varchar(1000),
   PRIMARY KEY(id),
   FOREIGN KEY(officeVisitRecordID) REFERENCES officeVisitRecord(id)
 ) ENGINE=MYISAM;
