@@ -57,7 +57,8 @@
     String weightGain="";
     String weeksOfPregnant="20-01";  // For test. Modify me --- UC93
     String lowLyingPlacenta="";
-    String bloodPressure="";
+    String highbloodPressure="";
+    String lowbloodPressure="";
     String fetalHeartRate="";
     String numberOfPregnancy="";
 
@@ -90,8 +91,10 @@
 
             else if(request.getParameter("lowLyingPlacenta").equals(""))
                 headerMessage = "Please input Low Lying Placenta";
-            else if(request.getParameter("bloodPressure").equals(""))
-                headerMessage = "Please input Blood Pressure";
+            else if(request.getParameter("highbloodPressure").equals(""))
+                headerMessage = "Please input High Blood Pressure";
+            else if(request.getParameter("lowbloodPressure").equals(""))
+                headerMessage = "Please input Low Blood Pressure";
             else if(request.getParameter("fetalHeartRate").equals(""))
                 headerMessage = "Please input Fetal Heart Rate";
             else if(request.getParameter("numberOfPregnancy").equals(""))
@@ -99,7 +102,8 @@
             else {
                 weightGain = request.getParameter("weightGain");
                 lowLyingPlacenta = request.getParameter("lowLyingPlacenta");
-                bloodPressure = request.getParameter("bloodPressure");
+                highbloodPressure = request.getParameter("highbloodPressure");
+                lowbloodPressure = request.getParameter("lowbloodPressure");
                 fetalHeartRate = request.getParameter("fetalHeartRate");
                 numberOfPregnancy = request.getParameter("numberOfPregnancy");
                 OfficeVisitRecordBean ovrecord = new OfficeVisitRecordBean();
@@ -110,12 +114,14 @@
                 ovrecord.setLowLyingPlacenta(Boolean.parseBoolean(lowLyingPlacenta));
                 ovrecord.setCurrentDate(new Timestamp(date.getTime()));
                 double weightGainD = 0;
-                double bloodPressureD = 0;
+                double highbloodPressureD = 0;
+                double lowbloodPressureD = 0;
                 double fetalHeartRateD = 0;
                 int numberOfPregnancyI = 0;
                 try{
                     weightGainD = Double.parseDouble(weightGain);
-                    bloodPressureD = Double.parseDouble(bloodPressure);
+                    highbloodPressureD = Double.parseDouble(highbloodPressure);
+                    lowbloodPressureD = Double.parseDouble(lowbloodPressure);
                     fetalHeartRateD = Double.parseDouble(fetalHeartRate);
                     numberOfPregnancyI = Integer.parseInt(numberOfPregnancy);
                 } catch (NumberFormatException nfe){
@@ -126,7 +132,8 @@
                 }else{
                     String bloodType = "";
                     ovrecord.setWeightGain(weightGainD);
-                    ovrecord.setBloodPressure(bloodPressureD);
+                    ovrecord.setHighBloodPressure(highbloodPressureD);
+                    ovrecord.setLowBloodPressure(lowbloodPressureD);
                     ovrecord.setFetalHeartRate(fetalHeartRateD);
                     ovrecord.setNumberOfPregnancy(numberOfPregnancyI);
                     try {
@@ -159,8 +166,11 @@
     <span>Weight Gain: </span>
     <input style="width: 250px;" type="text" name="weightGain" value="<%= StringEscapeUtils.escapeHtml("" + ( weightGain)) %>" />
     <br /><br />
-    <span>Blood Pressure: </span>
-    <input style="width: 250px;" type="text" name="bloodPressure" value="<%= StringEscapeUtils.escapeHtml("" + ( bloodPressure)) %>" />
+    <span>High Blood Pressure: </span>
+    <input style="width: 250px;" type="text" name="highbloodPressure" value="<%= StringEscapeUtils.escapeHtml("" + ( highbloodPressure)) %>" />
+    <br /><br />
+    <span>Low Blood Pressure: </span>
+    <input style="width: 250px;" type="text" name="lowbloodPressure" value="<%= StringEscapeUtils.escapeHtml("" + ( lowbloodPressure)) %>" />
     <br /><br />
     <span>Fetal Heart Rate: </span>
     <input style="width: 250px;" type="text" name="fetalHeartRate" value="<%= StringEscapeUtils.escapeHtml("" + ( fetalHeartRate)) %>" />

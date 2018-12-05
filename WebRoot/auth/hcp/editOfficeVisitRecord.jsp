@@ -63,7 +63,8 @@
 
     String lastWeeksOfPregnant = original.getWeeksOfPregnant();
     double lastWeightGain = original.getWeightGain();
-    double lastBloodPressure = original.getBloodPressure();
+    double lastHighBloodPressure = original.getHighBloodPressure();
+    double lastLowBloodPressure = original.getLowBloodPressure();
     double lastFetalHeartRate = original.getFetalHeartRate();
     int lastNumberOfPregnancy = original.getNumberOfPregnancy();
     boolean lastLowLyingPlacenta = original.getLowLyingPlacenta();
@@ -80,7 +81,8 @@
 
 //            lastWeeksOfPregnant = request.getParameter("weeksOfPregnant");
             lastWeightGain = Double.parseDouble(request.getParameter("weightGain"));
-            lastBloodPressure = Double.parseDouble(request.getParameter("bloodPressure"));
+            lastHighBloodPressure = Double.parseDouble(request.getParameter("highbloodPressure"));
+            lastLowBloodPressure = Double.parseDouble(request.getParameter("lowbloodPressure"));
             lastFetalHeartRate = Double.parseDouble(request.getParameter("fetalHeartRate"));
             lastNumberOfPregnancy = Integer.parseInt(request.getParameter("numberOfPregnancy"));
             lastLowLyingPlacenta = Boolean.parseBoolean(request.getParameter("lowLyingPlacenta"));
@@ -91,7 +93,8 @@
             officeVisitRecord.setHcp(loggedInMID);
             officeVisitRecord.setWeeksOfPregnant(lastWeeksOfPregnant);
             officeVisitRecord.setWeightGain(lastWeightGain);
-            officeVisitRecord.setBloodPressure(lastBloodPressure);
+            officeVisitRecord.setHighBloodPressure(lastHighBloodPressure);
+            officeVisitRecord.setLowBloodPressure(lastLowBloodPressure);
             officeVisitRecord.setFetalHeartRate(lastFetalHeartRate);
             officeVisitRecord.setNumberOfPregnancy(lastNumberOfPregnancy);
             officeVisitRecord.setLowLyingPlacenta(lastLowLyingPlacenta);
@@ -149,8 +152,12 @@
             <input type="text" name="weightGain" value="<%=StringEscapeUtils.escapeHtml("" + original.getWeightGain())%>" />
         </td></tr>
         <tr><td>
-            <b>Blood Pressure: </b>
-            <input type="text" name="bloodPressure" value="<%=StringEscapeUtils.escapeHtml("" + original.getBloodPressure())%>" />
+            <b>High Blood Pressure: </b>
+            <input type="text" name="highbloodPressure" value="<%=StringEscapeUtils.escapeHtml("" + original.getHighBloodPressure())%>" />
+        </td></tr>
+        <tr><td>
+            <b>Low Blood Pressure: </b>
+            <input type="text" name="lowbloodPressure" value="<%=StringEscapeUtils.escapeHtml("" + original.getLowBloodPressure())%>" />
         </td></tr>
         <tr><td>
             <b>Fetal Heart Rate: </b>
