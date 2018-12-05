@@ -11,7 +11,8 @@ public class OfficeVisitRecordBean {
     private long hcp;
     private String weeksOfPregnant;
     private double weightGain;
-    private double bloodPressure;
+    private double highbloodPressure;
+    private double lowbloodPressure;
     private double fetalHeartRate;
     private int numberOfPregnancy;
     private boolean lowLyingPlacenta;
@@ -57,12 +58,20 @@ public class OfficeVisitRecordBean {
         this.weightGain = weightGain;
     }
 
-    public double getBloodPressure(){
-        return bloodPressure;
+    public double getHighBloodPressure(){
+        return highbloodPressure;
     }
 
-    public void setBloodPressure(double bloodPressure){
-        this.bloodPressure = bloodPressure;
+    public void setHighBloodPressure(double highbloodPressure){
+        this.highbloodPressure = highbloodPressure;
+    }
+
+    public double getLowBloodPressure(){
+        return lowbloodPressure;
+    }
+
+    public void setLowBloodPressure(double lowbloodPressure){
+        this.lowbloodPressure = lowbloodPressure;
     }
 
     public void setFetalHeartRate(double fetalHeartRate){
