@@ -8,6 +8,7 @@ public class PregnancyBean {
   private double hoursInLabor;
   private double weightGain;
   private String deliveryType;
+  private int pregnancyNumber;
 
   public long getMID() {
     return MID;
@@ -55,5 +56,13 @@ public class PregnancyBean {
 
   public void setDeliveryType(String deliveryType) {
     this.deliveryType = deliveryType;
+  }
+
+  public int getPregnancyNumber() {
+    return pregnancyNumber;
+  }
+
+  public void setPregnancyNumber(int pregNum) {
+    this.pregnancyNumber = pregNum;
   }
 }
