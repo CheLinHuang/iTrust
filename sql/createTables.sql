@@ -91,7 +91,7 @@ CREATE TABLE patients(
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
-
+	ObstetricEligible BOOLEAN NOT NULL default false,
 	PreferMethod VARCHAR(50) default '',
 	Pitocin BOOLEAN default false,
 	Nitrous_oxide BOOLEAN default false,
@@ -99,9 +99,6 @@ CREATE TABLE patients(
 	Epidural_anaesthesia BOOLEAN default false,
 	Magnesium_sulfate BOOLEAN default false,
 	RH_immune_globulin BOOLEAN default false,
-
-	ObstetricEligible BOOLEAN NOT NULL default false,
-
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
@@ -525,8 +522,10 @@ CREATE TABLE pregnancy
   hoursInLabor DOUBLE UNSIGNED,
   weightGain DOUBLE UNSIGNED,
   deliveryType enum('vaginal delivery', 'vaginal delivery vacuum assist', 'vaginal delivery forceps assist', 'caesarean section', 'miscarriage') NOT NULL,
+  pregnancyNumber SMALLINT(4) UNSIGNED DEFAULT 1 NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (MID) REFERENCES patients(MID)
+	FOREIGN KEY (MID) REFERENCES patients(MID),
+	UNIQUE (MID, yearOfConception, weeksOfPregnant, hoursInLabor, weightGain, deliveryType, pregnancyNumber)
 ) ENGINE=MyISAM;
 
 CREATE TABLE obstetricsInitRecord
@@ -538,7 +537,9 @@ CREATE TABLE obstetricsInitRecord
   weeksOfPregnant VARCHAR(4) NOT NULL,
   recordCreatedTime timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 	PRIMARY KEY (id),
-	FOREIGN KEY (MID) REFERENCES patients(MID)
+	FOREIGN KEY (MID) REFERENCES patients(MID),
+
+	UNIQUE (MID, LMP, EDD, weeksOfPregnant)
 ) ENGINE=MyISAM;
 
 CREATE TABLE TravelHistories

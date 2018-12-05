@@ -11,11 +11,13 @@ public class PregnancyBeanTest  extends TestCase {
     pb.setHoursInLabor(5.1);
     pb.setDeliveryType("vaginal delivery");
     pb.setWeeksOfPregnant("35-5");
+    pb.setPregnancyNumber(2);
 
     assertEquals(2018, pb.getYearOfConception());
     assertEquals(10.5, pb.getWeightGain());
     assertEquals(5.1, pb.getHoursInLabor());
     assertEquals("vaginal delivery", pb.getDeliveryType());
     assertEquals("35-5", pb.getWeeksOfPregnant());
+    assertEquals(2, pb.getPregnancyNumber());
   }
 }

@@ -58,7 +58,23 @@
     boolean LMPDateStringIsNull = LMPDateString == null;
 
 
+    // count of form submits to pass to itself recursively when calling this page after each form submission
+    String clickCount = request.getParameter("submitCount");
+    System.out.println("+++++++++" + clickCount + "++++++++++");
+    int count;
+    if (clickCount == null) {
+        count = 0;
+    } else {
+        count = Integer.parseInt(clickCount);
+    }
+    count++;
 
+
+
+    StringBuilder FormSubmitAction = new StringBuilder("initObstetricRecord.jsp?submitCount=");
+    FormSubmitAction.append(Integer.toString(count));
+
+    System.out.println(FormSubmitAction.toString() + "___________");
 
 
     // System.out.println(pidString);
@@ -101,15 +117,6 @@
 //    String weightGain = "";
 //    String deliveryType = "";
 
-    if (formIsFilled) {
-%>
-<br />
-<div align=center>
-    <span class="iTrustMessage">Obstetric Initialized for Patient MID : <%=pidString%></span>
-</div>
-<br />
-<%
-    }
 
 ////    PatientBean p;
 //    if (formIsFilled) {
@@ -161,7 +168,9 @@
 <%--//    }--%>
 <%--%>--%>
 
-<form id="editForm" action="initObstetricRecord.jsp" method="post"><input type="hidden"
+<p style="text-align: center;">After submission, record would be updated in the database <br>
+    <span style="color:blue">Server will redirect back to patient's (MID: <%=pidString%>) obstetric record history shortly in 2 seconds...</span></p>
+<form id="editForm" action="<%=FormSubmitAction.toString()%>" method="post"><input type="hidden" action="<%=FormSubmitAction.toString()%>"
                                                                   name="formIsFilled" value="true"> <br />
     <table cellspacing=0 align=center cellpadding=0>
         <tr>
@@ -355,6 +364,14 @@
                                    <%--value="<%= deliveryType %>" type="text" size="20" maxlength="20">--%>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="subHeaderVertical">Pregnancy Numer:</td>
+                        <td>
+                            <input name="pregnancyNumber"
+                                <%String pregnancyNumber = mostRecentPregnancy == null ? "" : Integer.toString(mostRecentPregnancy.getPregnancyNumber()); %>
+                                   value="<%= pregnancyNumber %>" type="text" size="12" maxlength="12">
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
@@ -371,8 +388,13 @@
 //                .getParameterMap(), new PatientBean());
 //        try {
 ////            action.updateInformation(p);
-
-
+%>
+                <div align=center>
+                    <span class="iTrustMessage">Obstetric Initialized for Patient MID : <%=pidString%></span> <br>
+                    <span style="color:blue">Server will redirect back to patient obstetric record history shortly in 2 seconds...</span>
+                    </div>
+                <br />
+<%
                 int initializationRecord = oba.initializationObstetricRecord(pidString, LMPValue, formattedEDD, weeksPregnant);
                 if (initializationRecord != -1) {
                     System.out.println("Init Record okay~!");
@@ -392,16 +414,21 @@
                 weightGain = request.getParameter("weightGain");
                 deliveryType = request.getParameter("deliveryType");
 
+                pregnancyNumber = request.getParameter("pregnancyNumber");
+
                 System.out.println(yearOfConception);
                 System.out.println(weekOfPregnancy);
                 System.out.println(hoursInLabor);
                 System.out.println(weightGain);
                 System.out.println(deliveryType);
+                System.out.println(pregnancyNumber);
+
 
                 System.out.println("+++++++Before++++++");
 
                 System.out.println(pidString);
-                int addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType);
+
+                int addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType, pregnancyNumber);
 
                 System.out.println("-------After--------");
                 System.out.println(pidString);
@@ -411,6 +438,8 @@
                 System.out.println(hoursInLabor);
                 System.out.println(weightGain);
                 System.out.println(deliveryType);
+                System.out.println(pregnancyNumber);
+
 
                 if (addPregnanacyInfo != -1) {
                     System.out.println("Pregnancy okay~!");
@@ -419,7 +448,6 @@
             } else {
                 System.out.println("No Idea wtf to do...");
             }
-
         %>
 
         <%--<% } else { %>--%>
@@ -431,10 +459,35 @@
 	<%--</span>--%>
     </div>
 </form>
+
+
 <br />
 <br />
+
 <itrust:patientNav thisTitle="Demographics" />
 
 <%@include file="/footer.jsp"%>
+<%
+            if (count > 1) {
+                // Obtain the page of the current MID patient's obstetric history view URL
+                String requestURI = request.getRequestURI();
+                System.out.println(requestURI);
+                String currentURL = javax.servlet.http.HttpUtils.getRequestURL(request).toString();
+                System.out.println(currentURL);
+                int serverSubstringEndIndex = currentURL.indexOf(requestURI);
+
+                String serverURI = currentURL.substring(0, serverSubstringEndIndex);
+
+                StringBuilder linkURLSB = new StringBuilder(serverURI);
+                linkURLSB.append("/iTrust/auth/obstetricHistory.jsp?UID_PATIENTID=").append(pidString);
+
+
+                // After successfully update, wait for 2 seconds before redirecting back to the patient's obstetric history list
+                Thread.sleep(1500); // sleep 1.5 seconds
+                String redirectURL = linkURLSB.toString();
+                response.sendRedirect(redirectURL);
+            }
+%>
+
 
 

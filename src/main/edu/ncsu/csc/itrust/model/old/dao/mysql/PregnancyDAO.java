@@ -33,7 +33,7 @@ public class PregnancyDAO {
     try (Connection conn = factory.getConnection();
          PreparedStatement stmt = pregnancyBeanLoader
              .loadParameters(conn.prepareStatement("INSERT INTO pregnancy(MID, yearOfConception," +
-                 "weeksOfPregnant, hoursInLabor, weightGain, deliveryType) VALUES(?,?,?,?,?,?)"),
+                 "weeksOfPregnant, hoursInLabor, weightGain, deliveryType, pregnancyNumber) VALUES(?,?,?,?,?,?,?)"),
                  pregnancyBean)) {
       stmt.executeUpdate();
     } catch (SQLException e) {
