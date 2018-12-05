@@ -15,7 +15,7 @@ body, td{
 </style>
 </head>
 <body>
-<h1>Test Utilities</h1>
+<h1>Test Utilities</h1>t
 A few clarifications:
 <ul>
 	<li>The <b>Type</b> is the name of the Java enum (from <code>edu.ncsu.csc.itrust.model.enums.TransactionType</code>)</li>
