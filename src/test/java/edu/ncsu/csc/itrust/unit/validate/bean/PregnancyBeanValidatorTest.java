@@ -87,6 +87,23 @@ public class PregnancyBeanValidatorTest extends TestCase {
     }
   }
 
+  public void testInvalidPregnancyNumber() {
+    PregnancyBean bean = new PregnancyBean();
+    bean.setMID(1);
+    bean.setYearOfConception(2018);
+    bean.setWeeksOfPregnant("42-0");
+    bean.setDeliveryType("vaginal delivery");
+    bean.setHoursInLabor(3);
+    bean.setPregnancyNumber(0);
+    try {
+      validator.validate(bean);
+      fail("Validator should have thrown FormValidationException");
+    } catch (FormValidationException e) {
+      assertEquals("Pregnancy Number: Pregnancy Number has to be larger than 1 and no more than 6. Humans should not be able to conceive more than 6 babies!",
+          e.getErrorList().get(0));
+    }
+  }
+
   public void testValidBean() {
     PregnancyBean bean = new PregnancyBean();
     bean.setMID(1);
@@ -94,6 +111,7 @@ public class PregnancyBeanValidatorTest extends TestCase {
     bean.setWeeksOfPregnant("42-0");
     bean.setDeliveryType("vaginal delivery");
     bean.setHoursInLabor(5);
+    bean.setPregnancyNumber(1);
     try {
       validator.validate(bean);
     } catch (FormValidationException e) {

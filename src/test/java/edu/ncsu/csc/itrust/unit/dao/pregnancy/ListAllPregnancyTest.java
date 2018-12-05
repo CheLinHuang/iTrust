@@ -29,5 +29,6 @@ public class ListAllPregnancyTest extends TestCase {
     assertEquals(4.5, pregnancyBean.getHoursInLabor());
     assertEquals(20.0, pregnancyBean.getWeightGain());
     assertEquals("vaginal delivery", pregnancyBean.getDeliveryType());
+    assertEquals(1, pregnancyBean.getPregnancyNumber());
   }
 }
