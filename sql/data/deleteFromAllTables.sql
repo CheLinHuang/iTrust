@@ -92,3 +92,7 @@ ALTER TABLE pregnancy AUTO_INCREMENT = 0;
 
 DELETE FROM obstetricsInitRecord;
 ALTER TABLE obstetricsInitRecord AUTO_INCREMENT = 0;
+
+DELETE FROM TravelHistories;
+Alter Table TravelHistories AUTO_INCREMENT = 0;
+

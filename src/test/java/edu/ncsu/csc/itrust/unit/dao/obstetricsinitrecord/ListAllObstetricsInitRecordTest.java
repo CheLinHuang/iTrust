@@ -19,11 +19,11 @@ public class ListAllObstetricsInitRecordTest extends TestCase {
   }
 
   public void testListAllObstetricsInitRecord() throws Exception {
-    List<ObstetricsInitRecordBean> list = obstetricsInitRecordDAO.getAllObstetricsInitRecord(1L);
+    List<ObstetricsInitRecordBean> list = obstetricsInitRecordDAO.getAllObstetricsInitRecord(6L);
     assertEquals(1, list.size());
     ObstetricsInitRecordBean obstetricsInitRecordBean = list.get(0);
 
-    assertEquals(1, obstetricsInitRecordBean.getMID());
+    assertEquals(6, obstetricsInitRecordBean.getMID());
     assertEquals("20-6", obstetricsInitRecordBean.getWeeksOfPregnant());
     assertEquals("01/01/2018", obstetricsInitRecordBean.getLMP());
     assertEquals("10/08/2018", obstetricsInitRecordBean.getEDD());

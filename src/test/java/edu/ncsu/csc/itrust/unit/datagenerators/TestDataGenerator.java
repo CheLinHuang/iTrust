@@ -848,6 +848,9 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/obstetricsInitRecord1.sql");
 	}
 
+	public void travelHistory1() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/TravelHistory1.sql");
+	}
 	/**
 	 * generate the dependency of Baby Programmer on Andy Programmer
 	 */
@@ -995,6 +998,8 @@ public class TestDataGenerator {
 		// Added for UC 93
 		pregnancy1();
 		obstetricsInitRecord1();
+    
+		travelHistory1();
 
 		setMode();
 	}

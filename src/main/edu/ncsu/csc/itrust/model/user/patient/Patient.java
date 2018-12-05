@@ -1,6 +1,9 @@
 package edu.ncsu.csc.itrust.model.user.patient;
 
 import java.io.Serializable;
+import java.util.List;
+
+import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
 import edu.ncsu.csc.itrust.model.user.User;
 
 /**
@@ -16,6 +19,7 @@ public class Patient extends User implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1509544768333457536L;
+	private static List<TravelHistoryBean> travelHistories;
 
 // add data when appropriate
 }

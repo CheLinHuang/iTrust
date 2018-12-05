@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.ncsu.csc.itrust.action.EditPatientAction;
 import edu.ncsu.csc.itrust.action.SearchUsersAction;
+import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.model.old.beans.PatientBean;
 import edu.ncsu.csc.itrust.model.old.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
@@ -158,5 +159,65 @@ public class SearchUsersActionTest extends TestCase {
 		patient = act.fuzzySearchForExperts("Gandal");
 		assertEquals(1, patient.size());
 		assertEquals("Gandalf", patient.get(0).getFirstName());
+	}
+
+	/**
+	 * testSearchForObstetricCarePatientsWithName
+	 */
+	public void testSearchForObstetricCarePatientsWithName() {
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000003L);
+		List<PatientBean> patient = act.searchForObstetricCarePatientsWithName("Andy", "Programmer");
+		assertEquals(0, patient.size());
+		patient = act.searchForObstetricCarePatientsWithName("Baby", "A");
+		assertEquals(1, patient.size());
+		assertEquals("Baby A", patient.get(0).getFullName());
+		patient = act.searchForObstetricCarePatientsWithName("Baby", "");
+		assertEquals(1, patient.size());
+		assertEquals("Baby A", patient.get(0).getFullName());
+	}
+
+	/**
+	 * testFuzzySearchForObstetricCarePatientsWithName
+	 */
+	public void testFuzzySearchForObstetricCarePatientsWithName() {
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000003L);
+		List<PatientBean> patient = act.fuzzySearchForObstetricCarePatientsWithName("Andy", false);
+		assertEquals(0, patient.size());
+		patient = act.fuzzySearchForObstetricCarePatientsWithName("Baby", false);
+		assertEquals(1, patient.size());
+		assertEquals("Baby A", patient.get(0).getFullName());
+		patient = act.fuzzySearchForObstetricCarePatientsWithName("6", false);
+		assertEquals(1, patient.size());
+		assertEquals("Baby A", patient.get(0).getFullName());
+	}
+
+	/**
+	 * testSetPatientEligibleToObstetric
+	 */
+	public void testSetPatientEligibleToObstetric() {
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000012L);
+		act.setPatientEligibleToObstetric(1L);
+		PatientBean p = null;
+		try {
+			p = factory.getPatientDAO().getPatient(1L);
+		} catch (DBException e) {
+			fail();
+		}
+		assertEquals("1", p.getObstetricEligible());
+	}
+
+	/**
+	 * testSetPatientEligibleToObstetric
+	 */
+	public void testSetObstetricPatientToNormalPatient() {
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000012L);
+		act.setObstetricPatientToNormalPatient(6L);
+		PatientBean p = null;
+		try {
+			p = factory.getPatientDAO().getPatient(6L);
+		} catch (DBException e) {
+			fail();
+		}
+		assertEquals("0", p.getObstetricEligible());
 	}
 }
