@@ -39,7 +39,7 @@ public class UltraSoundRecordDAO {
             stmt.setLong(1, officeVisitRecordID);
             results = stmt.executeQuery();
             List<UltraSoundRecordBean> abList = ultraSoundRecordBeanLoader.loadList(results);
-            if (abList != null){
+            if (!abList.isEmpty()){
                 return abList.get(0);
             } else{
                 return null;
