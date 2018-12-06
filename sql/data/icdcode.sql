@@ -1015,8 +1015,6 @@ INSERT INTO icdcode (code, name, is_chronic) VALUES
 ('R971', 'Elevated cancer antigen 125 [CA 125]', 0),
 ('O210', 'Mild hyperemesis gravidarum', 0),
 ('O211', 'Hyperemesis gravidarum with metabolic disturbance', 0),
-('O211', 'Hyperemesis gravidarum with metabolic disturbance', 0),
-('O211', 'Hyperemesis gravidarum with metabolic disturbance', 0),
 ('E02', 'Subclinical iodine-deficiency hypothyroidism', 0),
 ('E030', 'Congenital hypothyroidism with diffuse goiter', 0),
 ('E031', 'Congenital hypothyroidism without goiter', 0),

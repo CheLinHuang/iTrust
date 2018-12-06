@@ -17,7 +17,6 @@ public class TravelHistoryBeanValidator extends BeanValidator<TravelHistoryBean>
         errorList.addIfNotNull(checkFormat("patientMID", bean.getPatientMID(), ValidationFormat.MID, false));
         errorList.addIfNotNull(checkFormat("travelledCities", bean.getTravelledCities(), ValidationFormat.Travelled_Cities, false));
         if (bean.getStartDate() != null) {
-            System.out.println(bean.getStartDate().toString());
             errorList.addIfNotNull(checkFormat("startDate", bean.getStartDate().toString(), ValidationFormat.START_END_DATE, true));
         }
         if (bean.getEndDate() != null) {

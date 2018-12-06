@@ -101,4 +101,5 @@ ALTER TABLE obstetricsInitRecord AUTO_INCREMENT = 0;
 DELETE FROM TravelHistories;
 Alter Table TravelHistories AUTO_INCREMENT = 0;
 
-
+DELETE FROM PreExistingConditionRecord;
+Alter Table PreExistingConditionRecord AUTO_INCREMENT = 0;
