@@ -116,7 +116,8 @@ public enum ValidationFormat {
 	PSS_OV("^[1-59]$","1-5 or 9, representing patient smoking status"),
 	PREGNANCY_NUMBER("^[1-6]$", "Pregnancy Number has to be larger than 1 and no more than 6. Humans should not be able to conceive more than 6 babies!"),
 	Travelled_Cities("^.{1,512}$","Up to 512 characters are valid travelledCities"),
-	START_END_DATE("[\\d]{4}-[\\d]{2}-[\\d]{2}", "YYYY-MM-DD")
+	START_END_DATE("[\\d]{4}-[\\d]{2}-[\\d]{2}", "YYYY-MM-DD"),
+	ICD("^.{1,512}$","Up to 512 characters are valid IcdInfo")
 	;
 
 	private Pattern regex;

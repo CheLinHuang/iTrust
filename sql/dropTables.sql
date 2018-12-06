@@ -57,4 +57,4 @@ DROP TABLE IF EXISTS WardRooms;
 DROP TABLE IF EXISTS Wards;
 DROP TABLE IF EXISTS TravelHistories;
 DROP TABLE IF EXISTS officeVisitRecord;
-
+DROP TABLE IF EXISTS PreExistingConditionRecord;

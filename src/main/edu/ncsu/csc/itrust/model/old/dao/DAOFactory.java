@@ -272,4 +272,11 @@ public class DAOFactory {
 	public UltraSoundRecordDAO getUltraSoundRecordDAO() {
 		return new UltraSoundRecordDAO(this);
 	}
+
+	/**
+	 * @return this DAOFactory's PreExistingConditionRecordDAO;
+	 */
+	public PreExistingConditionRecordDAO getPreExistingConditionRecordDAO() {
+		return new PreExistingConditionRecordDAO(this);
+	}
 }
