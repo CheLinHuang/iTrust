@@ -15,6 +15,14 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
+<%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import = "javax.servlet.http.*" %>
+<%@ page import = "org.apache.commons.fileupload.*" %>
+<%@ page import = "org.apache.commons.fileupload.disk.*" %>
+<%@ page import = "org.apache.commons.fileupload.servlet.*" %>
+<%@ page import = "org.apache.commons.io.output.*" %>
+
+
 
 <%@include file="/global.jsp" %>
 
@@ -33,14 +41,13 @@
         long officeVisitRecordID = 0L;
         long patientID = 0L;
         boolean error = false;
-        String hidden = "";
         String officevisitString="";
+        String ovid="";
 
         if (request.getParameter("apt") != null) {
             officevisitString = (String) request.getParameter("apt");
             System.out.println("officevisitrecord1:" + officevisitString);
         }
-
         String crownRumpLength="";
         String biparietalDiameter="";
         String headCircumference="";
@@ -49,17 +56,29 @@
         String occipitofromtalDiameter="";
         String humerusLength="";
         String estimatedFetalWeight="";
-        String image="/path/of/image";
+        String image="image";
+        String officevisitID="";
+        if (request.getParameter("filepath") != null){
+            image = request.getParameter("filepath");
+            System.out.println("image path: " + image);
+        }
 
-        if (request.getParameter("ultraSoundRecord") != null) {
+        if (request.getParameter("ovid") != null){
+            ovid = request.getParameter("ovid");
+        }
+
+        if(request.getParameter("officevisitID") != null){
+            officevisitID= request.getParameter("officevisitID");
+        }
+
+        if (request.getParameter("ultraSoundRecord") != null ) {
 
             UltraSoundRecordBean ulrecord = new UltraSoundRecordBean();
             officeVisitRecordID = Long.parseLong(request.getParameter("ovID"));
             System.out.println("officevisitrecord2:" + officeVisitRecordID);
             ulrecord.setOfficeVisitID(officeVisitRecordID);
-            ulrecord.setUltraSoundImage(image);
-            System.out.println("ultraSoundImage:" + image);
-
+            if (request.getParameter("image") != null)
+                image = request.getParameter("image");
             double crownRumpLengthD = 0;
             double biparietalDiameterD = 0;
             double headCircumferenceD = 0;
@@ -78,7 +97,6 @@
                 occipitofromtalDiameterD = Double.parseDouble(request.getParameter("occipitofromtalDiameter"));
                 humerusLengthD = Double.parseDouble(request.getParameter("humerusLength"));
                 estimatedFetalWeightD = Double.parseDouble(request.getParameter("estimatedFetalWeight"));
-
             } catch (NumberFormatException nfe){
                 error = true;
             }
@@ -102,6 +120,7 @@
                 ulrecord.setOcciFrontalDiameter(occipitofromtalDiameterD);
                 ulrecord.setHumerusLength(humerusLengthD);
                 ulrecord.setEstimatedFetalWeight(estimatedFetalWeightD);
+                ulrecord.setUltraSoundImage(image);
                 try{
                     headerMessage=action.addUltrasoundRecord(ulrecord, false);
                     if(headerMessage.startsWith("Success")){
@@ -118,9 +137,11 @@
 
 
     %>
-    <div align="left" <%=hidden %> id="ultraSoundDiv">
+    <div align="left" id="ultraSoundDiv">
         <h2>Document an Ultra Sound</h2>
         <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (headerMessage )) %></span><br /><br />
+        <h5><a href="uploadUltraSoundRecord.jsp?ovID=<%=officevisitString%>">Upload UltraSound Record</a></h5>
+        <br />
         <span>Crown rump length: </span>
         <input style="width: 250px;" type="text" name="crownRumpLength" value="<%= StringEscapeUtils.escapeHtml("" + ( crownRumpLength)) %>" />
         <br /><br />
@@ -146,17 +167,15 @@
         <input style="width: 250px;" type="text" name="estimatedFetalWeight" value="<%= StringEscapeUtils.escapeHtml("" + ( estimatedFetalWeight)) %>" />
         <br /><br />
 
-
         <input type="submit" value="submit" name="ultraSoundRecordButton"/>
         <input type="hidden" value="UltraSoundRecord" name="ultraSoundRecord"/>
-        <input type="hidden" value="<%=officevisitString%>" name="ovID"/>
+        <input type="hidden" value="<%=image%>" name="image"/>
+        <input type="hidden" value="<%=ovid%>" name="ovID"/>
 
         <br />
         <br />
     </div>
 </form>
-
-
 <%@include file="/footer.jsp" %>
 
 
