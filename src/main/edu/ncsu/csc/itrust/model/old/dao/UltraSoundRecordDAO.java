@@ -32,14 +32,18 @@ public class UltraSoundRecordDAO {
     }
 
 
-    public List<UltraSoundRecordBean> getUltraSoundRecord(final long officeVisitRecordID) throws SQLException, DBException{
+    public UltraSoundRecordBean getUltraSoundRecord(final long officeVisitRecordID) throws SQLException, DBException{
         ResultSet results = null;
         try(Connection conn = factory.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " +
                 "ultraSoundRecord WHERE officeVisitRecordID=?")){
             stmt.setLong(1, officeVisitRecordID);
             results = stmt.executeQuery();
             List<UltraSoundRecordBean> abList = ultraSoundRecordBeanLoader.loadList(results);
-            return abList;
+            if (!abList.isEmpty()){
+                return abList.get(0);
+            } else{
+                return null;
+            }
         } catch (SQLException e) {
             throw new DBException(e);
         }

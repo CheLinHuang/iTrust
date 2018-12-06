@@ -148,7 +148,7 @@
             <th>Weight Gain</th>
             <th>Delivery Type</th>
             <th>Pregnancy Number</th>
-            <th>Has Multiple Pregnancy</th>
+            <th>Is Multiple Pregnancy</th>
         </tr>
         <%
             for (int i = 0; i < pregnancyHistoryList.size(); i++) {

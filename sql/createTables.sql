@@ -585,3 +585,8 @@ CREATE TABLE ultraSoundRecord(
   FOREIGN KEY(officeVisitRecordID) REFERENCES officeVisitRecord(id)
 ) ENGINE=MYISAM;
 
+CREATE TABLE PreExistingConditionRecord
+(
+  patientMID BIGINT unsigned NOT NULL default 0,
+  icdInfo VARCHAR(512) NOT NULL default 'No Pre-existing condition found'
+) ENGINE=MyISAM;
