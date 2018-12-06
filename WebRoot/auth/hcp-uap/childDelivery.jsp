@@ -106,21 +106,9 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		try{
 			boolean isDependent = false;
 			long representativeId = -1L;
-			/*if(request.getParameter("isDependent") != null && request.getParameter("isDependent").equals("on")){
-				isDependent = true;
-			}
 			
-			if(request.getParameter("repId") != "" && isDependent){
-				representativeId = Long.valueOf(request.getParameter("repId"));
-			}else if(isDependent && request.getParameter("repId") == ""){
-				throw new FormValidationException("Representative MID must be filled if the patient is marked as a dependent.");
-			} */
 			long newMID = 1L; 
-			/* if(isDependent){
-				newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addDependentPatient(p, representativeId, loggedInMID.longValue());
-			}else{
-				newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addPatient(p, loggedInMID.longValue());
-			} */
+			
 			newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addPatient(p, loggedInMID.longValue());
 			parent_action.updateInformation(parent);
 			session.setAttribute("pid", Long.toString(newMID));

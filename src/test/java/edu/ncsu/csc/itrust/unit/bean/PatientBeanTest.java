@@ -20,6 +20,12 @@ public class PatientBeanTest extends TestCase {
 		baby.setDateOfBirthStr(new SimpleDateFormat("MM/dd/yyyy").format(today));
 		assertEquals(0, baby.getAge());
 	}
+	
+	public void testBirthTime() throws Exception {
+		PatientBean newBorn = new PatientBean();
+		newBorn.setBirthTime("02:00 PM");
+		assertEquals("02:00 PM", newBorn.getBirthTime());
+	}
 
 	public void testAge10() throws Exception {
 		PatientBean kid = new PatientBean();
