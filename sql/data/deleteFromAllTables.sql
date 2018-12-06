@@ -6,6 +6,10 @@ DELETE FROM labProcedure;
 ALTER TABLE labProcedure AUTO_INCREMENT = 0;
 DELETE FROM officeVisit;
 ALTER TABLE officeVisit AUTO_INCREMENT = 0;
+DELETE FROM officeVisitRecord;
+ALTER TABLE officeVisitRecord AUTO_INCREMENT = 0;
+DELETE FROM ultraSoundRecord;
+ALTER TABLE ultraSoundRecord AUTO_INCREMENT = 0;
 DELETE FROM icdCode;
 DELETE FROM diagnosis;
 ALTER TABLE diagnosis AUTO_INCREMENT = 0;
@@ -87,6 +91,7 @@ DELETE FROM users;
 DELETE FROM medicalProcedure;
 ALTER TABLE medicalProcedure AUTO_INCREMENT = 0;
 
+
 DELETE FROM pregnancy;
 ALTER TABLE pregnancy AUTO_INCREMENT = 0;
 
@@ -96,3 +101,5 @@ ALTER TABLE obstetricsInitRecord AUTO_INCREMENT = 0;
 DELETE FROM TravelHistories;
 Alter Table TravelHistories AUTO_INCREMENT = 0;
 
+DELETE FROM PreExistingConditionRecord;
+Alter Table PreExistingConditionRecord AUTO_INCREMENT = 0;

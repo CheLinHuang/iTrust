@@ -91,11 +91,8 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		p.setMagnesium_sulfate(rs.getBoolean("Magnesium_sulfate"));
 		p.setRH_immune_globulin(rs.getBoolean("RH_immune_globulin"));
 
-
-
 		// Update ObstetricEligible data in patient
 		p.setObstetricEligible(rs.getString("ObstetricEligible"));
-
 	}
 	
 	/**

@@ -27,6 +27,7 @@ public class PregnancyBeanLoader implements BeanLoader<PregnancyBean>  {
     p.setHoursInLabor(rs.getDouble("hoursInLabor"));
     p.setWeightGain(rs.getDouble("weightGain"));
     p.setYearOfConception(rs.getInt("yearOfConception"));
+    p.setPregnancyNumber(rs.getInt("pregnancyNumber"));
     return p;
   }
 
@@ -38,7 +39,8 @@ public class PregnancyBeanLoader implements BeanLoader<PregnancyBean>  {
     ps.setString(i++, p.getWeeksOfPregnant());
     ps.setDouble(i++, p.getHoursInLabor());
     ps.setDouble(i++, p.getWeightGain());
-    ps.setString(i, p.getDeliveryType());
+    ps.setString(i++, p.getDeliveryType());
+    ps.setInt(i, p.getPregnancyNumber());
     return ps;
   }
 }

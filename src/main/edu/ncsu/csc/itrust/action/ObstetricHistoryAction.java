@@ -92,7 +92,9 @@ public class ObstetricHistoryAction {
         }
     }
 
-    public int addPregnancyInformation(String mid, String yearOfConception, String weeksOfPregnant, String hoursInLabor, String weightGain, String deliveryType) {
+
+    public int addPregnancyInformation(String mid, String yearOfConception, String weeksOfPregnant, String hoursInLabor, String weightGain, String deliveryType, String pregnancyNumber) {
+
         PregnancyBean pregnancyBean = new PregnancyBean();
         pregnancyBean.setMID(Long.parseLong(mid));
         pregnancyBean.setYearOfConception(Integer.parseInt(yearOfConception));
@@ -100,6 +102,8 @@ public class ObstetricHistoryAction {
         pregnancyBean.setHoursInLabor(Double.parseDouble(hoursInLabor));
         pregnancyBean.setWeightGain(Double.parseDouble(weightGain));
         pregnancyBean.setDeliveryType(deliveryType);
+        pregnancyBean.setPregnancyNumber(Integer.parseInt(pregnancyNumber));
+
 
         PregnancyBeanValidator validator = new PregnancyBeanValidator();
         try {

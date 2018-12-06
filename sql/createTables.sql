@@ -91,7 +91,7 @@ CREATE TABLE patients(
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
 	DateOfDeactivation DATE default NULL,
-
+	ObstetricEligible BOOLEAN NOT NULL default false,
 	PreferMethod VARCHAR(50) default '',
 	Pitocin BOOLEAN default false,
 	Nitrous_oxide BOOLEAN default false,
@@ -99,9 +99,6 @@ CREATE TABLE patients(
 	Epidural_anaesthesia BOOLEAN default false,
 	Magnesium_sulfate BOOLEAN default false,
 	RH_immune_globulin BOOLEAN default false,
-
-	ObstetricEligible BOOLEAN NOT NULL default false,
-
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
@@ -516,6 +513,7 @@ CREATE TABLE medicalProcedure
 	FOREIGN KEY (cptCode) 	REFERENCES cptCode(code)
 ) ENGINE=MyISAM;
 
+
 CREATE TABLE pregnancy
 (
 	id  BIGINT(20) UNSIGNED AUTO_INCREMENT,
@@ -525,8 +523,10 @@ CREATE TABLE pregnancy
   hoursInLabor DOUBLE UNSIGNED,
   weightGain DOUBLE UNSIGNED,
   deliveryType enum('vaginal delivery', 'vaginal delivery vacuum assist', 'vaginal delivery forceps assist', 'caesarean section', 'miscarriage') NOT NULL,
+  pregnancyNumber SMALLINT(4) UNSIGNED DEFAULT 1 NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (MID) REFERENCES patients(MID)
+	FOREIGN KEY (MID) REFERENCES patients(MID),
+	UNIQUE (MID, yearOfConception, weeksOfPregnant, hoursInLabor, weightGain, deliveryType, pregnancyNumber)
 ) ENGINE=MyISAM;
 
 CREATE TABLE obstetricsInitRecord
@@ -538,7 +538,9 @@ CREATE TABLE obstetricsInitRecord
   weeksOfPregnant VARCHAR(4) NOT NULL,
   recordCreatedTime timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 	PRIMARY KEY (id),
-	FOREIGN KEY (MID) REFERENCES patients(MID)
+	FOREIGN KEY (MID) REFERENCES patients(MID),
+
+	UNIQUE (MID, LMP, EDD, weeksOfPregnant)
 ) ENGINE=MyISAM;
 
 CREATE TABLE TravelHistories
@@ -549,3 +551,42 @@ CREATE TABLE TravelHistories
   travelledCities VARCHAR(512) default ''
 ) ENGINE=MyISAM;
 
+
+CREATE TABLE officeVisitRecord(
+  id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+  patientID BIGINT(20) UNSIGNED NOT NULL,
+  HCPID BIGINT(20) UNSIGNED NOT NULL,
+  weeksOfPregnant varchar(5),
+  weightGain float,
+  highbloodPressure float,
+  lowbloodPressure float,
+  fetalHeartRate float,
+  numberOfPregnancy int,
+  lowLyingPlacenta boolean,
+  currentDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(id),
+  FOREIGN KEY(patientID) REFERENCES patients(MID),
+  FOREIGN KEY(HCPID) REFERENCES personnel(MID)
+) ENGINE=MYISAM;
+
+CREATE TABLE ultraSoundRecord(
+  id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+  officeVisitRecordID BIGINT(20) UNSIGNED NOT NULL,
+  crownRumpLength float,
+  biparietalDiameter float,
+  headCircumference float,
+  femurLength float,
+  occiFrontalDiameter float,
+  abdoCircumference float,
+  humerusLength float,
+  estimatedFetalWeight float,
+  ultraSoundImage varchar(1000),
+  PRIMARY KEY(id),
+  FOREIGN KEY(officeVisitRecordID) REFERENCES officeVisitRecord(id)
+) ENGINE=MYISAM;
+
+CREATE TABLE PreExistingConditionRecord
+(
+  patientMID BIGINT unsigned NOT NULL default 0,
+  icdInfo VARCHAR(512) NOT NULL default 'No Pre-existing condition found'
+) ENGINE=MyISAM;
