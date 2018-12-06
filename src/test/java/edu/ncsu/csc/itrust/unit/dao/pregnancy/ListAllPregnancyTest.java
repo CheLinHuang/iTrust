@@ -1,15 +1,16 @@
 package edu.ncsu.csc.itrust.unit.dao.pregnancy;
 
+import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.model.old.beans.PregnancyBean;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.PregnancyDAO;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
+import edu.ncsu.csc.itrust.unit.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import junit.framework.TestCase;
 
 import java.util.List;
 
 public class ListAllPregnancyTest extends TestCase {
-  private PregnancyDAO pregnancyDAO = TestDAOFactory.getTestInstance().getPregnancyDAO();
 
   @Override
   protected void setUp() throws Exception {
@@ -19,6 +20,7 @@ public class ListAllPregnancyTest extends TestCase {
   }
 
   public void testListAllPregnancy() throws Exception {
+    PregnancyDAO pregnancyDAO = TestDAOFactory.getTestInstance().getPregnancyDAO();
     List<PregnancyBean> list = pregnancyDAO.getAllPregnancy(6L);
     assertEquals(1, list.size());
     PregnancyBean pregnancyBean = list.get(0);
@@ -30,5 +32,19 @@ public class ListAllPregnancyTest extends TestCase {
     assertEquals(20.0, pregnancyBean.getWeightGain());
     assertEquals("vaginal delivery", pregnancyBean.getDeliveryType());
     assertEquals(1, pregnancyBean.getPregnancyNumber());
+  }
+
+  /**
+   * testEvilDAOFactory
+   */
+  public void testEvilDAOFactory() {
+    PregnancyDAO pregnancyDAO = EvilDAOFactory.getEvilInstance().getPregnancyDAO();
+    try {
+      pregnancyDAO.getAllPregnancy(6L);
+      fail();
+    } catch (ITrustException e) {
+      assertSame("A database exception has occurred. Please see the log in the " + "console for stacktrace",
+          e.getMessage());
+    }
   }
 }
