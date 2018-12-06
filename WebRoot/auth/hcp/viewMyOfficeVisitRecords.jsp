@@ -58,7 +58,8 @@
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getLowLyingPlacenta() )) %></td>
         <td><a href="editOfficeVisitRecord.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Edit</a></td>
         <td><a href="documentUltraSound.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Add</a></td>
-        <td><%= bloodType != null && !bloodType.equals("") && bloodType.charAt(bloodType.length() - 1) == '-' ? "Yes" : "No" %></td>
+        <td><%= bloodType != null && !bloodType.equals("") && bloodType.charAt(bloodType.length() - 1) == '-'
+                && Integer.parseInt(ov.getWeeksOfPregnant().substring(0, 2)) >= 28 ? "Yes" : "No" %></td>
         </tr>
         <%
                 index ++;

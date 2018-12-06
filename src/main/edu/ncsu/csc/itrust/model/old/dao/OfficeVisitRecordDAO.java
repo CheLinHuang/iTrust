@@ -67,7 +67,21 @@ public class OfficeVisitRecordDAO {
     public List<OfficeVisitRecordBean> getOfficeVisitRecord(final long id) throws SQLException, DBException {
         ResultSet results = null;
         try(Connection conn = factory.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM officeVisitRecord WHERE id=?")){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM officeVisitRecord WHERE id=? ORDER BY currentDate DESC")){
+            stmt.setLong(1, id);
+            results = stmt.executeQuery();
+            List<OfficeVisitRecordBean> abList = officeVisitRecordBeanLoader.loadList(results);
+            results.close();
+            return abList;
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    public List<OfficeVisitRecordBean> getPatientOfficeVisitRecord(final long id) throws SQLException, DBException {
+        ResultSet results = null;
+        try(Connection conn = factory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM officeVisitRecord WHERE patientID=? ORDER BY currentDate DESC")){
             stmt.setLong(1, id);
             results = stmt.executeQuery();
             List<OfficeVisitRecordBean> abList = officeVisitRecordBeanLoader.loadList(results);
