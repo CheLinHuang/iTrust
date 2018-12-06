@@ -214,6 +214,16 @@ public enum TransactionType {
     APPOINTMENT_EDIT(2212, "Edit Scheduled Appointment", "edited your scheduled appointment", true),
     /**APPOINTMENT_REMOVE*/
     APPOINTMENT_REMOVE(2213, "Delete Scheduled Appointment", "canceled your scheduled appointment", true),
+
+	/**OFFICE_VISIT_RECORD_ADD*/
+	OFFICE_VISIT_RECORD_ADD(9400, "Schedule Office Visit Record", "scheduled a office visit with you", true),
+	/**OFFICE_VISIT_RECORDS_VIEW*/
+	OFFICE_VISIT_RECORDS_VIEW(9401, "View Office Visit Records", "viewed office visit records", false),
+	/**OFFICE_VISIT_RECORD_EDIT*/
+	OFFICE_VISIT_RECORD_EDIT(9402, "Edit Office Visit Record", "edited your office visit record", true),
+	/**ULTRASOUND_RECORD_ADD*/
+	ULTRASOUND_RECORD_ADD(9403, "Schedule Ultrasound Record", "scheduled an ultrasound recordwith you", true),
+
     /**APPOINTMENT_ALL_VIEW*/
     APPOINTMENT_ALL_VIEW(2220, "View All Scheduled Appointments", "viewed all scheduled appointments", true),
     /**APPOINTMENT_CONFLICT_OVERRIDE*/

@@ -3,6 +3,7 @@ package edu.ncsu.csc.itrust.model.old.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.*;
 
 /**
@@ -231,7 +232,6 @@ public class DAOFactory {
 		return new ReviewsDAO(this);
 	}
 
-
 	/**
 	 *
 	 * @return this DAOFactory's TravelHistoryDAO
@@ -258,4 +258,18 @@ public class DAOFactory {
   public ObstetricsInitRecordDAO getObstetricsInitRecordDAO() {
     return new ObstetricsInitRecordDAO(this);
   }
+
+	/**
+	* @return this DAOFactory's OfficeVisitRecordDAO;
+	*/
+	public OfficeVisitRecordDAO getOfficeVisitRecordDAO() {
+		return new OfficeVisitRecordDAO(this);
+	}
+
+	/**
+	* @return this DAOFactory's UltraSoundRecordDAO;
+	*/
+	public UltraSoundRecordDAO getUltraSoundRecordDAO() {
+		return new UltraSoundRecordDAO(this);
+	}
 }

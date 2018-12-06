@@ -21,10 +21,10 @@
 %>
 <form method="post" action="addTravelHistoryToDB.jsp?patientMID=<%=pidString%>">
     Starting Date(Format: "yyyy-MM-dd"):<br>
-    <input type="text" name="startDate">
+    <input type="date" name="startDate">
     <br>
     Ending Date(Format: "yyyy-MM-dd"):<br>
-    <input type="text" name="endDate">
+    <input type="date" name="endDate">
     <br>
     Travelled Cities(Format: "city,country & city,country & ..."):<br>
     <input type="text" name="travelledCities">
