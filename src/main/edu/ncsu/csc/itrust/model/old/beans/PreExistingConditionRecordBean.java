@@ -13,6 +13,11 @@ public class PreExistingConditionRecordBean {
     long patientMID;
     String icdInfo;
 
+    // default constructor
+    public PreExistingConditionRecordBean() {
+
+    }
+
     public PreExistingConditionRecordBean(long patientMID, String icdInfo) {
         this.patientMID = patientMID;
         this.icdInfo = icdInfo;
