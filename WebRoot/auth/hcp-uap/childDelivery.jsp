@@ -26,7 +26,7 @@
 <%@include file="/global.jsp" %>
 
 <%
-	pageTitle = "iTrust - Schedule an Appointment";
+	pageTitle = "iTrust - Child Delivery";
 
 String headerMessage = "Please fill out the form properly - comments are optional.";
 %>

@@ -25,7 +25,7 @@
 <%@include file="/global.jsp" %>
 
 <%
-	pageTitle = "iTrust - Drug Used Record";
+	pageTitle = "iTrust - Childbirth Record";
 
 %>
 
