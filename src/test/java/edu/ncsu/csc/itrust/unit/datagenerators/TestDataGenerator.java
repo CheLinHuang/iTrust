@@ -58,6 +58,10 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ovAdditional.sql");
 	}
 
+	public void addOfficeVisits() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/addOfficeVisits.sql");
+	}
+
 	public void admin1() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/admin1.sql");
 	}

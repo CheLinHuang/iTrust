@@ -22,7 +22,7 @@ public class ListAllPregnancyTest extends TestCase {
   public void testListAllPregnancy() throws Exception {
     PregnancyDAO pregnancyDAO = TestDAOFactory.getTestInstance().getPregnancyDAO();
     List<PregnancyBean> list = pregnancyDAO.getAllPregnancy(6L);
-    assertEquals(1, list.size());
+    assertEquals(3, list.size());
     PregnancyBean pregnancyBean = list.get(0);
 
     assertEquals(6, pregnancyBean.getMID());
