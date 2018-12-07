@@ -26,7 +26,7 @@
 <%@include file="/global.jsp" %>
 
 <%
-	pageTitle = "iTrust - Schedule an Appointment";
+	pageTitle = "iTrust - Child Delivery";
 
 String headerMessage = "Please fill out the form properly - comments are optional.";
 %>
@@ -84,12 +84,14 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		String Time3 = request.getParameter("time3");
 		String birthTime= Time1+":"+Time2+" "+Time3;
 		String preferMethod = request.getParameter("delivery_method");
+		String email = firstName+"."+lastName+"@gmail.com";
 		
 		p.setFirstName(firstName);
 		p.setLastName(lastName);
 		p.setDateOfBirthStr(dateOfBirth);
 		p.setGenderStr(gender);
 		p.setBirthTime(birthTime);
+		p.setEmail(email);
 		// p.getperferMethod(); //get prefer method
 		parent.setPreferMethod(preferMethod); //set prefer method
 		if (patientDAO.getPatient(patientID).getGender()==Gender.Male) {
@@ -104,21 +106,9 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		try{
 			boolean isDependent = false;
 			long representativeId = -1L;
-			/*if(request.getParameter("isDependent") != null && request.getParameter("isDependent").equals("on")){
-				isDependent = true;
-			}
 			
-			if(request.getParameter("repId") != "" && isDependent){
-				representativeId = Long.valueOf(request.getParameter("repId"));
-			}else if(isDependent && request.getParameter("repId") == ""){
-				throw new FormValidationException("Representative MID must be filled if the patient is marked as a dependent.");
-			} */
 			long newMID = 1L; 
-			/* if(isDependent){
-				newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addDependentPatient(p, representativeId, loggedInMID.longValue());
-			}else{
-				newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addPatient(p, loggedInMID.longValue());
-			} */
+			
 			newMID = new AddPatientAction(prodDAO, loggedInMID.longValue()).addPatient(p, loggedInMID.longValue());
 			parent_action.updateInformation(parent);
 			session.setAttribute("pid", Long.toString(newMID));
@@ -187,9 +177,10 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		<select name="time1">
 			<%
 				String hour = "";
-				for(int i = 1; i <= 12; i++) {
+				for(int i = 0; i <= 12; i++) {
 					if(i < 10) hour = "0"+i;
 					else hour = i+"";
+					if(i==0) hour = " ";
 					%>
 						<option value="<%=hour%>"><%= StringEscapeUtils.escapeHtml("" + (hour)) %></option>
 					<%
@@ -201,13 +192,25 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 				for(int i = 0; i < 60; i+=5) {
 					if(i < 10) min = "0"+i;
 					else min = i+"";
+					if(i==0) {
+						%>
+						<option value="<%=min%>"><%= StringEscapeUtils.escapeHtml("" + (" ")) %></option>
+					<%
+						%>
+						<option value="<%=min%>"><%= StringEscapeUtils.escapeHtml("" + (min)) %></option>
+					<%
+					}
+						
+					else{
 					%>
 						<option value="<%=min%>"><%= StringEscapeUtils.escapeHtml("" + (min)) %></option>
 					<%
+					}
 				}
 			%>
 		</select>
-		<select name="time3"><option  value="AM">AM</option
+		<select name="time3"><option value=""><%= StringEscapeUtils.escapeHtml("" + (" ")) %></option>
+		<option  value="AM">AM</option
 		><option   value="PM">PM</option></select><br /><br />
 		
 		<span>Delivery Method</span>

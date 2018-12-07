@@ -74,6 +74,7 @@ pageTitle = "iTrust - View My Messages";
                     OfficeVisitRecordDAO officeVisitRecord = new OfficeVisitRecordDAO(prodDAO);
                     System.out.println(a.getPatient());
                     int weeksOfPregnant = Integer.parseInt(officeVisitRecord.getPatientOfficeVisitRecord(a.getPatient()).get(0).getWeeksOfPregnant().substring(0, 2));
+                    boolean isChildbirth = false;
 
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(new Date(a.getDate().getTime()));
@@ -96,8 +97,12 @@ pageTitle = "iTrust - View My Messages";
                         // 40 - 42 weeks pregnant: appointments every other weekday [E8]
                         System.out.println("40-42");
                         days = 2;
+                    } else {
+                        // [E8] If the patient reaches 42 weeks pregnant, the next visit is a Childbirth Hospital Visit
+                        // (UC96)
+                        isChildbirth = true;
                     }
-                    for (int j = 0; j < days; ) {
+                    for (int j = 0; j < days || (new Timestamp(calendar.getTimeInMillis())).before(new Date()); ) {
                         calendar.add(Calendar.DAY_OF_MONTH, 1);
                         if (calendar.get(Calendar.DAY_OF_WEEK) <= 5) {
                             j++;
@@ -105,17 +110,26 @@ pageTitle = "iTrust - View My Messages";
                     }
                     ApptBean e = new ApptBean();
                     e.setPrice(a.getPrice());
-                    e.setApptID(a.getApptID());
-                    e.setApptType(a.getApptType());
+                    if (isChildbirth) {
+                        e.setApptType("Child Birth");
+                    } else {
+                        e.setApptType("Ultrasound");
+                    }
                     e.setPatient(a.getPatient());
                     e.setHcp(a.getHcp());
                     e.setComment(a.getComment());
                     e.setDate(new Timestamp(calendar.getTimeInMillis()));
                     AddApptAction addAction = new AddApptAction(prodDAO, loggedInMID.longValue());
                     addAction.addAppt(e, true);
-                    TransactionLogger.getInstance().logTransaction(TransactionType.NEXT_OFFICE_VISIT_RECORD_ADD,
-                            e.getHcp(), e.getPatient(),
-                            String.valueOf(a.getApptID()) + ", " + String.valueOf(e.getApptID()));
+                    if (isChildbirth) {
+                        TransactionLogger.getInstance().logTransaction(TransactionType.CHILDBIRTH_ADD,
+                                e.getHcp(), e.getPatient(),
+                                String.valueOf(a.getApptID()) + ", " + String.valueOf(e.getApptID()));
+                    } else {
+                        TransactionLogger.getInstance().logTransaction(TransactionType.NEXT_OFFICE_VISIT_RECORD_ADD,
+                                e.getHcp(), e.getPatient(),
+                                String.valueOf(a.getApptID()) + ", " + String.valueOf(e.getApptID()));
+                    }
                 }
             }
 

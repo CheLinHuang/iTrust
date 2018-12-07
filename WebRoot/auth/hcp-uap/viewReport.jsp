@@ -86,6 +86,11 @@ if (officeBean.size() > 0) {
 PreExistingConditionRecordDAO preCondRecordDAO = new PreExistingConditionRecordDAO(DAOFactory.getProductionInstance());
 List<PreExistingConditionRecordBean> allPreCondRecords = preCondRecordDAO.getPreExistingConditionRecordsByMID(patientMID);
 ObstetricsInitRecordBean mostRecentPreg = null;
+if (patient.getObstetricEligible().equals("0")) {
+    out.println("Selected patient does not have an obstetrics record");
+    return;
+}
+
 if (obstetricsInitRecordBean.size() > 0) {
     mostRecentPreg = obstetricsInitRecordBean.get(obstetricsInitRecordBean.size() - 1);
 }
