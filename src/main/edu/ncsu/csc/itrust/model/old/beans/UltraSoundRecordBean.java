@@ -101,4 +101,21 @@ public class UltraSoundRecordBean {
         return ultraSoundImage;
     }
 
+    /**
+     * Returns true if both id's are equal. Probably needs more advance field by field checking.
+     */
+    @Override public boolean equals(Object other) {
+
+        if ( this == other ){
+            return true;
+        }
+
+        if ( !(other instanceof UltraSoundRecordBean) ){
+            return false;
+        }
+
+        UltraSoundRecordBean otherUltrasoundRecord = (UltraSoundRecordBean)other;
+        return otherUltrasoundRecord.getUltraSoundID() == getUltraSoundID();
+
+    }
 }

@@ -6,7 +6,9 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyOfficeVisitRecordsAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.AddUltrasoundRecordAction"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 
@@ -22,6 +24,7 @@
     <h2>My Office Visit</h2>
     <%
         ViewMyOfficeVisitRecordsAction action = new ViewMyOfficeVisitRecordsAction(prodDAO, loggedInMID.longValue());
+        AddUltrasoundRecordAction action1 = new AddUltrasoundRecordAction(prodDAO, loggedInMID.longValue());
         List<OfficeVisitRecordBean> officeVisitRecords = action.getMyOfficeVisitRecords();
         session.setAttribute("officeVisitRecords", officeVisitRecords);
         if (officeVisitRecords.size() > 0) { %>
@@ -57,7 +60,15 @@
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getNumberOfPregnancy() )) %></td>
         <td><%= StringEscapeUtils.escapeHtml("" + ( ov.getLowLyingPlacenta() )) %></td>
         <td><a href="editOfficeVisitRecord.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Edit</a></td>
-        <td><a href="documentUltraSound.jsp?apt=<%=ov.getOfficeVisitRecordID() %>">Add</a></td>
+        <%
+            UltraSoundRecordBean ul = action1.getUltrasoundRecord(ov.getOfficeVisitRecordID());
+            if (ul != null) {
+                %>
+                <td><a href="documentUltraSound.jsp?apt=<%=ov.getOfficeVisitRecordID()%>&exists=True">View</a></td> <%
+            } else {
+                %><td><a href="documentUltraSound.jsp?apt=<%=ov.getOfficeVisitRecordID()%>&exists=False">Add</a></td> <%
+            }
+        %>
         <td><%= bloodType != null && !bloodType.equals("") && bloodType.charAt(bloodType.length() - 1) == '-'
                 && Integer.parseInt(ov.getWeeksOfPregnant().substring(0, 2)) >= 28 ? "Yes" : "No" %></td>
         </tr>

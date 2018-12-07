@@ -216,13 +216,17 @@ public enum TransactionType {
     APPOINTMENT_REMOVE(2213, "Delete Scheduled Appointment", "canceled your scheduled appointment", true),
 
 	/**OFFICE_VISIT_RECORD_ADD*/
-	OFFICE_VISIT_RECORD_ADD(9400, "Schedule Office Visit Record", "scheduled a office visit with you", true),
+	OFFICE_VISIT_RECORD_ADD(9400, "Create Obstetric Office Visit", "scheduled an obstetric office visit", true),
 	/**OFFICE_VISIT_RECORDS_VIEW*/
-	OFFICE_VISIT_RECORDS_VIEW(9401, "View Office Visit Records", "viewed office visit records", false),
+	OFFICE_VISIT_RECORDS_VIEW(9401, "View Obstetric Office Visit", "viewed obstetric office visits", true),
 	/**OFFICE_VISIT_RECORD_EDIT*/
-	OFFICE_VISIT_RECORD_EDIT(9402, "Edit Office Visit Record", "edited your office visit record", true),
+	OFFICE_VISIT_RECORD_EDIT(9402, "Edit Obstetric Office Visit", "edited the obstertric office visit", true),
 	/**ULTRASOUND_RECORD_ADD*/
-	ULTRASOUND_RECORD_ADD(9403, "Schedule Ultrasound Record", "scheduled an ultrasound recordwith you", true),
+	ULTRASOUND_RECORD_ADD(9403, "Ultrasound", "scheduled an ultrasound record", true),
+    /**NEXT_OFFICE_VISIT_RECORD_ADD*/
+    NEXT_OFFICE_VISIT_RECORD_ADD(9404, "Schedule next office visit", "scheduled the next obstetric office visit", true),
+    /**CHILDBIRTH_ADD*/
+    CHILDBIRTH_ADD(9405, "Schedule childbirth", "scheduled childbirth", true),
 
     /**APPOINTMENT_ALL_VIEW*/
     APPOINTMENT_ALL_VIEW(2220, "View All Scheduled Appointments", "viewed all scheduled appointments", true),
@@ -515,7 +519,9 @@ public enum TransactionType {
     BABY_IS_BORN(9602, "A baby is born", "A baby is born", true),
     CREATE_BABY_RECORD(9603, "Create baby record", "Create baby record", true),
     EDIT_CHILDBIRTH_VISIT(9604, "Edit childbirth visit", "Edit childbirth visit", true),
-	
+
+	// UC_95 Logging
+	VIEW_LABOR_AND_DELIVERY_REPORT(9500, "View Labor and Delivery Report", "viewed patient's labor and delivery report", true)
 	;
 	/**
 	 * This string is used in the SQL statement associated with pulling events for

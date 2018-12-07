@@ -9,7 +9,6 @@ public class PreExistingConditionRecordBeanValidator extends BeanValidator<PreEx
     // The default constructor.
     public PreExistingConditionRecordBeanValidator() {
 
-
     }
 
     @Override

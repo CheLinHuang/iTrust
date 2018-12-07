@@ -26,11 +26,10 @@
 
 <%@include file="/header.jsp" %>
 
+
 <form id="mainForm" action="uploadUltraSoundRecord.jsp" method="post" enctype="multipart/form-data">
 <%
-
     String filePath ="";
-
     File file;
     int maxFileSize = 5000 * 1024;
     int maxMemSize = 5000 * 1024;
@@ -39,17 +38,22 @@
     //String filePath = context.getInitParameter("file-upload");
 
     ovid = request.getParameter("ovID");
+    String ovidKey = new String("ovid");
+    if (ovid == null) {
+        ovid = (String) session.getAttribute(ovidKey);
+    } else {
+        session.setAttribute(ovidKey, ovid);
+    }
+
     File currentDirectory = new File(new File(".").getAbsolutePath());
 
     filePath = currentDirectory.getAbsolutePath() + "./webapps/data/";
 
     System.out.println("filePath is:" + filePath);
-
     // Verify the content type
     String contentType = request.getContentType();
 
     if (contentType != null && contentType.indexOf("multipart/form-data") >= 0) {
-        out.println("coming into contentType!!!");
         DiskFileItemFactory factory = new DiskFileItemFactory();
         // Create a new file upload handler
         factory.setSizeThreshold(maxMemSize);
@@ -102,9 +106,7 @@
         <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (headerMessage )) %></span><br /><br />
         <input type="file" name="ultrasoundImage" size="50" />
         <br />
-        <input name="upload" type="button" class="button1" onClick="self.location='uploadUltraSoundRecord.jsp?ovID=<%=ovid%>'" value="Upload" />
-        <input type="hidden" value="upload" name="uploadFile" />
-        <input type="hidden" value="<%=ovid%>" name="officevisitID" />
+        <input name="upload" type="submit" value="Upload" />
         <br />
         <br />
         <br />

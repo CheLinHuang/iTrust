@@ -4,7 +4,6 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;
 import edu.ncsu.csc.itrust.model.old.beans.loaders.PreExistingConditionRecordBeanLoader;
 import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

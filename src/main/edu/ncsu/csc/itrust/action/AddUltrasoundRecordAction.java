@@ -1,6 +1,9 @@
 package edu.ncsu.csc.itrust.action;
 
 import java.sql.SQLException;
+import java.util.List;
+
+import java.sql.SQLException;
 
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
@@ -24,11 +27,26 @@ public class AddUltrasoundRecordAction extends UltrasoundRecordAction {
 
         try {
             ultrasoundRecordDAO.addUltraSoundRecord(ultrasoundRecord);
-            TransactionLogger.getInstance().logTransaction(TransactionType.ULTRASOUND_RECORD_ADD, loggedInMID, ultrasoundRecord.getOfficeVisitID(), "");
+            TransactionLogger.getInstance().logTransaction(TransactionType.ULTRASOUND_RECORD_ADD,
+                    loggedInMID, ultrasoundRecord.getOfficeVisitID(),
+                    "" + ultrasoundRecord.getOfficeVisitID());
             return "Success: Ultrasound Record added";
         }
         catch (SQLException e) {
             return e.getMessage();
         }
     }
+
+    public UltraSoundRecordBean getUltrasoundRecord(final long officevisitRecordID) throws FormValidationException, SQLException, DBException{
+        try {
+            UltraSoundRecordBean ultrasound = null;
+            ultrasound = ultrasoundRecordDAO.getUltraSoundRecord(officevisitRecordID);
+            return ultrasound;
+        }
+        catch (SQLException e) {
+            return null;
+        }
+    }
+
+
 }

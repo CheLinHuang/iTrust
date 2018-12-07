@@ -9,7 +9,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean"%>
-+<%@page import="edu.ncsu.csc.itrust.action.AddUltrasoundRecordAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.AddUltrasoundRecordAction"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.UltraSoundRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
@@ -43,10 +43,15 @@
         boolean error = false;
         String officevisitString="";
         String ovid="";
+        boolean exists = false;
 
         if (request.getParameter("apt") != null) {
             officevisitString = (String) request.getParameter("apt");
             System.out.println("officevisitrecord1:" + officevisitString);
+        }
+        if (request.getParameter("exists") != null) {
+            exists = Boolean.parseBoolean(request.getParameter("exists"));
+            System.out.println("exists:" + exists);
         }
         String crownRumpLength="";
         String biparietalDiameter="";
@@ -58,89 +63,106 @@
         String estimatedFetalWeight="";
         String image="image";
         String officevisitID="";
-        if (request.getParameter("filepath") != null){
-            image = request.getParameter("filepath");
-            System.out.println("image path: " + image);
-        }
+        UltraSoundRecordBean ul = null;
 
-        if (request.getParameter("ovid") != null){
-            ovid = request.getParameter("ovid");
-        }
-
-        if(request.getParameter("officevisitID") != null){
-            officevisitID= request.getParameter("officevisitID");
-        }
-
-        if (request.getParameter("ultraSoundRecord") != null ) {
-
-            UltraSoundRecordBean ulrecord = new UltraSoundRecordBean();
-            officeVisitRecordID = Long.parseLong(request.getParameter("ovID"));
-            System.out.println("officevisitrecord2:" + officeVisitRecordID);
-            ulrecord.setOfficeVisitID(officeVisitRecordID);
-            if (request.getParameter("image") != null)
-                image = request.getParameter("image");
-            double crownRumpLengthD = 0;
-            double biparietalDiameterD = 0;
-            double headCircumferenceD = 0;
-            double femurLengthD = 0;
-            double abdominalCircumferenceD = 0;
-            double occipitofromtalDiameterD = 0;
-            double humerusLengthD = 0;
-            double estimatedFetalWeightD = 0;
-
-            try{
-                crownRumpLengthD = Double.parseDouble(request.getParameter("crownRumpLength"));
-                biparietalDiameterD = Double.parseDouble(request.getParameter("biparietalDiameter"));
-                headCircumferenceD = Double.parseDouble(request.getParameter("headCircumference"));
-                femurLengthD = Double.parseDouble(request.getParameter("femurLength"));
-                abdominalCircumferenceD = Double.parseDouble(request.getParameter("abdominalCircumference"));
-                occipitofromtalDiameterD = Double.parseDouble(request.getParameter("occipitofromtalDiameter"));
-                humerusLengthD = Double.parseDouble(request.getParameter("humerusLength"));
-                estimatedFetalWeightD = Double.parseDouble(request.getParameter("estimatedFetalWeight"));
-            } catch (NumberFormatException nfe){
-                error = true;
+        if (exists) {
+            ul = action.getUltrasoundRecord(Long.parseLong(officevisitString));
+            crownRumpLength = Double.toString(ul.getCrownRumpLength());
+            biparietalDiameter = Double.toString(ul.getBiparietalDiameter());
+            headCircumference= Double.toString(ul.getHeadCircumference());
+            femurLength= Double.toString(ul.getFemurLength());
+            abdominalCircumference= Double.toString(ul.getAbdoCircumference());
+            occipitofromtalDiameter= Double.toString(ul.getOcciFrontalDiameter());
+            humerusLength= Double.toString(ul.getHumerusLength());
+            estimatedFetalWeight= Double.toString(ul.getEstimatedFetalWeight());
+        } else {
+            if (request.getParameter("filepath") != null){
+                image = request.getParameter("filepath");
+                System.out.println("image path: " + image);
             }
-            if (error){
-                headerMessage = "Invalid Value!";
 
-            }else{
-                System.out.println("crownRumpLengthD:" + crownRumpLengthD);
-                System.out.println("biparietalDiameterD:" + biparietalDiameterD);
-                System.out.println("headCircumferenceD:" + headCircumferenceD);
-                System.out.println("femurLengthD:" + femurLengthD);
-                System.out.println("abdominalCircumferenceD" + abdominalCircumferenceD);
-                System.out.println("occipitofromtalDiameterD:" + occipitofromtalDiameterD);
-                System.out.println("humerusLengthD:" + humerusLengthD);
-                System.out.println("estimatedFetalWeightD:" + estimatedFetalWeightD);
-                ulrecord.setCrownRumpLength(crownRumpLengthD);
-                ulrecord.setBiparietalDiameter(biparietalDiameterD);
-                ulrecord.setHeadCircumference(headCircumferenceD);
-                ulrecord.setFemurLength(femurLengthD);
-                ulrecord.setAbdoCircumference(abdominalCircumferenceD);
-                ulrecord.setOcciFrontalDiameter(occipitofromtalDiameterD);
-                ulrecord.setHumerusLength(humerusLengthD);
-                ulrecord.setEstimatedFetalWeight(estimatedFetalWeightD);
-                ulrecord.setUltraSoundImage(image);
+            if (request.getParameter("ovid") != null){
+                ovid = request.getParameter("ovid");
+            }
+
+            if(request.getParameter("officevisitID") != null){
+                officevisitID= request.getParameter("officevisitID");
+            }
+
+            if (request.getParameter("ultraSoundRecord") != null ) {
+
+                UltraSoundRecordBean ulrecord = new UltraSoundRecordBean();
+                officeVisitRecordID = Long.parseLong(request.getParameter("ovID"));
+                System.out.println("officevisitrecord2:" + officeVisitRecordID);
+                ulrecord.setOfficeVisitID(officeVisitRecordID);
+                double crownRumpLengthD = 0;
+                double biparietalDiameterD = 0;
+                double headCircumferenceD = 0;
+                double femurLengthD = 0;
+                double abdominalCircumferenceD = 0;
+                double occipitofromtalDiameterD = 0;
+                double humerusLengthD = 0;
+                double estimatedFetalWeightD = 0;
+                if (request.getParameter("image") != null)
+                    image = request.getParameter("image");
+
                 try{
-                    headerMessage=action.addUltrasoundRecord(ulrecord, false);
-                    if(headerMessage.startsWith("Success")){
-                        //session.removeAttribute("pid");
-                        System.out.println(headerMessage);
+                    crownRumpLengthD = Double.parseDouble(request.getParameter("crownRumpLength"));
+                    biparietalDiameterD = Double.parseDouble(request.getParameter("biparietalDiameter"));
+                    headCircumferenceD = Double.parseDouble(request.getParameter("headCircumference"));
+                    femurLengthD = Double.parseDouble(request.getParameter("femurLength"));
+                    abdominalCircumferenceD = Double.parseDouble(request.getParameter("abdominalCircumference"));
+                    occipitofromtalDiameterD = Double.parseDouble(request.getParameter("occipitofromtalDiameter"));
+                    humerusLengthD = Double.parseDouble(request.getParameter("humerusLength"));
+                    estimatedFetalWeightD = Double.parseDouble(request.getParameter("estimatedFetalWeight"));
+                } catch (NumberFormatException nfe){
+                    error = true;
+                }
+                if (error){
+                    headerMessage = "Invalid Value!";
+
+                }else{
+                    System.out.println("crownRumpLengthD:" + crownRumpLengthD);
+                    System.out.println("biparietalDiameterD:" + biparietalDiameterD);
+                    System.out.println("headCircumferenceD:" + headCircumferenceD);
+                    System.out.println("femurLengthD:" + femurLengthD);
+                    System.out.println("abdominalCircumferenceD" + abdominalCircumferenceD);
+                    System.out.println("occipitofromtalDiameterD:" + occipitofromtalDiameterD);
+                    System.out.println("humerusLengthD:" + humerusLengthD);
+                    System.out.println("estimatedFetalWeightD:" + estimatedFetalWeightD);
+                    ulrecord.setCrownRumpLength(crownRumpLengthD);
+                    ulrecord.setBiparietalDiameter(biparietalDiameterD);
+                    ulrecord.setHeadCircumference(headCircumferenceD);
+                    ulrecord.setFemurLength(femurLengthD);
+                    ulrecord.setAbdoCircumference(abdominalCircumferenceD);
+                    ulrecord.setOcciFrontalDiameter(occipitofromtalDiameterD);
+                    ulrecord.setHumerusLength(humerusLengthD);
+                    ulrecord.setEstimatedFetalWeight(estimatedFetalWeightD);
+                    ulrecord.setUltraSoundImage(image);
+                    try{
+                        headerMessage=action.addUltrasoundRecord(ulrecord, false);
+                        if(headerMessage.startsWith("Success")){
+                            //session.removeAttribute("pid");
+                            System.out.println(headerMessage);
+                        }
+                    } catch(FormValidationException e){
+    %>
+    <div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
+    <%
                     }
-                } catch(FormValidationException e){
-                    %>
-                    <div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
-                    <%
                 }
             }
         }
-
 
     %>
     <div align="left" id="ultraSoundDiv">
         <h2>Document an Ultra Sound</h2>
         <span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (headerMessage )) %></span><br /><br />
-        <h5><a href="uploadUltraSoundRecord.jsp?ovID=<%=officevisitString%>">Upload UltraSound Record</a></h5>
+        <%
+            if (!exists) {
+          %><h5><a href="uploadUltraSoundRecord.jsp?ovID=<%=officevisitString%>">Upload UltraSound Record</a></h5> <%
+        }
+        %>
         <br />
         <span>Crown rump length: </span>
         <input style="width: 250px;" type="text" name="crownRumpLength" value="<%= StringEscapeUtils.escapeHtml("" + ( crownRumpLength)) %>" />
@@ -167,7 +189,9 @@
         <input style="width: 250px;" type="text" name="estimatedFetalWeight" value="<%= StringEscapeUtils.escapeHtml("" + ( estimatedFetalWeight)) %>" />
         <br /><br />
 
-        <input type="submit" value="submit" name="ultraSoundRecordButton"/>
+        <% if(!exists) {
+           %> <input type="submit" value="submit" name="ultraSoundRecordButton"/>
+        <%}%>
         <input type="hidden" value="UltraSoundRecord" name="ultraSoundRecord"/>
         <input type="hidden" value="<%=image%>" name="image"/>
         <input type="hidden" value="<%=ovid%>" name="ovID"/>

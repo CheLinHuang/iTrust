@@ -486,6 +486,9 @@
 
                 StringBuilder linkURLSB = new StringBuilder(serverURI);
                 linkURLSB.append("/iTrust/auth/obstetricHistory.jsp?UID_PATIENTID=").append(pidString);
+                // log action into transactionlog database table
+                loggingAction.logEvent(TransactionType.CREATE_INITIAL_OBSTETRICS_RECORD,loggedInMID ,pid, "Created obstetric initialized record for patient, EDD, Patient Viewable=YES");
+                System.out.println("Logged In" + loggedInMID + " CREATED INITOBSTETRIC!");
 
 
                 // After successfully update, wait for 2 seconds before redirecting back to the patient's obstetric history list

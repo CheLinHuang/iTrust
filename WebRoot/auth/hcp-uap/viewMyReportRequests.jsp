@@ -64,7 +64,7 @@ List<ReportRequestBean> list = action.getAllReportRequestsForRequester();
  			patients.add(patient);
  %>
 			<tr>
-				<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getID())) %></td>
+				<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getID() - 7)) %></td>
 				<td ><%= StringEscapeUtils.escapeHtml("" + (patient.getFullName())) %></td>
 				<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getRequestedDateString())) %></td>
 				<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getViewedDateString())) %></td>
