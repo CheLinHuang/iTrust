@@ -8,13 +8,24 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>
 
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ObstetricsInitRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.beans.ObstetricsInitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
+<%@page import="java.time.format.DateTimeFormatter" %>
+<%@page import="java.time.LocalDateTime" %>
+<%@page import="java.time.LocalDate" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.time.temporal.ChronoUnit" %>
+
 
 <%@include file="/global.jsp" %>
 
@@ -32,59 +43,95 @@
 <form id="mainForm" method="post" action="documentOfficeVisit.jsp">
 <%
     AddOfficeVisitRecordAction action = new AddOfficeVisitRecordAction(prodDAO, loggedInMID.longValue());
-    //ObstetricHistoryAction oba = new ObstetricHistoryAction(DAOFactory.getProductionInstance());   Remember to modify me -- UC93
+    //ObstetricHistoryAction oba = new ObstetricHistoryAction(DAOFactory.getProductionInstance());
     PatientDAO patientDAO = prodDAO.getPatientDAO();
+    ObstetricsInitRecordDAO obstetricsInitRecordDAO = prodDAO.getObstetricsInitRecordDAO();
+    PersonnelDAO personnelDAO = prodDAO.getPersonnelDAO();
     long patientID = 0L;
     boolean error = false;
-    boolean isObstetrics = true;
+    String weeksOfPregnant="20-01"; ///////***
+    boolean isObstetrics = false;
     String hidden = "";
 
     if (session.getAttribute("pid") != null) {
         String pidString = (String) session.getAttribute("pid");
+        System.out.println("pid is: " + pidString);
         patientID = Long.parseLong(pidString);
         try {
             action.getName(patientID);
         } catch (ITrustException ite) {
             patientID = 0L;
         }
-
-        //isObstetrics = ;   whether or not is an obstetrics patient;
     }
     else {
         session.removeAttribute("pid");
     }
 
-    String weightGain="";
-    String weeksOfPregnant="20-01";  // For test. Modify me --- UC93
-    String lowLyingPlacenta="";
-    String highbloodPressure="";
-    String lowbloodPressure="";
-    String fetalHeartRate="";
-    String numberOfPregnancy="";
-
-
     if (patientID == 0L) {
         response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp/documentOfficeVisit.jsp");
-    }else if(!isObstetrics){
+    } else {
+        System.out.println("isOBGYNHCP:" + loggedInMID);
+        System.out.println("personnelDAO.isOBGYNHCP(loggedInMID):" + personnelDAO.isOBGYNHCP(loggedInMID));
+        if (!personnelDAO.isOBGYNHCP(loggedInMID)) {
+%>
+    <div align=center>
+        <span class="iTrustError">Not a HCP with the OB/GYN specialization! Can only create a regular office visit!</span>
+        <br />
+        <a href="/iTrust/auth/getPatientID.jsp?forward=hcp/documentOfficeVisit.jsp">Back</a>		</div>
+    <%
+    } else {
+        ObstetricsInitRecordBean ob = null;
+        PatientBean patient = null;
+
+        patient = patientDAO.getPatient(patientID);
+
+        LocalDate currentDate;
+        LocalDate cmpDate;
+        LocalDate lmpDate;
+        DateTimeFormatter DATE_FORMAT_INPUT = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        System.out.println("obstetriceligible:" + Boolean.parseBoolean(patient.getObstetricEligible()));
+        Boolean eligible = Integer.parseInt(patient.getObstetricEligible()) == 1? true:false;
+        if (eligible){
+
+            ob = obstetricsInitRecordDAO.getAllObstetricsInitRecord(patientID).get(0);
+            String lmp = ob.getLMP();
+            lmpDate = LocalDate.parse(lmp, DATE_FORMAT_INPUT);
+            cmpDate = lmpDate.plusDays(343);
+            currentDate = LocalDate.now();
+            long daysBetween = ChronoUnit.DAYS.between(lmpDate, currentDate);
+            long weeks = daysBetween / 7;
+            long days = daysBetween % 7;
+            weeksOfPregnant = Long.toString(weeks) + '-' + Long.toString(days);
+            System.out.println("daysBetween:" + daysBetween);
+            System.out.println("weeks:" + weeks);
+            System.out.println("days:" + days);
+            System.out.println("currentDate is:" + currentDate);
+            System.out.println("cmpDate is:" + cmpDate);
+            System.out.println("currentDate.compareTo(cmpDate)"+ currentDate.compareTo(cmpDate));
+            if (currentDate.compareTo(cmpDate) < 0) {
+                isObstetrics = true;
+            }
+        }
+
+        System.out.println("isObstetrics:" + isObstetrics);
+        String weightGain="";
+        String lowLyingPlacenta="";
+        String highbloodPressure="";
+        String lowbloodPressure="";
+        String fetalHeartRate="";
+        String numberOfPregnancy="";
+
+
+        if(!isObstetrics){
     %>
     <div align=center>
         <span class="iTrustError">Not a current obstetrics patient! Please try again!</span>
         <br />
-        <a href="/iTrust/auth/getPatientID.jsp?forward=hcp/documentOfficeVisit.jsp">Back</a>		</div>
+        <a href="/iTrust/auth/getPatientID.jsp?forward=hcp/documentOfficeVisit.jsp">Back and try again</a>		</div>
     <%
     }else{
-        if (request.getParameter("officeVisitRecord") != null) {
-
-            /** Modify me ---UC93
-
-             +            // Get obstetrics patient initializations list
-             +            List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(patientID);
-             +            PregnancyBean mostRecentPregnancy = null;
-             +            if (pregnancyHistoryList.size() > 0)
-             +                mostRecentPregnancy = pregnancyHistoryList.get(0);
-             +            weeksOfPregnant = mostRecentPregnancy.getWeeksOfPregnant();
-             +             **/
-
+            if (request.getParameter("officeVisitRecord") != null) {
 
             if(request.getParameter("weightGain").equals(""))
                 headerMessage = "Please input weight gain.";
@@ -149,13 +196,15 @@
                             session.removeAttribute("pid");
                         }
                     } catch (FormValidationException e){
-                    %>
-                    <div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
-                    <%
+    %>
+    <div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
+    <%
+                            }
+                        }
                     }
                 }
-            }
-        }
+
+
 
 %>
 <div align="left" <%=hidden %> id="officeVisitDiv">
@@ -204,7 +253,9 @@
     <br />
 </div>
 </form>
-<% } %>
+<% } }
+}
+%>
 
 <%@include file="/footer.jsp" %>
 
