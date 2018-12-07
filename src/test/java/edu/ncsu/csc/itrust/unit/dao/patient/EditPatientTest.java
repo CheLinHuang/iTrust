@@ -34,6 +34,8 @@ public class EditPatientTest extends TestCase {
 		p.setTopicalNotes("some topical notes");
 		p.setDateOfBirthStr("05/20/1984");
 		p.setDateOfDeactivationStr("05/21/1984");
+		p.setPreferMethod("miscarriage");
+		p.setRH_immune_globulin(true);
 		patientDAO.editPatient(p, 9000000003L);
 
 		p = patientDAO.getPatient(2);
@@ -65,6 +67,9 @@ public class EditPatientTest extends TestCase {
 		assertEquals("O-", p.getBloodType().getName());
 		assertEquals(Ethnicity.Caucasian, p.getEthnicity());
 		assertEquals(Gender.Male, p.getGender());
+		assertEquals("miscarriage", p.getPreferMethod());
+		assertFalse(p.getMagnesium_sulfate());
+		assertTrue(p.getRH_immune_globulin());
 	}
 
 	public void testGetEmpty() throws Exception {

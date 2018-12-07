@@ -20,12 +20,48 @@ public class PatientBeanTest extends TestCase {
 		baby.setDateOfBirthStr(new SimpleDateFormat("MM/dd/yyyy").format(today));
 		assertEquals(0, baby.getAge());
 	}
+	
+	public void testBirthTime() throws Exception {
+		PatientBean newBorn = new PatientBean();
+		newBorn.setBirthTime("02:00 PM");
+		assertEquals("02:00 PM", newBorn.getBirthTime());
+	}
+
 
 	public void testAge10() throws Exception {
 		PatientBean kid = new PatientBean();
 		kid.setDateOfBirthStr(DateUtil.yearsAgo(10));
 		assertEquals(10, kid.getAge());
 	}
+
+	public void testDrugs() throws Exception {
+		PatientBean p = new PatientBean();
+		assertFalse(p.getPitocin());
+		assertFalse(p.getNitrous_oxide());
+		assertFalse(p.getEpidural_anaesthesia());
+		assertFalse(p.getPethidine());
+		assertFalse(p.getMagnesium_sulfate());
+		assertFalse(p.getRH_immune_globulin());
+		p.setPitocin(true);
+		p.setNitrous_oxide(true);
+		p.setEpidural_anaesthesia(true);
+		p.setPethidine(true);
+		p.setMagnesium_sulfate(true);
+		p.setRH_immune_globulin(true);
+		assertTrue(p.getPitocin());
+		assertTrue(p.getNitrous_oxide());
+		assertTrue(p.getEpidural_anaesthesia());
+		assertTrue(p.getPethidine());
+		assertTrue(p.getMagnesium_sulfate());
+		assertTrue(p.getRH_immune_globulin());
+	}
+
+	public void testBirthMethod() throws Exception {
+		PatientBean p = new PatientBean();
+		p.setPreferMethod("vaginal delivery forceps assist");
+		assertEquals("vaginal delivery forceps assist", p.getPreferMethod());
+	}
+
 
 	public void testBean() {
 		PatientBean p = new PatientBean();
