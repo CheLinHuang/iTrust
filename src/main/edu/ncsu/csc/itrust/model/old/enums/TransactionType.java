@@ -225,6 +225,8 @@ public enum TransactionType {
 	ULTRASOUND_RECORD_ADD(9403, "Ultrasound", "scheduled an ultrasound record", true),
     /**NEXT_OFFICE_VISIT_RECORD_ADD*/
     NEXT_OFFICE_VISIT_RECORD_ADD(9404, "Schedule next office visit", "scheduled the next obstetric office visit", true),
+    /**CHILDBIRTH_ADD*/
+    CHILDBIRTH_ADD(9405, "Schedule childbirth", "scheduled childbirth", true),
 
     /**APPOINTMENT_ALL_VIEW*/
     APPOINTMENT_ALL_VIEW(2220, "View All Scheduled Appointments", "viewed all scheduled appointments", true),

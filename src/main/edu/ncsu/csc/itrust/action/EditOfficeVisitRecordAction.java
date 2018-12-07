@@ -39,7 +39,7 @@ public class EditOfficeVisitRecordAction extends OfficeVisitRecordAction {
     }
 
     public void logViewAction() {
-        TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORDS_VIEW, loggedInMID, originalPatient, "");
+        TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORDS_VIEW, loggedInMID, originalPatient, "" + originalOfficeVisitRecordID);
     }
 
     /**
@@ -87,8 +87,9 @@ public class EditOfficeVisitRecordAction extends OfficeVisitRecordAction {
     public String editOfficeVisitRecord(OfficeVisitRecordBean officeVisitRecord) throws FormValidationException, SQLException, DBException {
         try {
             officeVisitRecordDAO.modifyOfficeVisitRecord(officeVisitRecord);
-            TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORD_EDIT, loggedInMID,
-                    originalPatient, ""+ officeVisitRecord.getOfficeVisitRecordID());
+            TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORD_EDIT,
+                    loggedInMID, originalPatient,
+                    ""+ officeVisitRecord.getOfficeVisitRecordID());
             return "Success: Office Visit Record changed";
         } catch (DBException e) {
             return e.getMessage();

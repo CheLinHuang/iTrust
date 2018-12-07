@@ -14,6 +14,8 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType"%>
+<%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger"%>
 
 <%@include file="/global.jsp" %>
 
@@ -70,6 +72,7 @@ pageTitle = "iTrust - View My Messages";
                 }
                 if (shouldAdd) {
                     OfficeVisitRecordDAO officeVisitRecord = new OfficeVisitRecordDAO(prodDAO);
+                    System.out.println(a.getPatient());
                     int weeksOfPregnant = Integer.parseInt(officeVisitRecord.getPatientOfficeVisitRecord(a.getPatient()).get(0).getWeeksOfPregnant().substring(0, 2));
 
                     Calendar calendar = Calendar.getInstance();
@@ -100,9 +103,19 @@ pageTitle = "iTrust - View My Messages";
                             j++;
                         }
                     }
-                    a.setDate(new Timestamp(calendar.getTimeInMillis()));
+                    ApptBean e = new ApptBean();
+                    e.setPrice(a.getPrice());
+                    e.setApptID(a.getApptID());
+                    e.setApptType(a.getApptType());
+                    e.setPatient(a.getPatient());
+                    e.setHcp(a.getHcp());
+                    e.setComment(a.getComment());
+                    e.setDate(new Timestamp(calendar.getTimeInMillis()));
                     AddApptAction addAction = new AddApptAction(prodDAO, loggedInMID.longValue());
-                    addAction.addAppt(a, true);
+                    addAction.addAppt(e, true);
+                    TransactionLogger.getInstance().logTransaction(TransactionType.NEXT_OFFICE_VISIT_RECORD_ADD,
+                            e.getHcp(), e.getPatient(),
+                            String.valueOf(a.getApptID()) + ", " + String.valueOf(e.getApptID()));
                 }
             }
 
