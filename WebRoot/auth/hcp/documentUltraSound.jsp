@@ -63,9 +63,10 @@
         String estimatedFetalWeight="";
         String image="image";
         String officevisitID="";
+        UltraSoundRecordBean ul = null;
 
         if (exists) {
-            UltraSoundRecordBean ul = action.getUltrasoundRecord(Long.parseLong(officevisitString));
+            ul = action.getUltrasoundRecord(Long.parseLong(officevisitString));
             crownRumpLength = Double.toString(ul.getCrownRumpLength());
             biparietalDiameter = Double.toString(ul.getBiparietalDiameter());
             headCircumference= Double.toString(ul.getHeadCircumference());
@@ -160,9 +161,6 @@
         <%
             if (!exists) {
           %><h5><a href="uploadUltraSoundRecord.jsp?ovID=<%=officevisitString%>">Upload UltraSound Record</a></h5> <%
-        } else {
-         %>
-        <h5><a href="downloadUltraSoundRecord.jsp?ovID=<%=officevisitString%>">Download UltraSound Record</a></h5> <%
         }
         %>
         <br />
@@ -191,7 +189,9 @@
         <input style="width: 250px;" type="text" name="estimatedFetalWeight" value="<%= StringEscapeUtils.escapeHtml("" + ( estimatedFetalWeight)) %>" />
         <br /><br />
 
-        <input type="submit" value="submit" name="ultraSoundRecordButton"/>
+        <% if(!exists) {
+           %> <input type="submit" value="submit" name="ultraSoundRecordButton"/>
+        <%}%>
         <input type="hidden" value="UltraSoundRecord" name="ultraSoundRecord"/>
         <input type="hidden" value="<%=image%>" name="image"/>
         <input type="hidden" value="<%=ovid%>" name="ovID"/>
