@@ -93,24 +93,25 @@
         System.out.println("obstetriceligible:" + Boolean.parseBoolean(patient.getObstetricEligible()));
         Boolean eligible = Integer.parseInt(patient.getObstetricEligible()) == 1? true:false;
         if (eligible){
-
-            ob = obstetricsInitRecordDAO.getAllObstetricsInitRecord(patientID).get(0);
-            String lmp = ob.getLMP();
-            lmpDate = LocalDate.parse(lmp, DATE_FORMAT_INPUT);
-            cmpDate = lmpDate.plusDays(343);
-            currentDate = LocalDate.now();
-            long daysBetween = ChronoUnit.DAYS.between(lmpDate, currentDate);
-            long weeks = daysBetween / 7;
-            long days = daysBetween % 7;
-            weeksOfPregnant = Long.toString(weeks) + '-' + Long.toString(days);
-            System.out.println("daysBetween:" + daysBetween);
-            System.out.println("weeks:" + weeks);
-            System.out.println("days:" + days);
-            System.out.println("currentDate is:" + currentDate);
-            System.out.println("cmpDate is:" + cmpDate);
-            System.out.println("currentDate.compareTo(cmpDate)"+ currentDate.compareTo(cmpDate));
-            if (currentDate.compareTo(cmpDate) < 0) {
-                isObstetrics = true;
+            if (!obstetricsInitRecordDAO.getAllObstetricsInitRecord(patientID).isEmpty()) {
+                ob = obstetricsInitRecordDAO.getAllObstetricsInitRecord(patientID).get(0);
+                String lmp = ob.getLMP();
+                lmpDate = LocalDate.parse(lmp, DATE_FORMAT_INPUT);
+                cmpDate = lmpDate.plusDays(343);
+                currentDate = LocalDate.now();
+                long daysBetween = ChronoUnit.DAYS.between(lmpDate, currentDate);
+                long weeks = daysBetween / 7;
+                long days = daysBetween % 7;
+                weeksOfPregnant = Long.toString(weeks) + '-' + Long.toString(days);
+                System.out.println("daysBetween:" + daysBetween);
+                System.out.println("weeks:" + weeks);
+                System.out.println("days:" + days);
+                System.out.println("currentDate is:" + currentDate);
+                System.out.println("cmpDate is:" + cmpDate);
+                System.out.println("currentDate.compareTo(cmpDate)"+ currentDate.compareTo(cmpDate));
+                if (currentDate.compareTo(cmpDate) < 0) {
+                    isObstetrics = true;
+                }
             }
         }
 
