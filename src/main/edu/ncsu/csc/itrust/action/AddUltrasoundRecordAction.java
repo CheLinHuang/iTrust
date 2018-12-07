@@ -27,7 +27,9 @@ public class AddUltrasoundRecordAction extends UltrasoundRecordAction {
 
         try {
             ultrasoundRecordDAO.addUltraSoundRecord(ultrasoundRecord);
-            TransactionLogger.getInstance().logTransaction(TransactionType.ULTRASOUND_RECORD_ADD, loggedInMID, ultrasoundRecord.getOfficeVisitID(), "");
+            TransactionLogger.getInstance().logTransaction(TransactionType.ULTRASOUND_RECORD_ADD,
+                    loggedInMID, ultrasoundRecord.getOfficeVisitID(),
+                    "" + ultrasoundRecord.getOfficeVisitID());
             return "Success: Ultrasound Record added";
         }
         catch (SQLException e) {
@@ -39,7 +41,6 @@ public class AddUltrasoundRecordAction extends UltrasoundRecordAction {
         try {
             UltraSoundRecordBean ultrasound = null;
             ultrasound = ultrasoundRecordDAO.getUltraSoundRecord(officevisitRecordID);
-            TransactionLogger.getInstance().logTransaction(TransactionType.ULTRASOUND_RECORD_ADD, loggedInMID, officevisitRecordID, "");
             return ultrasound;
         }
         catch (SQLException e) {

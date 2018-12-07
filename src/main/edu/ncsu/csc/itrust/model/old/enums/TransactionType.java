@@ -225,6 +225,8 @@ public enum TransactionType {
 	ULTRASOUND_RECORD_ADD(9403, "Ultrasound", "scheduled an ultrasound record", true),
     /**NEXT_OFFICE_VISIT_RECORD_ADD*/
     NEXT_OFFICE_VISIT_RECORD_ADD(9404, "Schedule next office visit", "scheduled the next obstetric office visit", true),
+    /**CHILDBIRTH_ADD*/
+    CHILDBIRTH_ADD(9405, "Schedule childbirth", "scheduled childbirth", true),
 
     /**APPOINTMENT_ALL_VIEW*/
     APPOINTMENT_ALL_VIEW(2220, "View All Scheduled Appointments", "viewed all scheduled appointments", true),
@@ -510,6 +512,9 @@ public enum TransactionType {
 	/**EDIT_OPHTHALMOLOGY_SURGERY**/
 	EDIT_OPHTHALMOLOGY_SURGERY(8602, "Edit Ophthalmology Surgery", "Edit Ophthalmology Surgery", true),
 	/**PATIENT_VIEW_OPHTHALMOLOGY_SURGERY**/
+
+	// UC_95 Logging
+	VIEW_LABOR_AND_DELIVERY_REPORT(9500, "View Labor and Delivery Report", "viewed patient's labor and delivery report", true)
 	;
 	/**
 	 * This string is used in the SQL statement associated with pulling events for

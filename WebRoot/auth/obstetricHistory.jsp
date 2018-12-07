@@ -40,6 +40,12 @@
     String uid_pid = request.getParameter("UID_PATIENTID");
     Long pid = uid_pid == null ? null : Long.parseLong(uid_pid);
 
+    // Log in view obstetric action
+    // TransactionType type, long loggedInMID, long secondaryMID, String addedInfo
+    loggingAction.logEvent(TransactionType.VIEW_INITIAL_OBSTETRICS_RECORD,loggedInMID ,pid, "Viewed obstetric initialized record, EDD, Patient Viewable=YES");
+    System.out.println("Logged In" + loggedInMID + " VIEWED INITOBSTETRIC!");
+
+
     session.setAttribute("pid", uid_pid);
 //    if (null != uid_pid && !"".equals(uid_pid)) {
 //        response.sendRedirect(request.getParameter("forward"));
