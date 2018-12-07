@@ -60,6 +60,10 @@ try {
 	rAction.setViewed(requestID);
 	reportRequest = rAction.getReportRequest(requestID);
 
+    // TransactionType type, long loggedInMID, long secondaryMID, String viewedInfo
+    loggingAction.logEvent(TransactionType.VIEW_LABOR_AND_DELIVERY_REPORT, loggedInMID, patientMID, "viewed patient's labor and delivery report, Patient Viewable=YES");
+    System.out.println("Logged In:" + loggedInMID + " viewed patient's labor and delivery report!");
+
 ViewMyRecordsAction action = new ViewMyRecordsAction(prodDAO, patientMID);
 ViewReportAction viewAction = new ViewReportAction(prodDAO, loggedInMID.longValue(), patientMID);
 PatientBean patient = action.getPatient();
