@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.dao.preexistingconditionrecord;
+package edu.ncsu.csc.itrust.unit.UC_95_TestCollection;
 
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;

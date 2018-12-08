@@ -70,9 +70,4 @@ public class TravelHistoryBean {
                 Objects.equals(endDate, that.endDate) &&
                 Objects.equals(travelledCities, that.travelledCities);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(startDate, endDate, travelledCities, patientMID);
-    }
 }

@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.bean;
+package edu.ncsu.csc.itrust.unit.UC_95_TestCollection;
 
 import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;
 import junit.framework.TestCase;
@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 public class PreExistingConditionRecordBeanTest extends TestCase {
 
     PreExistingConditionRecordBean testBean;
+    PreExistingConditionRecordBean testBeanTwo;
 
     /**
      * setUp
@@ -13,6 +14,7 @@ public class PreExistingConditionRecordBeanTest extends TestCase {
     @Override
     public void setUp() {
         testBean = new PreExistingConditionRecordBean();
+        testBeanTwo = new PreExistingConditionRecordBean();
     }
 
     /**
@@ -30,5 +32,20 @@ public class PreExistingConditionRecordBeanTest extends TestCase {
         String icd = "024011, Pre-existing type 1 diabetes mellitus, in pregnancy, first trimester, 0";
         testBean.setIcdInfo(icd);
         assertEquals(testBean.getIcdInfo(), icd);
+    }
+
+    /**
+     * testEquals
+     */
+    public void testEquals() {
+        String icd = "024011, Pre-existing type 1 diabetes mellitus, in pregnancy, first trimester, 0";
+
+        testBean.setPatientMID(1L);
+        testBean.setIcdInfo(icd);
+
+        testBeanTwo.setPatientMID(1L);
+        testBeanTwo.setIcdInfo(icd);
+
+        assertEquals(testBean, testBeanTwo);
     }
 }

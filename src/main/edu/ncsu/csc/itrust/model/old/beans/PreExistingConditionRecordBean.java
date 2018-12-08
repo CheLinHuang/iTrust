@@ -47,9 +47,4 @@ public class PreExistingConditionRecordBean {
         return patientMID == that.patientMID &&
                 Objects.equals(icdInfo, that.icdInfo);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(patientMID, icdInfo);
-    }
 }

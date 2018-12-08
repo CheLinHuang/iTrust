@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.dao.travelhistory;
+package edu.ncsu.csc.itrust.unit.UC_99_TestCollection;
 
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;

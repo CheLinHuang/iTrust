@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.bean;
+package edu.ncsu.csc.itrust.unit.UC_99_TestCollection;
 
 import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
 import edu.ncsu.csc.itrust.model.old.beans.loaders.TravelHistoryBeanLoader;
