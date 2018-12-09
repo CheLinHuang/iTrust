@@ -8,6 +8,7 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean;
 import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
+import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import junit.framework.TestCase;
 
@@ -16,12 +17,17 @@ public class EditOfficeVisitRecordActionTest extends TestCase {
     private ViewMyOfficeVisitRecordsAction viewAction;
     private DAOFactory factory;
     private long hcpId = 9000000000L;
+    private TestDataGenerator gen = new TestDataGenerator();
 
     @Override
     protected void setUp() throws Exception {
         this.factory = TestDAOFactory.getTestInstance();
         this.editAction = new EditOfficeVisitRecordAction(this.factory, this.hcpId);
         this.viewAction = new ViewMyOfficeVisitRecordsAction(this.factory, this.hcpId);
+        gen.clearAllTables();
+        gen.pregnancy1();
+        gen.patient42();
+        gen.hcp0();
     }
 
     public void testGetOfficeVisitRecords() throws Exception, DBException {

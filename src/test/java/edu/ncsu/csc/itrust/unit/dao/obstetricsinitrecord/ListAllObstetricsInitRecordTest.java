@@ -27,8 +27,8 @@ public class ListAllObstetricsInitRecordTest extends TestCase {
 
     assertEquals(6, obstetricsInitRecordBean.getMID());
     assertEquals("20-6", obstetricsInitRecordBean.getWeeksOfPregnant());
-    assertEquals("01/01/2018", obstetricsInitRecordBean.getLMP());
-    assertEquals("10/08/2018", obstetricsInitRecordBean.getEDD());
+    assertEquals("03/02/2018", obstetricsInitRecordBean.getLMP());
+    assertEquals("12/09/2018", obstetricsInitRecordBean.getEDD());
   }
 
   /**

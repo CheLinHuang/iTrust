@@ -1,17 +1,19 @@
-package edu.ncsu.csc.itrust.unit.validate.bean;
+package edu.ncsu.csc.itrust.unit.UC_99_TestCollection;
 
 import edu.ncsu.csc.itrust.exception.FormValidationException;
-import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;
-import edu.ncsu.csc.itrust.model.old.validate.PreExistingConditionRecordBeanValidator;
+import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
+import edu.ncsu.csc.itrust.model.old.validate.TravelHistoryBeanValidator;
 import junit.framework.TestCase;
 
-public class PreExistingConditionRecordValidatorTest extends TestCase {
-    private PreExistingConditionRecordBeanValidator validator = new PreExistingConditionRecordBeanValidator();
+public class TravelHistoryValidatorTest extends TestCase {
+    private TravelHistoryBeanValidator validator = new TravelHistoryBeanValidator();
 
-    public void testInvalidPatientMID() {
-        PreExistingConditionRecordBean bean = new PreExistingConditionRecordBean();
+    public void testInvalidTravelHistory() {
+        TravelHistoryBean bean = new TravelHistoryBean();
         bean.setPatientMID(-1L);
-        bean.setIcdInfo("D720, Genetic anomalies of leukocytes, 0");
+        bean.setStartDate(null);
+        bean.setEndDate(null);
+        bean.setTravelledCities("Paris,France");
         try {
             validator.validate(bean);
             fail("Validator should throw the FormValidationException");
@@ -20,10 +22,12 @@ public class PreExistingConditionRecordValidatorTest extends TestCase {
         }
     }
 
-    public void testInvalidIcdInfo() {
-        PreExistingConditionRecordBean bean = new PreExistingConditionRecordBean();
-        bean.setPatientMID(11L);
-        bean.setIcdInfo("Lorem ipsum dolor sit amet, cu congue scriptorem concludaturque nam, an saepe " +
+    public void testInvalidTravelledCities() {
+        TravelHistoryBean bean = new TravelHistoryBean();
+        bean.setPatientMID(1L);
+        bean.setStartDate(null);
+        bean.setEndDate(null);
+        bean.setTravelledCities("Lorem ipsum dolor sit amet, cu congue scriptorem concludaturque nam, an saepe " +
                 "scripta comprehensam his, sed populo bonorum perfecto cu. In nisl malis dicam nam, ut dicant " +
                 "tibique mel, cu nisl diceret hendrerit vix. In vel homero putant quaerendum, sed no simul quaeque. " +
                 "Ne doming oblique est, an tritani lobortis mei. At oblique evertitur vix, an ancillae gubergren " +
@@ -33,15 +37,16 @@ public class PreExistingConditionRecordValidatorTest extends TestCase {
             validator.validate(bean);
             fail("Validator should throw the FormValidationException");
         } catch (FormValidationException e) {
-            assertEquals("icdInfo: Up to 512 characters are valid IcdInfo", e.getErrorList().get(0));
+            assertEquals("travelledCities: Up to 512 characters are valid travelledCities", e.getErrorList().get(0));
         }
     }
 
-    public void testValidIcdInfo() {
-        PreExistingConditionRecordBean bean = new PreExistingConditionRecordBean();
-        bean.setPatientMID(12L);
-        bean.setIcdInfo("024119, Pre-existing type 2 diabetes mellitus, in pregnancy, unexpected trimester, 0 " +
-                "& E033, Postinfectious hypothyroidism, 0");
+    public void testValidTravelHistory() {
+        TravelHistoryBean bean = new TravelHistoryBean();
+        bean.setPatientMID(11L);
+        bean.setStartDate(new java.sql.Date(System.currentTimeMillis()));
+        bean.setEndDate(new java.sql.Date(System.currentTimeMillis()));
+        bean.setTravelledCities("Paris,France");
         try {
             validator.validate(bean);
         } catch (FormValidationException e) {

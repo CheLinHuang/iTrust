@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.bean;
+package edu.ncsu.csc.itrust.unit.UC_95_TestCollection;
 
 import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;
 import edu.ncsu.csc.itrust.model.old.beans.loaders.PreExistingConditionRecordBeanLoader;
