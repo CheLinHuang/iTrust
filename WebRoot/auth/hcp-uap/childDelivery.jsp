@@ -74,6 +74,7 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 	boolean formIsFilled = request.getParameter("formIsFilled") != null && request.getParameter("formIsFilled").equals("true");
 	if (formIsFilled) {
 		//This page is not actually a "page", it just adds a user and forwards.
+		
 		p = new PatientBean();
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
@@ -92,6 +93,7 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		p.setGenderStr(gender);
 		p.setBirthTime(birthTime);
 		p.setEmail(email);
+		loggingAction.logEvent(TransactionType.CREATE_BABY_RECORD, loggedInMID.longValue(), p.getMID(), "");
 		// p.getperferMethod(); //get prefer method
 		parent.setPreferMethod(preferMethod); //set prefer method
 		if (patientDAO.getPatient(patientID).getGender()==Gender.Male) {

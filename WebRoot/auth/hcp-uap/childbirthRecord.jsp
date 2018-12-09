@@ -22,6 +22,10 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.ApptBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.DBException"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ApptDAO"%>
+
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean"%>
+
 <%@include file="/global.jsp" %>
 
 <%
@@ -86,7 +90,8 @@
 			} catch (DBException dbe) {
 				System.out.println(dbe.getExtendedMessage());
 			} */
-			
+			PatientBean p = patientDAO.getPatient(patientID);
+			loggingAction.logEvent(TransactionType.EDIT_CHILDBIRTH_VISIT, loggedInMID.longValue(), p.getMID(), "");
 
 %>
 

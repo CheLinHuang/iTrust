@@ -123,6 +123,8 @@
 </div>
 <br />
 <%
+			loggingAction.logEvent(TransactionType.ADD_CHILDBIRTH_DRUG, loggedInMID.longValue(), p.getMID(), "");
+
 		} catch (FormValidationException e) { }
 
 	}

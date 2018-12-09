@@ -512,6 +512,13 @@ public enum TransactionType {
 	/**EDIT_OPHTHALMOLOGY_SURGERY**/
 	EDIT_OPHTHALMOLOGY_SURGERY(8602, "Edit Ophthalmology Surgery", "Edit Ophthalmology Surgery", true),
 	/**PATIENT_VIEW_OPHTHALMOLOGY_SURGERY**/
+	
+	/**Childbirth Transaction**/
+	CREATE_CHILDBIRTH_VISIT(9600, "Create Childbirth Visit", "Create ChildBirth visit", true),
+    ADD_CHILDBIRTH_DRUG(9601, "Add childbirth drugs", "Add childbirth drugs", true),
+    BABY_IS_BORN(9602, "A baby is born", "A baby is born", true),
+    CREATE_BABY_RECORD(9603, "Create baby record", "Create baby record", true),
+    EDIT_CHILDBIRTH_VISIT(9604, "Edit childbirth visit", "Edit childbirth visit", true),
 
 	// UC_95 Logging
 	VIEW_LABOR_AND_DELIVERY_REPORT(9500, "View Labor and Delivery Report", "viewed patient's labor and delivery report", true)
