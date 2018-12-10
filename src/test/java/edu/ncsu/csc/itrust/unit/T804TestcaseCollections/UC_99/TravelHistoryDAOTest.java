@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.UC_99_TestCollection;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_99;
 
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
@@ -40,10 +40,8 @@ public class TravelHistoryDAOTest extends TestCase {
             thb.setTravelledCities("Paris,France");
             tdao.addTravelHistory(thb);
             assertEquals(1, tdao.getTravelHistoriesByMID(12L).size());
-        } catch (DBException e) {
+        } catch (Exception e) {
             fail();
-        } catch (ITrustException e) {
-            e.printStackTrace();
         }
     }
 
@@ -63,8 +61,6 @@ public class TravelHistoryDAOTest extends TestCase {
             assertEquals(4, l.size());
         } catch (DBException e) {
             fail();
-        } catch (ITrustException e) {
-            e.printStackTrace();
         }
     }
 }

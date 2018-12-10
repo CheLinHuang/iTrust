@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.UC_95_TestCollection;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_95;
 
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;
@@ -16,6 +16,7 @@ public class PreExistingConditionRecordValidatorTest extends TestCase {
             validator.validate(bean);
             fail("Validator should throw the FormValidationException");
         } catch (FormValidationException e) {
+            assertEquals(1, e.getErrorList().size());
             assertEquals("patientMID: Between 1 and 10 digits", e.getErrorList().get(0));
         }
     }
@@ -33,6 +34,7 @@ public class PreExistingConditionRecordValidatorTest extends TestCase {
             validator.validate(bean);
             fail("Validator should throw the FormValidationException");
         } catch (FormValidationException e) {
+            assertEquals(1, e.getErrorList().size());
             assertEquals("icdInfo: Up to 512 characters are valid IcdInfo", e.getErrorList().get(0));
         }
     }
@@ -47,5 +49,9 @@ public class PreExistingConditionRecordValidatorTest extends TestCase {
         } catch (FormValidationException e) {
             fail("Validator should not throw the FormValidationException");
         }
+
+        assertEquals(12, bean.getPatientMID());
+        assertEquals("024119, Pre-existing type 2 diabetes mellitus, in pregnancy, unexpected trimester, 0 " +
+                "& E033, Postinfectious hypothyroidism, 0", bean.getIcdInfo());
     }
 }

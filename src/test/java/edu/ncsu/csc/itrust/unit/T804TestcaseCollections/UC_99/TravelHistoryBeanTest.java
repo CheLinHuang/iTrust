@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.UC_99_TestCollection;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_99;
 
 import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
 import junit.framework.TestCase;

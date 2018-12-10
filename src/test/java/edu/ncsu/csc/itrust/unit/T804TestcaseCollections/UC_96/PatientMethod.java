@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.UC_96;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_96;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import junit.framework.TestCase;

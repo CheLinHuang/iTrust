@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.UC_95_TestCollection;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_95;
 
 import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;
 import junit.framework.TestCase;

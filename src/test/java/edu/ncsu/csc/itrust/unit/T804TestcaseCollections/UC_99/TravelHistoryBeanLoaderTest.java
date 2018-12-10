@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.UC_99_TestCollection;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_99;
 
 import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
 import edu.ncsu.csc.itrust.model.old.beans.loaders.TravelHistoryBeanLoader;
@@ -57,6 +57,7 @@ public class TravelHistoryBeanLoaderTest extends TestCase {
         } catch (SQLException e) {
             // TODO
         }
+        assertTrue(true);
     }
 
     /**
