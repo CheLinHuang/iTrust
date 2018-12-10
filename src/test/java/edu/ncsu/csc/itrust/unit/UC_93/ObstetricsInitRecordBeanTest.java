@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.bean;
+package edu.ncsu.csc.itrust.unit.UC_93;
 
 import edu.ncsu.csc.itrust.model.old.beans.ObstetricsInitRecordBean;
 import junit.framework.TestCase;

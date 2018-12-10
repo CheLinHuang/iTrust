@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.validate.bean;
+package edu.ncsu.csc.itrust.unit.UC_93;
 
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
