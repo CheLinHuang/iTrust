@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.UC_96;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_96;
 
 import edu.ncsu.csc.itrust.model.old.beans.PatientBean;
 import edu.ncsu.csc.itrust.model.old.beans.loaders.PatientLoader;
@@ -41,6 +41,8 @@ public class PatientBeanLoaderTest extends TestCase {
         }
 
         assertEquals(0, list.size());
+
+        assertTrue(true);
     }
 
     /**
@@ -55,6 +57,8 @@ public class PatientBeanLoaderTest extends TestCase {
         } catch (SQLException e) {
             // TODO
         }
+
+        assertTrue(true);
     }
 
     /**
