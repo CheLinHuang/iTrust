@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.bean;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_94;
 
 import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 import junit.framework.TestCase;

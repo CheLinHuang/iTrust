@@ -1,8 +1,4 @@
-package edu.ncsu.csc.itrust.unit.dao.ultrasoundrecord;
-
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_94;
 
 import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
@@ -14,13 +10,7 @@ import junit.framework.TestCase;
 public class UltrasoundDAOTest extends TestCase {
     private DAOFactory factory = TestDAOFactory.getTestInstance();
     private UltraSoundRecordDAO ultrasoundRecordDAO = factory.getUltraSoundRecordDAO();
-
     private UltraSoundRecordBean u1;
-    private UltraSoundRecordBean u2;
-    private UltraSoundRecordBean u3;
-
-    long patientMID = 42L;
-    long doctorMID = 9000000000L;
 
     @Override
     protected void setUp() throws Exception {

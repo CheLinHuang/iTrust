@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.unit.action;
+package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_94;
 
 import edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean;
 import junit.framework.TestCase;
