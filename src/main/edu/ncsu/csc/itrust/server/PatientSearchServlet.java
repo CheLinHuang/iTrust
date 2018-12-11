@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.model.user.patient.Patient;
+
 import org.apache.commons.lang.StringEscapeUtils;
 
 import edu.ncsu.csc.itrust.action.SearchUsersAction;

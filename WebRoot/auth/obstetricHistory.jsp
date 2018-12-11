@@ -43,13 +43,10 @@
     // Log in view obstetric action
     // TransactionType type, long loggedInMID, long secondaryMID, String addedInfo
     loggingAction.logEvent(TransactionType.VIEW_INITIAL_OBSTETRICS_RECORD,loggedInMID ,pid, "Viewed obstetric initialized record, EDD, Patient Viewable=YES");
-    System.out.println("Logged In" + loggedInMID + " VIEWED INITOBSTETRIC!");
+    System.out.println("Logged In MID:" + loggedInMID + "- VIEWED INITOBSTETRIC!");
 
 
     session.setAttribute("pid", uid_pid);
-//    if (null != uid_pid && !"".equals(uid_pid)) {
-//        response.sendRedirect(request.getParameter("forward"));
-//    }
 
     String firstName = request.getParameter("FIRST_NAME");
     String lastName = request.getParameter("LAST_NAME");
@@ -94,15 +91,10 @@
 
             StringBuilder linkURLSB = new StringBuilder(serverURI);
             linkURLSB.append("/iTrust/auth/hcp/initObstetricRecord.jsp");
-            /*
-                serverURI
-                javax.servlet.http.HttpUtils.getRequestURL(request)
-             */
 
         %>
 
             <div>
-                <%--<input type='button' style='width:100px;' onclick=\"parent.location.href='obstetricHistory.jsp?UID_PATIENTID=" + StringEscapeUtils.escapeHtml("" + p.getMID())  + "';\" value=" + StringEscapeUtils.escapeHtml("" + p.getMID()) + " />"--%>
                 <input type='button' style='width:250px;' onclick="location.href='<%= linkURLSB.toString() %>'" value="Initialize Obstetric Record">
             </div>
 

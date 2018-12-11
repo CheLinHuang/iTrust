@@ -115,35 +115,6 @@ pageTitle = "iTrust - Please Select a Patient";
 	</div>
 </div>
 
-<%--<script type = 'text/javascript'>--%>
-<%--var searchBarValue = document.getElementById(\"searchBox\");--%>
-	<%--$(document).ready(function() {--%>
-	<%--$(".setObstetric").click(function(){--%>
-	<%--var id = $(this).attr("id");--%>
-
-	<%--alert("Making Patient - MID:'" + id + "' Eligible for Obstetric Care");--%>
-
-	<%--$.ajax({--%>
-
-	<%--url : "PatientSearchServlet",--%>
-
-	<%--data : {--%>
-
-	<%--q : searchBarValue.value,--%>
-	<%--id : id,--%>
-	<%--patientObstetricInfo : "True",--%>
-	<%--setPatientToObstetric : "SET",--%>
-
-				<%--},--%>
-				<%--success : function(e){--%>
-					<%--$(\"#searchTarget\").html(e);--%>
-				<%--}--%>
-
-			 <%--});--%>
-			<%--});--%>
-		<%--});--%>
-<%--</script>--%>
-
 
 <script type="text/javascript">
  $(function(){
@@ -202,8 +173,6 @@ else
 	<br />
 	</div>
 <%}%>
-
-<!-- <iframe id="userSearch" style="width:100%;min-height:600px;border:none;"></iframe> -->
 
 <div id="searchTarget"></div>
 

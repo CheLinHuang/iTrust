@@ -53,7 +53,7 @@
     String pidString = (String) session.getAttribute("pid");
     // For reloading -> Calling the same page of itself recursively when needed
     String LMPDateString = request.getParameter("dateOfBirthStr");
-    System.out.println(request.getParameter("dateOfBirthStr") + "------");
+
 
     boolean LMPDateStringIsNull = LMPDateString == null;
 
@@ -77,7 +77,6 @@
     System.out.println(FormSubmitAction.toString() + "___________");
 
 
-    // System.out.println(pidString);
     Long pid = pidString == null ? null : Long.parseLong(pidString);
 
     if (pidString == null || pidString.equals("") || 1 > pidString.length()) {
@@ -85,10 +84,6 @@
         response.sendRedirect("/iTrust/auth/getPatientInfo.jsp?forward=hcp/getPatientInfo.jsp"); //
         return;
     }
-
-    /* If the patient id doesn't check out, then kick 'em out to the exception handler */
-//    EditPatientAction action = new EditPatientAction(prodDAO,
-//            loggedInMID.longValue(), pidString);pidString
 
 
     /* Now take care of updating information */
@@ -107,66 +102,8 @@
     if (pregnancyHistoryList.size() > 0) {
         mostRecentPregnancy = pregnancyHistoryList.get(0);
     }
-//
-//    String LMPValue = "";
-//    String formattedEDD = "";
-//    String weeksPregnant = "";
-//    String yearOfConception = "";
-//    String weekOfPregnancy = "";
-//    String hoursInLabor = "";
-//    String weightGain = "";
-//    String deliveryType = "";
-
-
-////    PatientBean p;
-//    if (formIsFilled) {
-////        p = new BeanBuilder<PatientBean>().build(request
-////                .getParameterMap(), new PatientBean());
-////        try {
-//////            action.updateInformation(p);
-//
-//
-//            int initializationRecord = oba.initializationObstetricRecord(pidString, LMPValue, formattedEDD, weeksPregnant);
-//            if (initializationRecord != -1) {
-//                System.out.println("Init Record okay~!");
-//            }
-//            // Add only if prior pregnancy is not in the iTrust system
-//            int addPregnanacyInfo = 0;
-//            if (mostRecentPregnancy == null) {
-//                addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType);
-//            }
-//            if (addPregnanacyInfo != -1) {
-//                System.out.println("Pregnancy okay~!");
-//            }
-//
-//
-//            // loggingAction.logEvent(TransactionType.DEMOGRAPHICS_EDIT, loggedInMID.longValue(), p.getMID(), "");
-
 
 %>
-
-
-<%--<br />--%>
-<%--<div align=center>--%>
-    <%--<span class="iTrustMessage">Obstetric Initialized for Patient MID : <%=pidString%></span>--%>
-<%--</div>--%>
-<%--<br />--%>
-<%--<%--%>
-<%--} catch (FormValidationException e) {--%>
-<%--%>--%>
-<%--<br />--%>
-<%--<div align=center>--%>
-    <%--<span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage()) %></span>--%>
-<%--</div>--%>
-<%--<br />--%>
-<%--<%--%>
-<%--//        }--%>
-    <%--}--%>
-<%--//    else {--%>
-<%--//        p = action.getPatient();--%>
-<%--//        loggingAction.logEvent(TransactionType.DEMOGRAPHICS_VIEW, loggedInMID.longValue(), p.getMID(), "");--%>
-<%--//    }--%>
-<%--%>--%>
 
 <p style="text-align: center;">After submission, record would be updated in the database <br>
     <span style="color:blue">Server will redirect back to patient's (MID: <%=pidString%>) obstetric record history shortly in 2 seconds...</span></p>
@@ -186,17 +123,9 @@
                         // Java 8 approach
                         DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-                        //LocalDateTime todaysDate = LocalDateTime.now();
                         LocalDate todaysDate = LocalDate.now();
 
                         String formattedTodaysDate = todaysDate.format(DATE_FORMAT);
-                        //System.out.println(formattedTodaysDate);
-
-//                        // java 7 approach
-//                        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
-//                        Date today = new Date();
-//                        String date = DATE_FORMAT.format(today);
-//                        System.out.println(date);
 
                     %>
                     <tr>
@@ -209,8 +138,6 @@
                                 <input
                                         type=button value="Select Date"
                                         onclick="displayDatePicker('dateOfBirthStr');">
-                                <%--<input type="button" value="Calculate EDD"--%>
-                                       <%--onclick="#">--%>
                                 <a href="" onclick="location.href = $(this).attr('href')+'?dateOfBirthStr=' + document.getElementById('LMPvalue').value;return false;">Update EDD</a>
                             </td>
                     </tr>
@@ -226,7 +153,6 @@
 
                         LocalDate EDD = LMPDate.plusDays(280);
                         String formattedEDD = EDD.format(DATE_FORMAT);
-                        //System.out.println(formattedEDD);
                     %>
                     <tr>
                         <td class="subHeaderVertical">EDD:</td>
@@ -236,10 +162,6 @@
                         </td>
                     </tr>
                     <%
-                        // String LMPDateString = request.getParameter("dateOfBirthStr");
-                        System.out.println(LMPDateString);
-
-                        System.out.println(LMPDate);
 
                         Long totalDaysOfPregnancy = ChronoUnit.DAYS.between(LMPDate, todaysDate);
                         Long weeks = totalDaysOfPregnancy / 7;
@@ -269,11 +191,6 @@
                     <tr>
                         <th colspan=2>Pregnancy Information</th>
                     </tr>
-
-                    <%--<%--%>
-                        <%--List<PregnancyBean> pregnancyHistoryList = oba.getAllPregnancy(pid);--%>
-                        <%--PregnancyBean mostRecentPregnancy = pregnancyHistoryList.get(0);--%>
-                    <%--%>--%>
 
                     <tr>
                         <td class="subHeaderVertical">Year of Conception:</td>
@@ -322,11 +239,6 @@
                                 <%}%>
                             </select>
                         </td>
-                        <%--<td>--%>
-                            <%--<input name="weekOfPregnancy"--%>
-                                    <%--<%String weekOfPregnancy = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getWeeksOfPregnant(); %>--%>
-                                   <%--value="<%= weekOfPregnancy %>" type="text" size="12" maxlength="12">--%>
-                        <%--</td>--%>
                     </tr>
                     <tr>
                         <td class="subHeaderVertical">Hours In Labor:</td>
@@ -365,9 +277,6 @@
                                 <option value="miscarriage">Miscarriage</option>
                                 <%}%>
                             </select>
-                            <%--<input name="deliveryType"--%>
-                                    <%--<%String deliveryType = mostRecentPregnancy == null ? "" : mostRecentPregnancy.getDeliveryType(); %>--%>
-                                   <%--value="<%= deliveryType %>" type="text" size="20" maxlength="20">--%>
                         </td>
                     </tr>
                     <tr>
@@ -385,15 +294,9 @@
     <br />
 
     <div align=center>
-        <%--<% if(p.getDateOfDeactivationStr().equals("")){ %>--%>
         <input type="submit" name="action" style="font-size: 16pt; font-weight: bold;" value="Edit Patient Record">
         <%
-            //    PatientBean p;
             if (formIsFilled) {
-//        p = new BeanBuilder<PatientBean>().build(request
-//                .getParameterMap(), new PatientBean());
-//        try {
-////            action.updateInformation(p);
 %>
                 <div align=center>
                     <span class="iTrustMessage">Obstetric Initialized for Patient MID : <%=pidString%></span> <br>
@@ -403,13 +306,10 @@
 <%
                 int initializationRecord = oba.initializationObstetricRecord(pidString, LMPValue, formattedEDD, weeksPregnant);
                 if (initializationRecord != -1) {
-                    System.out.println("Init Record okay~!");
+                    System.out.println("Init Record Success~!");
                 }
-//                // Add only if prior pregnancy is not in the iTrust system
-//                int addPregnanacyInfo = 0;
 
                 yearOfConception = request.getParameter("yearOfConception");
-                // weekOfPregnancy = request.getParameter("weekOfPregnancy");
                 String weekString = request.getParameter("weeksOfPregnancy");
                 String dayString = request.getParameter("daysOfPregnancy");
                 weekOfPregnancy = weekString + "-" + dayString;
@@ -422,47 +322,15 @@
 
                 pregnancyNumber = request.getParameter("pregnancyNumber");
 
-                System.out.println(yearOfConception);
-                System.out.println(weekOfPregnancy);
-                System.out.println(hoursInLabor);
-                System.out.println(weightGain);
-                System.out.println(deliveryType);
-                System.out.println(pregnancyNumber);
-
-
-                System.out.println("+++++++Before++++++");
-
-                System.out.println(pidString);
 
                 int addPregnanacyInfo = oba.addPregnancyInformation(pidString, yearOfConception, weekOfPregnancy, hoursInLabor, weightGain, deliveryType, pregnancyNumber);
 
-                System.out.println("-------After--------");
-                System.out.println(pidString);
-
-                System.out.println(yearOfConception);
-                System.out.println(weekOfPregnancy);
-                System.out.println(hoursInLabor);
-                System.out.println(weightGain);
-                System.out.println(deliveryType);
-                System.out.println(pregnancyNumber);
-
 
                 if (addPregnanacyInfo != -1) {
-                    System.out.println("Pregnancy okay~!");
+                    System.out.println("Pregnancy record Success!");
                 }
-                // loggingAction.logEvent(TransactionType.DEMOGRAPHICS_EDIT, loggedInMID.longValue(), p.getMID(), "");
-            } else {
-                System.out.println("No Idea wtf to do...");
             }
         %>
-
-        <%--<% } else { %>--%>
-        <%--<span style="font-size: 16pt; font-weight: bold;">Patient is deactivated.  Cannot edit.</span>--%>
-        <%--<% } %>--%>
-        <%--<br /><br />--%>
-        <%--<span style="font-size: 14px;">--%>
-		<%--Note: in order to set the password for this user, use the "Reset Password" link at the login page.--%>
-	<%--</span>--%>
     </div>
 </form>
 
