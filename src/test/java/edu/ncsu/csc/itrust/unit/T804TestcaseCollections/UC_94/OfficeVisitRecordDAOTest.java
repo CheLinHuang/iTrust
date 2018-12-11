@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO;
+import edu.ncsu.csc.itrust.model.old.dao.mysql.OfficeVisitRecordDAO;
 import edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean;
 
 import edu.ncsu.csc.itrust.exception.DBException;

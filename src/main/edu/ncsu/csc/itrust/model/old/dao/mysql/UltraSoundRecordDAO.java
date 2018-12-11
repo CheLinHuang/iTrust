@@ -1,8 +1,9 @@
-package edu.ncsu.csc.itrust.model.old.dao;
+package edu.ncsu.csc.itrust.model.old.dao.mysql;
 
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 import edu.ncsu.csc.itrust.model.old.beans.loaders.UltraSoundRecordBeanLoader;
+import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

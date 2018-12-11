@@ -6,7 +6,7 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.ReportRequestBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
-<%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.OfficeVisitRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PreExistingConditionRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ReportRequestDAO"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyReportRequestsAction"%>
@@ -19,7 +19,6 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.FamilyMemberBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.MedicationBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.PregnancyBean"%>
-<%@page import="edu.ncsu.csc.itrust.model.old.beans.ReportRequestBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.ObstetricsInitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean"%>

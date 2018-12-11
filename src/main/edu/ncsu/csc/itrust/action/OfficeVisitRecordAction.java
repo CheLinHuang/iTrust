@@ -1,14 +1,8 @@
 package edu.ncsu.csc.itrust.action;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
-import edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean;
 import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
-import edu.ncsu.csc.itrust.model.old.dao.mysql.ApptDAO;
-import edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO;
+import edu.ncsu.csc.itrust.model.old.dao.mysql.OfficeVisitRecordDAO;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO;
 

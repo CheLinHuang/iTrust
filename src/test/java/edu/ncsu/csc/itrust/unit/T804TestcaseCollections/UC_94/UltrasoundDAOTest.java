@@ -2,7 +2,7 @@ package edu.ncsu.csc.itrust.unit.T804TestcaseCollections.UC_94;
 
 import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 import edu.ncsu.csc.itrust.model.old.dao.DAOFactory;
-import edu.ncsu.csc.itrust.model.old.dao.UltraSoundRecordDAO;
+import edu.ncsu.csc.itrust.model.old.dao.mysql.UltraSoundRecordDAO;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import junit.framework.TestCase;

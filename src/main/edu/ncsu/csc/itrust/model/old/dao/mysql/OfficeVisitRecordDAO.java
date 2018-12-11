@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.model.old.dao;
+package edu.ncsu.csc.itrust.model.old.dao.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

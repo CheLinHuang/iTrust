@@ -13,7 +13,7 @@
 
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO"%>
-<%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.OfficeVisitRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ObstetricsInitRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.ObstetricsInitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
@@ -22,8 +22,6 @@
 <%@page import="java.time.format.DateTimeFormatter" %>
 <%@page import="java.time.LocalDateTime" %>
 <%@page import="java.time.LocalDate" %>
-<%@page import="java.text.SimpleDateFormat" %>
-<%@page import="java.util.Date" %>
 <%@page import="java.time.temporal.ChronoUnit" %>
 
 

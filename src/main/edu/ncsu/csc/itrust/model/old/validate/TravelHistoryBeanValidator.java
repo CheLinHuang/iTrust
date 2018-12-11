@@ -11,6 +11,12 @@ public class TravelHistoryBeanValidator extends BeanValidator<TravelHistoryBean>
 
     }
 
+    /**
+     * Validate the variables in bean meet the requirements and return the error message that indicates
+     * the violating requirements.
+     * @param bean
+     * @throws FormValidationException
+     */
     @Override
     public void validate(TravelHistoryBean bean) throws FormValidationException {
         ErrorList errorList = new ErrorList();

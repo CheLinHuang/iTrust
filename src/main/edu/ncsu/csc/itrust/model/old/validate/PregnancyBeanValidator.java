@@ -8,12 +8,19 @@ import edu.ncsu.csc.itrust.model.old.beans.PregnancyBean;
  * Validates a pregnancy bean
  */
 public class PregnancyBeanValidator extends BeanValidator<PregnancyBean> {
+
   /**
    * The default constructor.
    */
   public PregnancyBeanValidator() {
   }
 
+  /**
+   * Validate the variables in bean meet the requirement and return the error message that indicates
+   * the violating requirements.
+   * @param bean
+   * @throws FormValidationException
+   */
   @Override
   public void validate(PregnancyBean bean) throws FormValidationException {
     ErrorList errorList = new ErrorList();

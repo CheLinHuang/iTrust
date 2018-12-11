@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.model.old.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 import edu.ncsu.csc.itrust.model.old.dao.mysql.*;
 
 /**

@@ -13,7 +13,7 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.ApptBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
-<%@page import="edu.ncsu.csc.itrust.model.old.dao.OfficeVisitRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.OfficeVisitRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType"%>
 <%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger"%>
 

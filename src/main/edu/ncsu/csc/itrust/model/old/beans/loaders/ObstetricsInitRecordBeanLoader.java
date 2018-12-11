@@ -8,7 +8,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A loader for ObstetricsInitRecordBean.
+ *
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency.
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class ObstetricsInitRecordBeanLoader implements BeanLoader<ObstetricsInitRecordBean> {
+
+  /**
+   * Load a list of ObstetricsInitRecordBean from rs
+   * @param rs
+   * @return list
+   * @throws SQLException
+   */
   @Override
   public List<ObstetricsInitRecordBean> loadList(ResultSet rs) throws SQLException {
     List<ObstetricsInitRecordBean> list = new ArrayList<>();
@@ -18,6 +31,12 @@ public class ObstetricsInitRecordBeanLoader implements BeanLoader<ObstetricsInit
     return list;
   }
 
+  /**
+   * Load a single ObstetricsInitRecordBean from rs
+   * @param rs
+   * @return o
+   * @throws SQLException
+   */
   @Override
   public ObstetricsInitRecordBean loadSingle(ResultSet rs) throws SQLException {
     ObstetricsInitRecordBean o = new ObstetricsInitRecordBean();
@@ -29,6 +48,13 @@ public class ObstetricsInitRecordBeanLoader implements BeanLoader<ObstetricsInit
     return o;
   }
 
+  /**
+   * Load the info in ObstetricsInitRecordBean into a prepared statement
+   * @param ps
+   * @param p
+   * @return ps
+   * @throws SQLException
+   */
   @Override
   public PreparedStatement loadParameters(PreparedStatement ps, ObstetricsInitRecordBean p) throws SQLException {
     int i = 1;

@@ -5,12 +5,19 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.model.old.beans.ObstetricsInitRecordBean;
 
 public class ObstetricsInitRecordBeanValidator extends BeanValidator<ObstetricsInitRecordBean> {
+
   /**
    * The default constructor.
    */
   public ObstetricsInitRecordBeanValidator() {
   }
 
+  /**
+   * Validate the variables in bean meet the requirements and return the error message that indicates
+   * the violating requirements.
+   * @param bean
+   * @throws FormValidationException
+   */
   @Override
   public void validate(ObstetricsInitRecordBean bean) throws FormValidationException {
     ErrorList errorList = new ErrorList();

@@ -11,7 +11,7 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.AddUltrasoundRecordAction"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
-<%@page import="edu.ncsu.csc.itrust.model.old.dao.UltraSoundRecordDAO"%>
+<%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.UltraSoundRecordDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.BloodType"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
