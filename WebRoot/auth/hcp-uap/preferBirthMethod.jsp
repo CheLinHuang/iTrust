@@ -60,7 +60,6 @@
 				session.removeAttribute("pid");
 			}
 
-
 			if (patientID == 0L) {
 				response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/preferBirthMethod.jsp");
 			} else if(isDead){
@@ -78,23 +77,23 @@
 <div align="left" <%=hidden %> id="apptDiv">
 	<h4><%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp-uap/preferBirthMethod.jsp">Search for other patient</a>):</h4>
 
-
 	<%
+		//get the method from database
 		String databaseperfm;
 		String display;
 		String perfm=(String)request.getParameter("Perfermethod");
 		String pidString = (String) session.getAttribute("pid");
 
+		//get the patinent information
 		PatientDAO PatientDAO = prodDAO.getPatientDAO();
 		PatientBean p = PatientDAO.getPatient(patientID);
 		databaseperfm = p.getPreferMethod();
 		if (databaseperfm.isEmpty()){
 			databaseperfm = "No";
 		}
-
+		//try to update the data base with selected childbirth method
 		if (perfm != null){
 			databaseperfm = perfm;
-			//System.out.println("add method to "+ patientID);
 			try {
 				p.setPreferMethod(perfm);
 				EditPatientAction edit = new EditPatientAction(prodDAO, loggedInMID.longValue(), pidString);

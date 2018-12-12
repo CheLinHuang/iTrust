@@ -63,62 +63,112 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String alternateName = "";
 	private String dateOfDeactivationStr = "";
 	private String obstetricEligible = "";
+	/*
+	 *Patient Preferred BirthMethod
+	 */
 	private String preferMethod = "";
+	/*
+	 *Birth time of the child
+	 */
 	private String birthTime = "";
-  private Boolean Pitocin = false;
-  private Boolean Nitrous_oxide = false;
-  private Boolean Pethidine = false;
-  private Boolean Epidural_anaesthesia = false;
-  private Boolean Magnesium_sulfate = false;
-  private Boolean RH_immune_globulin = false;
+	/*
+	 * ALL the drugs used for Childbirth
+	 */
+  	private Boolean Pitocin = false;
+  	private Boolean Nitrous_oxide = false;
+  	private Boolean Pethidine = false;
+  	private Boolean Epidural_anaesthesia = false;
+  	private Boolean Magnesium_sulfate = false;
+  	private Boolean RH_immune_globulin = false;
 
-  public Boolean getPitocin() {
+  	/**
+  	 * series method of getting the drug usage records
+  	 * @reture Boolean if the drug is used
+  	 */
+  	public Boolean getPitocin() {
       return this.Pitocin;
-  }
+  	}
 
-  public void setPitocin(Boolean drug) {
-      this.Pitocin = drug;
-  }
+	public Boolean getNitrous_oxide() {
+		return this.Nitrous_oxide;
+	}
 
-  public Boolean getNitrous_oxide() {
-      return this.Nitrous_oxide;
-  }
+	public Boolean getPethidine() {
+		return this.Pethidine;
+	}
 
-  public void setNitrous_oxide(Boolean drug) {
-      this.Nitrous_oxide = drug;
-  }
+	public Boolean getEpidural_anaesthesia() {
+		return this.Epidural_anaesthesia;
+	}
 
-  public Boolean getPethidine() {
-      return this.Pethidine;
-  }
+	public Boolean getMagnesium_sulfate() {
+		return this.Magnesium_sulfate;
+	}
 
-  public void setPethidine(Boolean drug) {
-      this.Pethidine = drug;
-  }
+	public Boolean getRH_immune_globulin() {
+		return this.RH_immune_globulin;
+	}
 
-  public Boolean getEpidural_anaesthesia() {
-      return this.Epidural_anaesthesia;
-  }
+	/**
+	 * series method of setting the drug usage records
+	 * @param  Drug usage true or false
+	 */
+	public void setPitocin(Boolean drug) {
+	  this.Pitocin = drug;
+	}
 
-  public void setEpidural_anaesthesia(Boolean drug) {
-      this.Epidural_anaesthesia = drug;
-  }
+	public void setNitrous_oxide(Boolean drug) {
+	  this.Nitrous_oxide = drug;
+	}
 
-  public Boolean getMagnesium_sulfate() {
-      return this.Magnesium_sulfate;
-  }
+	public void setPethidine(Boolean drug) {
+	  this.Pethidine = drug;
+	}
 
-  public void setMagnesium_sulfate(Boolean drug) {
-      this.Magnesium_sulfate = drug;
-  }
+	public void setEpidural_anaesthesia(Boolean drug) {
+	  this.Epidural_anaesthesia = drug;
+	}
 
-  public Boolean getRH_immune_globulin() {
-      return this.RH_immune_globulin;
-  }
+	public void setMagnesium_sulfate(Boolean drug) {
+	  this.Magnesium_sulfate = drug;
+	}
 
-  public void setRH_immune_globulin(Boolean drug) {
-      this.RH_immune_globulin = drug;
-  }
+	public void setRH_immune_globulin(Boolean drug) {
+	  this.RH_immune_globulin = drug;
+	}
+
+	/**
+	 * get the name of preferred childbirth method
+	 * @return the name of preferred childbirth method
+	 */
+	public String getPreferMethod() {
+		return this.preferMethod;
+	}
+
+	/**
+	 * set the name of preferred childbirth method
+	 * @param the name of preferred childbirth method
+	 */
+	public void setPreferMethod(String preferMethod) {
+		this.preferMethod = preferMethod;
+	}
+
+	/**
+	 * get the name of birthtime of new baby
+	 * @return the time of birthtime
+	 */
+	public String getBirthTime() {
+		return this.birthTime;
+	}
+
+	/**
+	 * set the name of birthtime of new baby
+	 * @param time of birth for the new baby
+	 */
+	public void setBirthTime(String birthTime) {
+		this.birthTime = birthTime;
+	}
+
 
 	public String getObstetricEligible() {
 		return obstetricEligible;
@@ -548,22 +598,6 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 
 	public void setDateOfDeactivationStr(String dateOfDeactivationStr) {
 		this.dateOfDeactivationStr = dateOfDeactivationStr;
-	}
-
-	public String getPreferMethod() {
-		return this.preferMethod;
-	}
-
-	public void setPreferMethod(String preferMethod) {
-		this.preferMethod = preferMethod;
-	}
-	
-	public String getBirthTime() {
-		return this.birthTime;
-	}
-	
-	public void setBirthTime(String birthTime) {
-		this.birthTime = birthTime;
 	}
 
 	@Override

@@ -41,8 +41,7 @@
 				response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/preferBirthMethod.jsp");
 				return;
 			}
-			
-			
+
 			if (session.getAttribute("pid") != null) {
 				String pidString = (String) session.getAttribute("pid");
 				patientID = Long.parseLong(pidString);
@@ -51,13 +50,11 @@
 				} catch (ITrustException ite) {
 			patientID = 0L;
 				}
-				
 			}
 			else {
 				session.removeAttribute("pid");
 			}
-			
-			
+
 			if (patientID == 0L) {
 				response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/drugUsedRecord.jsp");
 			} else if(isDead){
@@ -79,6 +76,7 @@
 </div>
 
 <%
+    //pull data from database
 	String pidString = (String) session.getAttribute("pid");
 	PatientDAO PatientDAO = prodDAO.getPatientDAO();
 	PatientBean p = PatientDAO.getPatient(patientID);
@@ -91,6 +89,7 @@
 
 	String  update =(String)request.getParameter("update");
 
+	//update drugs using data from web server
 	if(update != null){
 		String Pitocin =(String)request.getParameter("Pitocin");
 		String Nitrous_oxide =(String)request.getParameter("Nitrous oxide");
@@ -98,7 +97,6 @@
 		String Epidural_anaesthesia =(String)request.getParameter("Epidural anaesthesia");
 		String Magnesium_sulfate =(String)request.getParameter("Magnesium sulfate");
 		String RH =(String)request.getParameter("RH immune globulin");
-		//System.out.println(Pitocin +Nitrous_oxide+Pethidine+Epidural_anaesthesia+Magnesium_sulfate+RH);
 
 		Pitocin_db = (Pitocin == null) ? false : true;
 		Nitrous_db = (Nitrous_oxide == null) ? false : true;
@@ -107,6 +105,7 @@
 		Magnesium_db = (Magnesium_sulfate == null) ? false : true;
 		RH_db = (RH == null) ? false : true;
 		try {
+		    //set the drug and try to update the database
 			p.setPitocin(Pitocin_db);
 			p.setNitrous_oxide(Nitrous_db);
 			p.setPethidine(Pethidine_db);
@@ -123,15 +122,10 @@
 </div>
 <br />
 <%
-			loggingAction.logEvent(TransactionType.ADD_CHILDBIRTH_DRUG, loggedInMID.longValue(), p.getMID(), "");
-
+            //log the transcation
+            loggingAction.logEvent(TransactionType.ADD_CHILDBIRTH_DRUG, loggedInMID.longValue(), p.getMID(), "");
 		} catch (FormValidationException e) { }
-
 	}
-
-
-
-
 %>
 
 <p>Please select used drug Record: </p>
