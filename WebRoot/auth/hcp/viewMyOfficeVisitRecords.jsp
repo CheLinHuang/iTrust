@@ -12,6 +12,9 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 
+<%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger" %>
+<%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType" %>
+
 <%@include file="/global.jsp" %>
 
 <%
@@ -24,6 +27,7 @@
     <h2>My Office Visit</h2>
     <%
         ViewMyOfficeVisitRecordsAction action = new ViewMyOfficeVisitRecordsAction(prodDAO, loggedInMID.longValue());
+        TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORDS_VIEW, loggedInMID, 0L, "");
         AddUltrasoundRecordAction action1 = new AddUltrasoundRecordAction(prodDAO, loggedInMID.longValue());
         List<OfficeVisitRecordBean> officeVisitRecords = action.getMyOfficeVisitRecords();
         session.setAttribute("officeVisitRecords", officeVisitRecords);

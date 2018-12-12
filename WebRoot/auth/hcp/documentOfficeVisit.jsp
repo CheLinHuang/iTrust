@@ -24,6 +24,8 @@
 <%@page import="java.time.LocalDate" %>
 <%@page import="java.time.temporal.ChronoUnit" %>
 
+<%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger" %>
+<%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType" %>
 
 <%@include file="/global.jsp" %>
 
@@ -41,13 +43,12 @@
 <form id="mainForm" method="post" action="documentOfficeVisit.jsp">
 <%
     AddOfficeVisitRecordAction action = new AddOfficeVisitRecordAction(prodDAO, loggedInMID.longValue());
-    //ObstetricHistoryAction oba = new ObstetricHistoryAction(DAOFactory.getProductionInstance());
     PatientDAO patientDAO = prodDAO.getPatientDAO();
     ObstetricsInitRecordDAO obstetricsInitRecordDAO = prodDAO.getObstetricsInitRecordDAO();
     PersonnelDAO personnelDAO = prodDAO.getPersonnelDAO();
     long patientID = 0L;
     boolean error = false;
-    String weeksOfPregnant="20-01"; ///////***
+    String weeksOfPregnant="20-01";
     boolean isObstetrics = false;
     String hidden = "";
 
@@ -185,6 +186,8 @@
                     try {
                         headerMessage = action.addOfficeVisitRecord(ovrecord, false);
                         if(headerMessage.startsWith("Success")) {
+                            TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORD_ADD,
+                                    loggedInMID, patientID, "" + ovrecord.getOfficeVisitRecordID());
                             bloodType = patientDAO.getPatient(patientID).getBloodType().toString();
                             int weeks = Integer.valueOf(weeksOfPregnant.split("-")[0]);
                             if(!bloodType.equals("N/S") && weeks > 28){

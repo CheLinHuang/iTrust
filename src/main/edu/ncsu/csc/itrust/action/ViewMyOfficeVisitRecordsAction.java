@@ -15,7 +15,6 @@ public class ViewMyOfficeVisitRecordsAction extends OfficeVisitRecordAction {
     public ViewMyOfficeVisitRecordsAction(DAOFactory factory, long loggedInMID) {
         super(factory, loggedInMID);
         this.loggedInMID = loggedInMID;
-        TransactionLogger.getInstance().logTransaction(TransactionType.OFFICE_VISIT_RECORDS_VIEW, loggedInMID, 0L, "");
     }
 
     public void setLoggedInMID(long mid) {

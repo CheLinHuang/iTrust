@@ -30,7 +30,7 @@ public class AddOfficeVisitRecordActionTest extends TestCase {
         this.action = new AddOfficeVisitRecordAction(this.factory, this.hcpId);
     }
 
-    public void testAddAppt() throws FormValidationException, SQLException, DBException {
+    public void testAddOfficeVisitRecord() throws FormValidationException, SQLException, DBException {
         OfficeVisitRecordBean b = new OfficeVisitRecordBean();
 
         b.setHcp(hcpId);

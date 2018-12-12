@@ -22,7 +22,8 @@
 <%@ page import = "org.apache.commons.fileupload.servlet.*" %>
 <%@ page import = "org.apache.commons.io.output.*" %>
 
-
+<%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger" %>
+<%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType" %>
 
 <%@include file="/global.jsp" %>
 
@@ -142,7 +143,9 @@
                     try{
                         headerMessage=action.addUltrasoundRecord(ulrecord, false);
                         if(headerMessage.startsWith("Success")){
-                            //session.removeAttribute("pid");
+                            TransactionLogger.getInstance().logTransaction(TransactionType.ULTRASOUND_RECORD_ADD,
+                                    loggedInMID, ulrecord.getOfficeVisitID(),
+                                    "" + ulrecord.getOfficeVisitID());
                             System.out.println(headerMessage);
                         }
                     } catch(FormValidationException e){

@@ -27,9 +27,6 @@ public class AddUltrasoundRecordAction extends UltrasoundRecordAction {
 
         try {
             ultrasoundRecordDAO.addUltraSoundRecord(ultrasoundRecord);
-            TransactionLogger.getInstance().logTransaction(TransactionType.ULTRASOUND_RECORD_ADD,
-                    loggedInMID, ultrasoundRecord.getOfficeVisitID(),
-                    "" + ultrasoundRecord.getOfficeVisitID());
             return "Success: Ultrasound Record added";
         }
         catch (SQLException e) {
