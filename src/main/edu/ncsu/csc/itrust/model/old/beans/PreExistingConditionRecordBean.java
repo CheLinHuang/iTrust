@@ -14,10 +14,14 @@ public class PreExistingConditionRecordBean {
     String icdInfo;
 
     // default constructor
-    public PreExistingConditionRecordBean() {
+    public PreExistingConditionRecordBean() { }
 
-    }
-
+    /**
+     * constructor with two parameters: patientMID and icdInfo
+     *
+     * @param patientMID
+     * @param icdInfo
+     */
     public PreExistingConditionRecordBean(long patientMID, String icdInfo) {
         this.patientMID = patientMID;
         this.icdInfo = icdInfo;

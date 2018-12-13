@@ -7,13 +7,12 @@ import edu.ncsu.csc.itrust.model.old.beans.PreExistingConditionRecordBean;
 public class PreExistingConditionRecordBeanValidator extends BeanValidator<PreExistingConditionRecordBean> {
 
     // The default constructor.
-    public PreExistingConditionRecordBeanValidator() {
-
-    }
+    public PreExistingConditionRecordBeanValidator() { }
 
     /**
      * Validate the variables in bean meet the requirements and return the error message that indicates
      * the violating requirements.
+     *
      * @param bean
      * @throws FormValidationException
      */

@@ -24,7 +24,7 @@ public class TravelHistoryDAO {
     private TravelHistoryBeanLoader travelHistoryLoader;
 
     /**
-     * The typical constructor.
+     * Constructor for TravelHistoryDAO
      *
      * @param factory
      */

@@ -14,6 +14,13 @@ import java.util.List;
 
 public class PreExistingConditionRecordBeanLoader implements BeanLoader<PreExistingConditionRecordBean>{
 
+    /**
+     * Load a list of PreExistingConditionRecordBean objects
+     *
+     * @param rs The java.sql.ResultSet we are extracting.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<PreExistingConditionRecordBean> loadList(ResultSet rs) throws SQLException {
         List<PreExistingConditionRecordBean> list = new ArrayList<>();
@@ -23,6 +30,13 @@ public class PreExistingConditionRecordBeanLoader implements BeanLoader<PreExist
         return list;
     }
 
+    /**
+     * Load a single PreExistingConditionRecordBean object
+     *
+     * @param rs The java.sql.ResultSet to be loaded.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public PreExistingConditionRecordBean loadSingle(ResultSet rs) throws SQLException {
         PreExistingConditionRecordBean preCondition = new PreExistingConditionRecordBean(rs.getLong("patientMID"),
@@ -30,6 +44,14 @@ public class PreExistingConditionRecordBeanLoader implements BeanLoader<PreExist
         return preCondition;
     }
 
+    /**
+     * Set the PreparedStatement object with the PreExistingConditionRecordBean object's information
+     *
+     * @param ps The prepared statement to be loaded.
+     * @param bean The bean containing the data to be placed.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public PreparedStatement loadParameters(PreparedStatement ps, PreExistingConditionRecordBean bean) throws SQLException {
         int i = 1;

@@ -14,6 +14,7 @@ public class TravelHistoryBean {
     Date endDate;
     String travelledCities;
 
+    // default constructor
     public TravelHistoryBean() {
         patientMID = 1L;
         startDate = null;
@@ -21,6 +22,14 @@ public class TravelHistoryBean {
         travelledCities = "";
     }
 
+    /**
+     * constructor with patientMID, startDate, endDate, and travelledCities
+     *
+     * @param pmid
+     * @param sd
+     * @param ed
+     * @param tc
+     */
     public TravelHistoryBean(long pmid, Date sd, Date ed, String tc) {
         patientMID = pmid;
         startDate = sd;

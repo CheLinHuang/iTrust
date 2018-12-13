@@ -7,13 +7,12 @@ import edu.ncsu.csc.itrust.model.old.beans.TravelHistoryBean;
 public class TravelHistoryBeanValidator extends BeanValidator<TravelHistoryBean> {
 
     // The default constructor.
-    public TravelHistoryBeanValidator () {
-
-    }
+    public TravelHistoryBeanValidator () { }
 
     /**
      * Validate the variables in bean meet the requirements and return the error message that indicates
      * the violating requirements.
+     *
      * @param bean
      * @throws FormValidationException
      */

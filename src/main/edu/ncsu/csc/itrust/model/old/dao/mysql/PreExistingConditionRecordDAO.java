@@ -14,6 +14,11 @@ public class PreExistingConditionRecordDAO {
     private DAOFactory factory;
     private PreExistingConditionRecordBeanLoader preConditionLoader;
 
+    /**
+     * constructor for PreExistingConditionRecordDAO
+     *
+     * @param factory
+     */
     public PreExistingConditionRecordDAO(DAOFactory factory) {
         this.factory = factory;
         this.preConditionLoader = new PreExistingConditionRecordBeanLoader();
