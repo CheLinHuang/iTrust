@@ -14,11 +14,25 @@ import edu.ncsu.csc.itrust.action.EventLoggingAction;
 public class AddOfficeVisitRecordAction extends OfficeVisitRecordAction {
     private long loggedInMID;
 
+    /**
+     * constructor
+     * @param factory
+     * @param loggedInMID
+     */
     public AddOfficeVisitRecordAction(DAOFactory factory, long loggedInMID) {
         super(factory, loggedInMID);
         this.loggedInMID = loggedInMID;
     }
 
+    /**
+     * execute addOfficeVisitRecord, calls addOfficevisitrecord in DAO
+     * @param ov
+     * @param ignoreConflicts
+     * @return
+     * @throws FormValidationException
+     * @throws SQLException
+     * @throws DBException
+     */
     public String addOfficeVisitRecord(OfficeVisitRecordBean ov, boolean ignoreConflicts) throws FormValidationException, SQLException, DBException {
         try {
             officeVisitRecordDAO.addOfficeVisitRecord(ov);

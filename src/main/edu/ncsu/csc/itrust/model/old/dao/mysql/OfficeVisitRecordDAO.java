@@ -23,6 +23,12 @@ public class OfficeVisitRecordDAO {
         this.officeVisitRecordBeanLoader = new OfficeVisitRecordBeanLoader();
     }
 
+    /**
+     * insert into a new officevisit record
+     * @param officeVisitRecordBean
+     * @throws SQLException
+     * @throws DBException
+     */
     public void addOfficeVisitRecord(final OfficeVisitRecordBean officeVisitRecordBean) throws SQLException, DBException{
         try(Connection conn = factory.getConnection();
             PreparedStatement stmt = officeVisitRecordBeanLoader.loadParameters((conn.prepareStatement
@@ -35,10 +41,17 @@ public class OfficeVisitRecordDAO {
         }
     }
 
+    /**
+     * update the officevisit record table
+     * @param officeVisitRecordBean
+     * @throws SQLException
+     * @throws DBException
+     */
     public void modifyOfficeVisitRecord(final OfficeVisitRecordBean officeVisitRecordBean) throws SQLException, DBException{
         try(Connection conn = factory.getConnection(); PreparedStatement stmt =
                 conn.prepareStatement("UPDATE officeVisitRecord SET weeksOfPregnant=?, " +
-                "weightGain=?, highbloodPressure=?, lowbloodPressure=?, fetalHeartRate=?, numberOfPregnancy=?, lowLyingPlacenta=?, currentDate=? WHERE id=?")){
+                "weightGain=?, highbloodPressure=?, lowbloodPressure=?, fetalHeartRate=?, numberOfPregnancy=?, lowLyingPlacenta=?, " +
+                        "currentDate=? WHERE id=?")){
             stmt.setString(1, officeVisitRecordBean.getWeeksOfPregnant());
             stmt.setDouble(2, officeVisitRecordBean.getWeightGain());
             stmt.setDouble(3, officeVisitRecordBean.getHighBloodPressure());
@@ -54,6 +67,12 @@ public class OfficeVisitRecordDAO {
         }
     }
 
+    /**
+     * delete the officevisit record table
+     * @param officeVisitRecordBean
+     * @throws SQLException
+     * @throws DBException
+     */
     public void deleteOfficeVisitRecord(final OfficeVisitRecordBean officeVisitRecordBean) throws SQLException, DBException{
         try(Connection conn = factory.getConnection(); PreparedStatement stmt =
                 conn.prepareStatement("DElETE FROM officeVisitRecord WHERE id=?")){
@@ -64,6 +83,13 @@ public class OfficeVisitRecordDAO {
         }
     }
 
+    /**
+     * get officevisit record by officevisitrecordID
+     * @param id
+     * @return
+     * @throws SQLException
+     * @throws DBException
+     */
     public List<OfficeVisitRecordBean> getOfficeVisitRecord(final long id) throws SQLException, DBException {
         ResultSet results = null;
         try(Connection conn = factory.getConnection();
@@ -78,6 +104,13 @@ public class OfficeVisitRecordDAO {
         }
     }
 
+    /**
+     * get officevisit record by patient ID
+     * @param id
+     * @return
+     * @throws SQLException
+     * @throws DBException
+     */
     public List<OfficeVisitRecordBean> getPatientOfficeVisitRecord(final long id) throws SQLException, DBException {
         ResultSet results = null;
         try(Connection conn = factory.getConnection();
@@ -92,6 +125,13 @@ public class OfficeVisitRecordDAO {
         }
     }
 
+    /**
+     * get officevisit record by HCP ID
+     * @param mid
+     * @return
+     * @throws SQLException
+     * @throws DBException
+     */
     public List<OfficeVisitRecordBean> getOfficeVisitRecordsFor(final long mid) throws SQLException, DBException {
         try (Connection conn = factory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(
@@ -106,21 +146,4 @@ public class OfficeVisitRecordDAO {
             throw new DBException(e);
         }
     }
-
-//    public List<ApptBean> getAllApptsFor(long mid) throws SQLException, DBException {
-//        try (Connection conn = factory.getConnection();
-//             PreparedStatement stmt = (mid >= MIN_MID)
-//                     ? conn.prepareStatement("SELECT * FROM appointment WHERE doctor_id=? ORDER BY sched_date;")
-//                     : conn.prepareStatement("SELECT * FROM appointment WHERE patient_id=? ORDER BY sched_date;")) {
-//            stmt.setLong(1, mid);
-//
-//            final ResultSet results = stmt.executeQuery();
-//            final List<ApptBean> abList = this.abloader.loadList(results);
-//            results.close();
-//            return abList;
-//        } catch (SQLException e) {
-//            throw new DBException(e);
-//        }
-//
-//    }
 }

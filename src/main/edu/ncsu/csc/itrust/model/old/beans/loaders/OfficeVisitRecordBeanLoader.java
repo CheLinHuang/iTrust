@@ -9,6 +9,12 @@ import java.util.List;
 import edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean;
 
 public class OfficeVisitRecordBeanLoader implements BeanLoader<OfficeVisitRecordBean>{
+    /**
+     * load a list of officevisitrecordbean objects
+     * @param rs The java.sql.ResultSet we are extracting.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<OfficeVisitRecordBean> loadList(ResultSet rs) throws SQLException {
         List<OfficeVisitRecordBean> list = new ArrayList<OfficeVisitRecordBean>();
@@ -18,6 +24,12 @@ public class OfficeVisitRecordBeanLoader implements BeanLoader<OfficeVisitRecord
         return list;
     }
 
+    /**
+     * load a single officevisitrecord object
+     * @param rs The java.sql.ResultSet to be loaded.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public OfficeVisitRecordBean loadSingle(ResultSet rs) throws SQLException {
         OfficeVisitRecordBean ovRecordBean = new OfficeVisitRecordBean();
@@ -35,6 +47,13 @@ public class OfficeVisitRecordBeanLoader implements BeanLoader<OfficeVisitRecord
         return ovRecordBean;
     }
 
+    /**
+     * pass the value of an officevisitrecord object to prepared statement
+     * @param ps The prepared statement to be loaded.
+     * @param bean The bean containing the data to be placed.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public PreparedStatement loadParameters(PreparedStatement ps, OfficeVisitRecordBean bean) throws SQLException {
         ps.setLong(1, bean.getOfficeVisitRecordID());

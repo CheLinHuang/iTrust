@@ -9,6 +9,12 @@ import edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean;
 
 
 public class UltraSoundRecordBeanLoader implements BeanLoader<UltraSoundRecordBean> {
+    /**
+     * load a list of ultrasoundrecordbean obejcts
+     * @param rs The java.sql.ResultSet we are extracting.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<UltraSoundRecordBean> loadList(ResultSet rs) throws SQLException {
         List<UltraSoundRecordBean> list = new ArrayList<UltraSoundRecordBean>();
@@ -18,6 +24,12 @@ public class UltraSoundRecordBeanLoader implements BeanLoader<UltraSoundRecordBe
         return list;
     }
 
+    /**
+     * load a single ultrasoundrecord object
+     * @param rs The java.sql.ResultSet to be loaded.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public UltraSoundRecordBean loadSingle(ResultSet rs) throws SQLException {
         UltraSoundRecordBean ultraSoundRecordBean = new UltraSoundRecordBean();
@@ -35,6 +47,13 @@ public class UltraSoundRecordBeanLoader implements BeanLoader<UltraSoundRecordBe
         return ultraSoundRecordBean;
     }
 
+    /**
+     * pass the value of a ultrasoundrecord bean object to prepared statement
+     * @param ps The prepared statement to be loaded.
+     * @param bean The bean containing the data to be placed.
+     * @return
+     * @throws SQLException
+     */
     @Override
     public PreparedStatement loadParameters(PreparedStatement ps, UltraSoundRecordBean bean) throws SQLException{
         ps.setLong(1,bean.getUltraSoundID());

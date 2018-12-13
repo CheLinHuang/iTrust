@@ -1,6 +1,5 @@
 <%@page import="java.text.ParseException"%>
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
-
 <%@page import="java.lang.*"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
@@ -21,10 +20,8 @@
 <%@ page import = "org.apache.commons.fileupload.disk.*" %>
 <%@ page import = "org.apache.commons.fileupload.servlet.*" %>
 <%@ page import = "org.apache.commons.io.output.*" %>
-
 <%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType" %>
-
 <%@include file="/global.jsp" %>
 
 <%
@@ -40,12 +37,10 @@
     <%
         AddUltrasoundRecordAction action = new AddUltrasoundRecordAction(prodDAO, loggedInMID.longValue());
         long officeVisitRecordID = 0L;
-        long patientID = 0L;
         boolean error = false;
         String officevisitString="";
         String ovid="";
         boolean exists = false;
-
         if (request.getParameter("apt") != null) {
             officevisitString = (String) request.getParameter("apt");
             System.out.println("officevisitrecord1:" + officevisitString);
@@ -94,7 +89,6 @@
 
                 UltraSoundRecordBean ulrecord = new UltraSoundRecordBean();
                 officeVisitRecordID = Long.parseLong(request.getParameter("ovID"));
-                System.out.println("officevisitrecord2:" + officeVisitRecordID);
                 ulrecord.setOfficeVisitID(officeVisitRecordID);
                 double crownRumpLengthD = 0;
                 double biparietalDiameterD = 0;
@@ -123,14 +117,6 @@
                     headerMessage = "Invalid Value!";
 
                 }else{
-                    System.out.println("crownRumpLengthD:" + crownRumpLengthD);
-                    System.out.println("biparietalDiameterD:" + biparietalDiameterD);
-                    System.out.println("headCircumferenceD:" + headCircumferenceD);
-                    System.out.println("femurLengthD:" + femurLengthD);
-                    System.out.println("abdominalCircumferenceD" + abdominalCircumferenceD);
-                    System.out.println("occipitofromtalDiameterD:" + occipitofromtalDiameterD);
-                    System.out.println("humerusLengthD:" + humerusLengthD);
-                    System.out.println("estimatedFetalWeightD:" + estimatedFetalWeightD);
                     ulrecord.setCrownRumpLength(crownRumpLengthD);
                     ulrecord.setBiparietalDiameter(biparietalDiameterD);
                     ulrecord.setHeadCircumference(headCircumferenceD);

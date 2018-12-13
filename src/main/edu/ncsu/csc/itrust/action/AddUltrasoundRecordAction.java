@@ -17,11 +17,25 @@ public class AddUltrasoundRecordAction extends UltrasoundRecordAction {
     private UltrasoundRecordBeanValidator validator = new UltrasoundRecordBeanValidator();
     private long loggedInMID;
 
+    /**
+     * constructor
+     * @param factory
+     * @param loggedInMID
+     */
     public AddUltrasoundRecordAction(DAOFactory factory, long loggedInMID) {
         super(factory, loggedInMID);
         this.loggedInMID = loggedInMID;
     }
 
+    /**
+     * execute add ultrasoundrecord action, call addultrasoundrecord in DAO
+     * @param ultrasoundRecord
+     * @param ignoreConflicts
+     * @return
+     * @throws FormValidationException
+     * @throws SQLException
+     * @throws DBException
+     */
     public String addUltrasoundRecord(UltraSoundRecordBean ultrasoundRecord, boolean ignoreConflicts) throws FormValidationException, SQLException, DBException {
         validator.validate(ultrasoundRecord);
 
@@ -34,6 +48,14 @@ public class AddUltrasoundRecordAction extends UltrasoundRecordAction {
         }
     }
 
+    /**
+     * execute get ultrasoundrecord action, call getultrasoundrecord in DAO
+     * @param officevisitRecordID
+     * @return
+     * @throws FormValidationException
+     * @throws SQLException
+     * @throws DBException
+     */
     public UltraSoundRecordBean getUltrasoundRecord(final long officevisitRecordID) throws FormValidationException, SQLException, DBException{
         try {
             UltraSoundRecordBean ultrasound = null;

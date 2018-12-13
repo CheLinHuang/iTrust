@@ -1,5 +1,4 @@
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
-
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.DateFormat"%>
@@ -11,7 +10,6 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.UltraSoundRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.DAOFactory"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
-
 <%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType" %>
 

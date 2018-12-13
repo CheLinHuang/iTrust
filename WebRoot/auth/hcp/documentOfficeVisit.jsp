@@ -1,6 +1,5 @@
 <%@page import="java.text.ParseException"%>
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
-
 <%@page import="java.lang.*"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
@@ -10,7 +9,6 @@
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.OfficeVisitRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.AddOfficeVisitRecordAction"%>
-
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.PersonnelDAO"%>
 <%@page import="edu.ncsu.csc.itrust.model.old.dao.mysql.OfficeVisitRecordDAO"%>
@@ -23,7 +21,6 @@
 <%@page import="java.time.LocalDateTime" %>
 <%@page import="java.time.LocalDate" %>
 <%@page import="java.time.temporal.ChronoUnit" %>
-
 <%@page import="edu.ncsu.csc.itrust.logger.TransactionLogger" %>
 <%@page import="edu.ncsu.csc.itrust.model.old.enums.TransactionType" %>
 
@@ -81,15 +78,11 @@
     } else {
         ObstetricsInitRecordBean ob = null;
         PatientBean patient = null;
-
         patient = patientDAO.getPatient(patientID);
-
         LocalDate currentDate;
         LocalDate cmpDate;
         LocalDate lmpDate;
         DateTimeFormatter DATE_FORMAT_INPUT = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-        System.out.println("obstetriceligible:" + Boolean.parseBoolean(patient.getObstetricEligible()));
         Boolean eligible = Integer.parseInt(patient.getObstetricEligible()) == 1? true:false;
         if (eligible){
             if (!obstetricsInitRecordDAO.getAllObstetricsInitRecord(patientID).isEmpty()) {
@@ -102,12 +95,6 @@
                 long weeks = daysBetween / 7;
                 long days = daysBetween % 7;
                 weeksOfPregnant = Long.toString(weeks) + '-' + Long.toString(days);
-                System.out.println("daysBetween:" + daysBetween);
-                System.out.println("weeks:" + weeks);
-                System.out.println("days:" + days);
-                System.out.println("currentDate is:" + currentDate);
-                System.out.println("cmpDate is:" + cmpDate);
-                System.out.println("currentDate.compareTo(cmpDate)"+ currentDate.compareTo(cmpDate));
                 if (currentDate.compareTo(cmpDate) < 0) {
                     isObstetrics = true;
                 }
@@ -245,9 +232,6 @@
         %>
     </select>
     <br /><br />
-
-
-
     <input type="submit" value="submit" name="officeVisitRecordButton"/>
     <input type="hidden" value="OfficeVisitRecord" name="officeVisitRecord"/>
 

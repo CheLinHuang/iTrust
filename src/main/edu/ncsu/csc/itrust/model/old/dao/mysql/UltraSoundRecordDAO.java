@@ -15,11 +15,21 @@ public class UltraSoundRecordDAO {
     private DAOFactory factory;
     private UltraSoundRecordBeanLoader ultraSoundRecordBeanLoader;
 
+    /**
+     * constructor
+     * @param factory
+     */
     public UltraSoundRecordDAO(DAOFactory factory){
         this.factory = factory;
         this.ultraSoundRecordBeanLoader = new UltraSoundRecordBeanLoader();
     }
 
+    /**
+     * insert a new ultrasound record into ultrasoundrecord table
+     * @param ultraSoundRecordBean
+     * @throws SQLException
+     * @throws DBException
+     */
     public void addUltraSoundRecord(final UltraSoundRecordBean ultraSoundRecordBean) throws SQLException, DBException{
         try(Connection conn = factory.getConnection(); PreparedStatement stmt =
                 ultraSoundRecordBeanLoader.loadParameters(conn.prepareStatement("INSERT INTO ultraSoundRecord(id, officeVisitRecordID, " +
@@ -33,6 +43,13 @@ public class UltraSoundRecordDAO {
     }
 
 
+    /**
+     * get ultrasound record by officevisitrecord ID
+     * @param officeVisitRecordID
+     * @return
+     * @throws SQLException
+     * @throws DBException
+     */
     public UltraSoundRecordBean getUltraSoundRecord(final long officeVisitRecordID) throws SQLException, DBException{
         ResultSet results = null;
         try(Connection conn = factory.getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " +
