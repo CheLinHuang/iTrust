@@ -81,15 +81,9 @@
 			
 			ViewMyApptsAction view_action = new ViewMyApptsAction(prodDAO, loggedInMID.longValue());
 			Long MID = patientDAO.getPatient(patientID).getMID();
-			//List<ApptBean> appts = view_action.getAppointments(MID);
 			
 			ApptDAO apptDAO = prodDAO.getApptDAO();
 			List<ApptBean> appts = apptDAO.getAllApptsFor(MID); 
-			/* try {
-				appts = view_action.getAppointments(MID);
-			} catch (DBException dbe) {
-				System.out.println(dbe.getExtendedMessage());
-			} */
 			PatientBean p = patientDAO.getPatient(patientID);
 			loggingAction.logEvent(TransactionType.EDIT_CHILDBIRTH_VISIT, loggedInMID.longValue(), p.getMID(), "");
 
